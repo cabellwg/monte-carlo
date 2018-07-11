@@ -1,5 +1,10 @@
 
 <template>
+  <require from="components/navigation.html"></require>
   <require from="./components/input-formfield/form.html"></require>
-  <h1>${message}</h1>
+  <h1>Monte Carlo</h1>
+  <navigation router.bind="router" class="primary-navigation"></navigation>
+  <div class="page-host">
+    <router-view></router-view>
+  </div>
 </template>
