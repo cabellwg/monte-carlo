@@ -16,6 +16,7 @@ namespace MonteCarlo
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            // Do Ziggurat shit
         }
 
         public IConfiguration Configuration { get; }
