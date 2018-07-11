@@ -5,6 +5,13 @@ using System.Threading.Tasks;
 
 namespace MonteCarlo.Models.Statistics
 {
+    /* See http://heliosphan.org/zigguratalgorithm/zigguratalgorithm.html
+     * for a full explanation of this algorithm.
+     * 
+     * See https://en.wikipedia.org/wiki/Ziggurat_algorithm#Generating_the_tables
+     * for the setup in the constructor.
+     */
+
     public class Ziggurat
     {
         private const int NUM_RECTS = 256;
@@ -20,7 +27,7 @@ namespace MonteCarlo.Models.Statistics
         /* This runs in O(n^3 * O(forPdf) + O(inverseOfPdf)).
          * Call as few times as possible.
          */
-        public Ziggurat(MathFunction forPdf, MathFunction inverseOfPdf, double bound, ThreadSafeRandom random)
+    public Ziggurat(MathFunction forPdf, MathFunction inverseOfPdf, double bound, ThreadSafeRandom random)
         {
             this.random = random;
             this.inverseOfPdf = inverseOfPdf;

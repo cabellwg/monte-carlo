@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MonteCarlo.Models.Statistics
 {
@@ -9,9 +6,9 @@ namespace MonteCarlo.Models.Statistics
 
     public class NumericalTools
     {
-        private const int SIMPSONS_RULE_RESOLUTION = 10000;
-        private const int NEWTONS_METHOD_RESOLUTION = 10000;
-        private const int NUMERICAL_DIFFERENTIATION_RESOLUTION = 10000;
+        private const int SIMPSONS_RULE_RESOLUTION = 1000000;
+        private const int NEWTONS_METHOD_RESOLUTION = 1000000;
+        private const int NUMERICAL_DIFFERENTIATION_RESOLUTION = 1000000;
 
         // Simpson's Rule approximation of the integral of a function
         public static double Integrate(MathFunction f,
@@ -44,10 +41,21 @@ namespace MonteCarlo.Models.Statistics
         {
             var x = guess;
             var currentError = f(x) / Df(x);
-            for (var i = 0; i < stepSize && Df(x) != 0; i++)
+            for (var i = 0; i < stepSize; i++)
             {
-                x -= currentError;
-                currentError = f(x) / Df(x);
+                var function = f(x);
+                if (function == 0)
+                {
+                    return x;
+                }
+                var derivative = Df(x);
+                if (derivative != 0) {
+                    x -= currentError;
+                    currentError = f(x) / derivative;
+                } else {
+                    // perturb x
+                    x += 0.001;
+                }
             }
 
             return x;
@@ -66,7 +74,12 @@ namespace MonteCarlo.Models.Statistics
         public static MathFunction Differentiate(MathFunction f,
             int stepSize = NUMERICAL_DIFFERENTIATION_RESOLUTION)
         {
-            return x => (f(x) - f(x + 1 / stepSize)) / (1 / stepSize);
+            return x => (f(x + 1 / (double)stepSize) - f(x)) / (1 / (double)stepSize);
+        }
+
+        public double Inverse(MathFunction f)
+        {
+            throw new NotImplementedException();
         }
     }
 }
