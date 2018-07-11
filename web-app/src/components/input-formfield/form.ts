@@ -1,3 +1,2 @@
-export class InputForm{
-  message = 'World!';
+export class Form{
 }

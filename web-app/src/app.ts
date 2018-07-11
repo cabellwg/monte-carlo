@@ -1,6 +1,4 @@
-//import {PLATFORM} from 'aurelia-pal';
 import {Router} from 'aurelia-router';
-//import {Script} from 'vm';
 
 export class App {
   router: Router;
