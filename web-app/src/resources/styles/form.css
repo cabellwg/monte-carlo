@@ -66,3 +66,12 @@ pointer-events: none;
 /* add padding  */
 .left-addon input  { padding-left:  30px; }
 .right-addon input { padding-right: 30px; }
+
+.header{
+  text-align: center;
+  margin: 0;
+  padding: 2%;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 55px;
+
+}
