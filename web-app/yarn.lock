@@ -579,6 +579,15 @@ aurelia-animator-css@^1.0.4:
     aurelia-pal "^1.0.0"
     aurelia-templating "^1.0.0"
 
+aurelia-binding@^1.0.0:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/aurelia-binding/-/aurelia-binding-1.7.1.tgz#9d76784d35d84b8117f23c0eba00de6282ded107"
+  dependencies:
+    aurelia-logging "^1.0.0"
+    aurelia-metadata "^1.0.0"
+    aurelia-pal "^1.0.0"
+    aurelia-task-queue "^1.0.0"
+
 aurelia-binding@^2.0.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/aurelia-binding/-/aurelia-binding-2.1.1.tgz#ee5225c6064e7f0ab5cea7b7fb2a3bafa38953ca"
@@ -631,7 +640,7 @@ aurelia-cli@^0.33.0:
     rfc6902 "^1.2.2"
     semver "^5.3.0"
 
-aurelia-dependency-injection@^1.0.0:
+aurelia-dependency-injection@^1.0.0, aurelia-dependency-injection@^1.3.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/aurelia-dependency-injection/-/aurelia-dependency-injection-1.4.1.tgz#fb916e1809446600fb2cdf062f549060df49ef86"
   dependencies:
@@ -703,7 +712,7 @@ aurelia-logging-console@^1.0.0:
   dependencies:
     aurelia-logging "^1.0.0"
 
-aurelia-logging@^1.0.0, aurelia-logging@^1.2.0:
+aurelia-logging@^1.0.0, aurelia-logging@^1.2.0, aurelia-logging@^1.3.1:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/aurelia-logging/-/aurelia-logging-1.5.0.tgz#4eab204fbb9beae698f6e79a7a8641f4f60ce6ea"
 
@@ -750,7 +759,7 @@ aurelia-router@^1.5.0:
     aurelia-path "^1.0.0"
     aurelia-route-recognizer "^1.0.0"
 
-aurelia-task-queue@^1.0.0, aurelia-task-queue@^1.1.0:
+aurelia-task-queue@^1.0.0, aurelia-task-queue@^1.1.0, aurelia-task-queue@^1.2.0:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/aurelia-task-queue/-/aurelia-task-queue-1.3.1.tgz#3399e726d2f387b4101381141e321d2c2f1d789e"
   dependencies:
@@ -820,6 +829,35 @@ aurelia-tools@^2.0.0:
   dependencies:
     breeze-dag "^0.1.0"
     through2 "^2.0.0"
+
+aurelia-validatejs@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/aurelia-validatejs/-/aurelia-validatejs-0.7.0.tgz#7c206106d1166d2b5a06a85195eebaf1f6d9515f"
+  dependencies:
+    aurelia-metadata "^1.0.0"
+    aurelia-validation "^0.11.0"
+    validate.js "^0.10.0"
+
+aurelia-validation@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/aurelia-validation/-/aurelia-validation-0.11.0.tgz#a517037e2a270b8d65368aea1591760452bc4bbf"
+  dependencies:
+    aurelia-binding "^1.0.0"
+    aurelia-dependency-injection "^1.0.0"
+    aurelia-metadata "^1.0.0"
+    aurelia-task-queue "^1.0.0"
+    aurelia-templating "^1.0.0"
+
+aurelia-validation@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/aurelia-validation/-/aurelia-validation-1.2.2.tgz#b699dbf5e20fdddebe0b404500da8e6a5c1b7fbf"
+  dependencies:
+    aurelia-binding "^2.0.0"
+    aurelia-dependency-injection "^1.3.1"
+    aurelia-logging "^1.3.1"
+    aurelia-pal "^1.3.0"
+    aurelia-task-queue "^1.2.0"
+    aurelia-templating "^1.8.1"
 
 aurelia-webpack-plugin@^3.0.0-rc.1:
   version "3.0.0"
@@ -4743,6 +4781,10 @@ isurl@^1.0.0-alpha5:
   dependencies:
     has-to-string-tag-x "^1.2.0"
     is-object "^1.0.1"
+
+jquery@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
 
 js-base64@^2.1.9:
   version "2.4.5"
@@ -8821,6 +8863,10 @@ validate-npm-package-name@^3.0.0, validate-npm-package-name@~3.0.0:
   resolved "https://registry.yarnpkg.com/validate-npm-package-name/-/validate-npm-package-name-3.0.0.tgz#5fa912d81eb7d0c74afc140de7317f0ca7df437e"
   dependencies:
     builtins "^1.0.3"
+
+validate.js@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/validate.js/-/validate.js-0.10.0.tgz#0d97014d7e19cbe8a4780c792f60b505a4307afd"
 
 value-or-function@^3.0.0:
   version "3.0.0"

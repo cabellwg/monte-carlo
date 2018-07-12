@@ -3,7 +3,7 @@
   <div class="container">
    <div class="form-group">
      <label for="label1">Label 1</label>
-     <input type="placeholder" class="form-control" id="placeholder" placeholder="Placeholder1" name="label1">
+     <input type="placeholder" class="form-control" id="placeholder" placeholder="Placeholder1" name="label1" value.bind="validatelabel1 & validate">
    </div>
 
    <div class="form-group">
@@ -51,7 +51,7 @@
     </div>
 
     <div id="wrapper">
-    <input type="submit" value="Submit" click.delegate="submitFormButton()">
+    <input type="submit" value="Submit" click.delegate="submitFormButton()" validation-renderer="bootstrap-form">
     </div>
 
 </template>
