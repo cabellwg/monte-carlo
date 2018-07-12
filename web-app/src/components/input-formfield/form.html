@@ -2,56 +2,62 @@
 
   <div class="container">
    <div class="form-group">
-     <label for="label1">Label 1</label>
-     <input type="placeholder" class="form-control" id="placeholder" placeholder="Placeholder1" name="label1" value.bind="validatelabel1 & validate">
+     <label for="age">Age</label>
+     <input type="text" class="form-control" id="inputAge" placeholder="What is your age?" name="age">
    </div>
 
    <div class="form-group">
-      <label for="label2">Label 2</label>
-      <input type="placeholder" class="form-control" id="placeholder" placeholder="Placeholder2" name="label2">
+      <label for="retireAge">Retire Age</label>
+      <input type="text" class="form-control" id="inputRetireAge" placeholder="When will you retire?" name="retireAge">
     </div>
 
     <div class="form-group">
-      <label for="label3">Label 3</label>
-      <input type="placeholder" class="form-control" id="placeholder" placeholder="Placeholder3" name="label3">
+      <label for="deathAge">DeathAge</label>
+      <input type="text" class="form-control" id="inputDeathAge" placeholder="Estimated death age?" name="deathAge">
+    </div>
+
+    <div class="form-group">
+      <label for="yearlyContributions">Yearly Contributions</label>
+      <div class="inner-addon left-addon">
+        <i class="glyphicon glyphicon-usd"></i>
+        <input type="text" class="form-control" id="inputYearlyContributions" placeholder="What are your yearly contributions?" name="yearlyContributions">
+        </div>
+    </div>
+
+    <div class="form-group">
+      <label for="initialAmount">Initial Amount - <i><span style="color: rgb(131, 128, 128)">Optional</i></span></label>
+      <div class="inner-addon left-addon">
+      <i class="glyphicon glyphicon-usd"></i>
+      <input type="text" class="form-control" id="inputInitialAmount" placeholder="What is your initial amount?" name="initialAmount">
+      </div>
     </div>
     
     <div class="form-group">
-      <label for="label4">Label 4</label>
+      <label for="portfolio">Portfolio</label>
       <div class="list-group-horizontal">
-        <a href="#" class="list-group-item">Choose 1</a>
-        <a href="#" class="list-group-item">Choose 2</a>
-        <a href="#" class="list-group-item">Choose 3</a>
-        <a href="#" class="list-group-item">Choose 4</a>
-        <a href="#" class="list-group-item">Choose 5</a>
+        <a href="#" class="list-group-item">Stock%</a>
+        <a href="#" class="list-group-item">Bond%</a>
+        <a href="#" class="list-group-item">Savings%</a>
       </div>
     </div>
 
     <div class="form-group">
-      <label for="label5">Label 5</label>
-      <input type="placeholder" class="form-control" id="placeholder" placeholder="Placeholder4" name="label5">
-    </div>
-
-    <div class="form-group">
-      <label for="label6">Label 6 - <i><span style="color: rgb(131, 128, 128)">Optional</i></span></label>
-      <input type="placeholder" class="form-control" id="placeholder" placeholder="Placeholder5" name="label6">
-    </div>
-
-    <div class="form-group">
-      <label for="label4">Label 7</label>
-      <div class="list-group-horizontal">
-        <a href="#" class="list-group-item">Choose 1</a>
-        <a href="#" class="list-group-item">Choose 2</a>
+      <label for="desiredSpendings">Desired Spendings</label>
+      <div class="inner-addon left-addon">
+      <i class="glyphicon glyphicon-usd"></i>
+      <input type="text" class="form-control" id="inputDesiredSpendings" placeholder="What is your desired spendings?" name="desiredSpendings">
       </div>
     </div>
 
     <div class="form-group">
-      <label for="label6">Label 8</label>
-      <input type="placeholder" class="form-control" id="placeholder" placeholder="Placeholder6" name="label7">
+      <label for="yearInRetirements">Year in Retirement</label>
+      <div class="inner-addon left-addon">
+      <i class="glyphicon glyphicon-usd"></i>
+      <input type="text" class="form-control" id="inputYearInRetirement" placeholder="In how many year will you retire?" name="yearInRetirement">
+      </div>
     </div>
 
     <div id="wrapper">
-    <input type="submit" value="Submit" click.delegate="submitFormButton()" validation-renderer="bootstrap-form">
+    <input type="submit" value="Submit" click.delegate="submitFormButton()">
     </div>
-
 </template>
