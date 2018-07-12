@@ -1,0 +1,49 @@
+.list-group-horizontal .list-group-item {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: separate;
+  border: 1px solid #ccc;
+  display: table-cell;
+  float: none;
+  text-align: center;
+  width: 1%;
+  border-radius: 0;
+}
+
+.list-group-item:hover{
+  background-color: #26A65B !important;
+  color: white !important;
+}
+
+
+.list-group-horizontal .list-group-item:first-child{
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+}
+
+.list-group-horizontal .list-group-item:last-child{
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+input[type=submit] {
+  width: 10%;
+  background-color: #26A65B;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: rgb(43, 87, 48);
+}
+
+#wrapper{
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
