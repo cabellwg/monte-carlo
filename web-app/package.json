@@ -15,6 +15,7 @@
     "aurelia-validatejs": "^0.7.0",
     "aurelia-validation": "^1.2.2",
     "bluebird": "^3.5.1",
+    "chart.js": "^2.7.2",
     "jquery": "^3.3.1"
   },
   "peerDependencies": {},
