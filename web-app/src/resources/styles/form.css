@@ -1,0 +1,77 @@
+.list-group-horizontal .list-group-item {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: separate;
+  border: 1px solid #ccc;
+  display: table-cell;
+  float: none;
+  text-align: center;
+  width: 1%;
+  border-radius: 0;
+}
+
+.list-group-item:hover{
+  background-color: #26A65B !important;
+  color: white !important;
+}
+
+
+.list-group-horizontal .list-group-item:first-child{
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+}
+
+.list-group-horizontal .list-group-item:last-child{
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+input[type=submit] {
+  width: 10%;
+  background-color: #26A65B;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: rgb(43, 87, 48);
+}
+
+#wrapper{
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inner-addon { 
+  position: relative; 
+}
+
+/* style icon */
+.inner-addon .glyphicon {
+position: absolute;
+padding: 10px;
+pointer-events: none;
+}
+
+/* align icon */
+.left-addon .glyphicon  { left:  0px;}
+.right-addon .glyphicon { right: 0px;}
+
+/* add padding  */
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }
+
+.header{
+  text-align: center;
+  margin: 0;
+  padding: 2%;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 55px;
+
+}
