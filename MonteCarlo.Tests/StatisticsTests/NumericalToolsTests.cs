@@ -58,20 +58,31 @@ namespace MonteCarlo.Tests.StatisticsTests
         [Fact]
         public void TestFindRoot()
         {
-            double guess = 0;
-            MathFunction f = x => Math.Pow(x, 2);
+            MathFunction f = x => Math.Exp(x) - 1;
 
-            Assert.Equal(0, NumericalTools.FindRoot(f, guess), 2);
+            Assert.Equal(0, NumericalTools.FindRoot(f, -1, 5), 2);
 
-            guess = 5;
-            f = x => Math.Pow(x, 2) - 1;
+            f = x => Math.Pow(x, 3) - 1;
 
-            Assert.Equal(1, NumericalTools.FindRoot(f, guess), 2);
+            Assert.Equal(1, NumericalTools.FindRoot(f, -1, 5), 2);
 
-            guess = -3;
-            MathFunction Df = x => 2 * x;
+            f = x => Math.Sin(x);
 
-            Assert.Equal(-1, NumericalTools.FindRoot(f, Df, guess), 2);
+            Assert.Equal(Math.PI, NumericalTools.FindRoot(f, Math.PI / 2, 3 * Math.PI / 2), 2);
+        }
+
+        [Fact]
+        public void TestInverse()
+        {
+            MathFunction f = Math.Exp;
+
+            Assert.Equal(0, NumericalTools.Inverse(f, -10, 10)(1), 2);
+            Assert.Equal(1, NumericalTools.Inverse(f, -10, 10)(Math.E), 2);
+
+            f = x => 2 * x;
+
+            Assert.Equal(2, NumericalTools.Inverse(f, -10, 10)(4), 2);
+            Assert.Equal(-1, NumericalTools.Inverse(f, -10, 10)(-2), 2);
         }
     }
 }

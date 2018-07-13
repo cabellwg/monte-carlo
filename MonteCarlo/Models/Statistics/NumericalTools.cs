@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MonteCarlo.Models.Statistics
 {
@@ -6,68 +8,143 @@ namespace MonteCarlo.Models.Statistics
 
     public class NumericalTools
     {
-        private const int SIMPSONS_RULE_RESOLUTION = 1000000;
-        private const int NEWTONS_METHOD_RESOLUTION = 1000000;
-        private const int NUMERICAL_DIFFERENTIATION_RESOLUTION = 1000000;
+        private static Mutex m = new Mutex();
+        private const int NUMERICAL_INTEGRATION_RESOLUTION = 10000;
+        private const int ROOT_FIND_RESOLUTION = 10000;
+        private const int NUMERICAL_DIFFERENTIATION_RESOLUTION = 10000;
 
         // Simpson's Rule approximation of the integral of a function
         public static double Integrate(MathFunction f,
             double a,
             double b,
-            int stepSize = SIMPSONS_RULE_RESOLUTION)
+            int stepSize = NUMERICAL_INTEGRATION_RESOLUTION)
         {
             stepSize = (stepSize % 2 == 1) ? stepSize + 1 : stepSize;
 
             var h = (b - a) / stepSize;
             var s = f(a) + f(b);
 
-            for (var i = 1; i < stepSize; i += 2)
+            Task<double> odds = Task<double>.Factory.StartNew(() =>
             {
-                s += 4 * f(a + i * h);
-            }
-            for (var i = 2; i < stepSize - 1; i += 2)
+                var t = 0.0;
+                for (var i = 1; i < stepSize; i += 2)
+                {
+                    t += 4 * f(a + i * h);
+                }
+                return t;
+            });
+
+            Task<double> evens = Task<double>.Factory.StartNew(() =>
             {
-                s += 2 * f(a + i * h);
-            }
+                var t = 0.0;
+                for (var i = 2; i < stepSize - 1; i += 2)
+                {
+                    t += 2 * f(a + i * h);
+                }
+                return t;
+            });
+
+            s = odds.Result + evens.Result;
 
             return s * h / 3;
         }
 
-        // Newton-Raphson method for root finding
+
+        // Brent's method for root finding
         public static double FindRoot(MathFunction f,
-            MathFunction Df,
-            double guess,
-            int stepSize = NEWTONS_METHOD_RESOLUTION)
+            double min,
+            double max,
+            int rootFinderStepSize = ROOT_FIND_RESOLUTION)
         {
-            var x = guess;
-            var currentError = f(x) / Df(x);
-            for (var i = 0; i < stepSize; i++)
+            var tolerance = 1 / (double)ROOT_FIND_RESOLUTION;
+            
+            var a = min;
+            var b = max;
+            var c = a;
+            var d = 0.0;
+            var s = 0.0;
+
+            var fa = f(a);
+            var fb = f(b);
+            var fc = fa;
+            var fs = 0.0;
+
+            if (fa * fb >= 0)
             {
-                var function = f(x);
-                if (function == 0)
+                return 0;
+            }
+
+            if (Math.Abs(fa) < Math.Abs(fb))
+            {
+                // Swap max and min
+                var tmp = a;
+                a = b;
+                b = tmp;
+
+                tmp = fa;
+                fa = fb;
+                fb = tmp;
+            }
+
+            bool mflag = true;
+            for (var i = 1; i < ROOT_FIND_RESOLUTION; i++)
+            {
+                if (Math.Abs(b - a) < tolerance)
                 {
-                    return x;
+                    return s;
                 }
-                var derivative = Df(x);
-                if (derivative != 0) {
-                    x -= currentError;
-                    currentError = f(x) / derivative;
-                } else {
-                    // perturb x
-                    x += 0.001;
+
+                if (fa != fc && fb != fc)
+                {
+                    s = (a * fb * fc / ((fa - fb) * (fa - fc)))
+                      + (b * fa * fc / ((fb - fa) * (fb - fc)))
+                      + (c * fa * fb / ((fc - fa) * (fc - fb)));
+                } else
+                {
+                    s = b - fb * (b - a) / (fb - fa);
+                }
+
+                if ((s < ((3 * a + b) / 4) || s > b) ||
+                    (mflag && Math.Abs(s - b) >= Math.Abs(b - c) / 2) ||
+                    (!mflag && Math.Abs(s - b) >= Math.Abs(c - d) / 2) ||
+                    (mflag && Math.Abs(b - c) < Math.Abs(tolerance)) ||
+                    (!mflag && Math.Abs(c - d) < Math.Abs(tolerance)))
+                {
+                    s = (a + b) / 2;
+                    mflag = true;
+                } else
+                {
+                    mflag = false;
+                }
+
+                fs = f(s);
+                d = c;
+                c = b;
+                fc = fb;
+
+                if (fa * fs < 0)
+                {
+                    b = s;
+                    fb = fs;
+                } else
+                {
+                    a = s;
+                    fa = fs;
+                }
+                
+                if (Math.Abs(f(a)) < Math.Abs(f(b)))
+                {
+                    var tmp = a;
+                    a = b;
+                    b = tmp;
+
+                    tmp = fa;
+                    fa = fb;
+                    fb = tmp;
                 }
             }
 
-            return x;
-        }
-
-        public static double FindRoot(MathFunction f,
-            double guess,
-            int differentiationStepSize = NUMERICAL_DIFFERENTIATION_RESOLUTION,
-            int rootFinderStepSize = NEWTONS_METHOD_RESOLUTION)
-        {
-            MathFunction Df = Differentiate(f);
-            return FindRoot(f, Df, guess);
+            return s;
         }
 
         // Basic numerical differentiation
@@ -77,9 +154,16 @@ namespace MonteCarlo.Models.Statistics
             return x => (f(x + 1 / (double)stepSize) - f(x)) / (1 / (double)stepSize);
         }
 
-        public double Inverse(MathFunction f)
+        // Find the inverse of a function
+        public static MathFunction Inverse(MathFunction f, double min = -0x100000000, double max = 0x100000000) // 2^32
         {
-            throw new NotImplementedException();
+            try
+            {
+                return y => FindRoot(x => f(x) - y, min, max);
+            } catch (ArgumentException)
+            {
+                throw new ArgumentException("No inverse in specified range");
+            }
         }
     }
 }
