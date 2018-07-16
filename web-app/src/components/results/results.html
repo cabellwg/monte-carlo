@@ -1,35 +1,40 @@
 <template>
   <require from="../../resources/styles/results.css"></require>
   <require from="../charts/histogram"></require>
+  <require from="../charts/histogram2"></require>
+
+
 
   <h2>Probability of <span style="color: #26A65B">Success<span></span></h2>
 
   <histogram></histogram>
+  <histogram2></histogram2>
 
+  <div class="container table">
+  <table>
+    <tr>
+      <th>Histogram 1</th>
+      <th>Histogram 2</th>
+   </tr>
 
+   <tr>
+     <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
+       exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
+       pariatur. Excepteur sint occaecat cupidatat non proident, sunt in <span style="color: red"><b>80%</b></span> culpa qui officia deserunt mollit anim id est laborum.
+      </td>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+       <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
+          exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis <span style="color: red"><b>$70</b></span> aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
+   </tr>
+  </table>
+</div>
+  
+  <!--
   <div id="wrapper">
       <input type="submit" value="Return to Home Page" click.delegate="inputsReturnButton()">
-  </div>  
+  </div> 
+  
+  -->
   </template>
   

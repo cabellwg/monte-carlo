@@ -22,7 +22,26 @@ input[type=submit]:hover {
 h2{
   text-align: center;
   margin: 0;
-  padding: 2%;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 35px;
+  top: 90px;
 }
+
+.header{
+  text-align: center;
+  margin: 0;
+  padding: 2%;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 55px;
+}
+
+td, th{
+  text-align: left;
+}
+
+.table{
+  margin-top: 500px;
+}
+
+
+

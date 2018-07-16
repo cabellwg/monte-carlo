@@ -1,6 +1,6 @@
 import { Chart } from 'chart.js';
 
-export class Histogram {
+export class Histogram2 {
 
   attached() {
     this.buildChart();
@@ -8,7 +8,7 @@ export class Histogram {
    
 
   buildChart() {
-    let ctx = (document.getElementById("histogram1") as HTMLCanvasElement).getContext("2d");
+    let ctx = (document.getElementById("histogram2") as HTMLCanvasElement).getContext("2d");
     new Chart(ctx, {
      type: 'bar',
      data:{

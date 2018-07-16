@@ -1,0 +1,17 @@
+.histogramStyles{
+  position: absolute;
+  top: 200px;
+  left: 30px;
+  width: 900px;
+  height: 500px;
+}
+
+.histogramStyles2{
+  position: absolute;
+  top: 200px;
+  right: 60px;
+  width: 900px;
+  height: 500px;
+}
+
+
