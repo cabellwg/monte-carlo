@@ -21,7 +21,7 @@ namespace MonteCarlo.Models.Statistics
         private MathFunction inverseOfCdf;
         private IRandom random;
 
-        /* This runs in O(n^3 * O(forPdf) + O(inverseOfPdf)).
+        /* This runs in O(O(forPdf) + O(inverseOfPdf)).
          * Call as few times as possible.
          */
         public Ziggurat(MathFunction forPdf,

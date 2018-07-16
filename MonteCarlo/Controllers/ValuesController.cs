@@ -28,8 +28,8 @@ namespace MonteCarlo.Controllers
             var bondsMC = new Models.MonteCarlo();
             var bonds = stocksMC.Run(withProfile: new RunProfile()
             {
-                SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 10.82, withScale: 17.16),
-                StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 0.093, withScale: 27.814),
+                SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 4.80, withScale: 3.68),
+                StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 0.00, withScale: 3.88),
                 TrialLength = 30,
                 ContributionLength = 15,
                 InitialAmount = 5000,
@@ -41,8 +41,8 @@ namespace MonteCarlo.Controllers
             var savingsMC = new Models.MonteCarlo();
             var savings = savingsMC.Run(withProfile: new RunProfile()
             {
-                SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 10.82, withScale: 17.16),
-                StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 0.093, withScale: 27.814),
+                SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.DiracDelta, withPeakAt: 0.001, withScale: 0.000),
+                StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 0.0001, withScale: 1),
                 TrialLength = 30,
                 ContributionLength = 15,
                 InitialAmount = 15000,
