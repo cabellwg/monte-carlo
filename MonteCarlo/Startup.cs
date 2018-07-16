@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using MonteCarlo.Models.Statistics;
 
 namespace MonteCarlo
 {
@@ -16,7 +11,13 @@ namespace MonteCarlo
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            // Do Ziggurat shit
+
+            // Construct probability distributions
+            ProbabilityDistribution distribution = DistributionPool.GetDistribution(Distribution.Normal, 0.093, 27.814);
+            DistributionPool.ReleaseObject(distribution);
+            distribution = DistributionPool.GetDistribution(Distribution.Normal, 10.82, 17.16);
+            DistributionPool.ReleaseObject(distribution);
+
         }
 
         public IConfiguration Configuration { get; }

@@ -27,8 +27,8 @@ namespace MonteCarlo.Tests.StatisticsTests
         [Fact]
         public void TestCauchy()
         {
-            ProbabilityDistribution logNormal = new LogNormalDistribution(mean: 10.82, standardDeviation: 17.16);
-            Models.Statistics.MonteCarlo mc = new Models.Statistics.MonteCarlo(random: logNormal);
+            ProbabilityDistribution cauchy = new CauchyDistribution(location: 0.093, scale: 27.814);
+            Models.Statistics.MonteCarlo mc = new Models.Statistics.MonteCarlo(random: cauchy);
             double[][] result = mc.Run();
             string jsonResult = JsonConvert.SerializeObject(result);
         }
@@ -36,8 +36,8 @@ namespace MonteCarlo.Tests.StatisticsTests
         [Fact]
         public void TestLaplace()
         {
-            ProbabilityDistribution logNormal = new LogNormalDistribution(mean: 10.82, standardDeviation: 17.16);
-            Models.Statistics.MonteCarlo mc = new Models.Statistics.MonteCarlo(random: logNormal);
+            ProbabilityDistribution laplace = new LaplaceDistribution(location: 10.82, diversity: 17.16);
+            Models.Statistics.MonteCarlo mc = new Models.Statistics.MonteCarlo(random: laplace);
             double[][] result = mc.Run();
             string jsonResult = JsonConvert.SerializeObject(result);
         }
@@ -45,8 +45,8 @@ namespace MonteCarlo.Tests.StatisticsTests
         [Fact]
         public void TestT()
         {
-            ProbabilityDistribution logNormal = new LogNormalDistribution(mean: 10.82, standardDeviation: 17.16);
-            Models.Statistics.MonteCarlo mc = new Models.Statistics.MonteCarlo(random: logNormal);
+            ProbabilityDistribution t = new TDistribution(location: 10.82, scale: 17.16);
+            Models.Statistics.MonteCarlo mc = new Models.Statistics.MonteCarlo(random: t);
             double[][] result = mc.Run();
             string jsonResult = JsonConvert.SerializeObject(result);
         }
