@@ -1,9 +1,14 @@
-import { Chart} from 'chart.js';
+import { Chart } from 'chart.js';
 
-export class histogram {
+export class Histogram {
 
-   ctx = (document.getElementById("myChart") as HTMLCanvasElement).getContext("2d");
-   myChart = new Chart(this.ctx,{
+  attached() {
+    this.buildChart();
+  }
+   
+  buildChart() {
+    let ctx = (document.getElementById("myChart") as HTMLCanvasElement).getContext("2d");
+    new Chart(ctx, {
      type: 'bar',
      data:{
        labels:["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
@@ -39,7 +44,7 @@ export class histogram {
        }
      }
    });
-
+  }
 
 }
 
