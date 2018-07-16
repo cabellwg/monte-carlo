@@ -4,18 +4,36 @@ using System.Threading;
 
 namespace MonteCarlo.Models.Statistics
 {
-    public static class DistributionPool
+    public class DistributionPool
     {
-        [ThreadStatic]
-        private static List<ProbabilityDistribution> distributions;
-        private static Mutex m = new Mutex();
+        private static DistributionPool instance;
+        private static readonly object padlock = new object();
 
-        public static ProbabilityDistribution GetDistribution(Distribution type, double withPeakAt, double withScale)
-        {            
-            if (distributions == null)
-            {                
-                distributions = new List<ProbabilityDistribution>();
+        public static DistributionPool Instance
+        {
+            get
+            {
+                lock (padlock)
+                {
+                    if (instance == null)
+                    {
+                        instance = new DistributionPool();
+                    }
+                    return instance;
+                }
             }
+        }
+
+        private List<ProbabilityDistribution> distributions;
+        private Mutex m = new Mutex();
+
+        private DistributionPool()
+        {
+            distributions = new List<ProbabilityDistribution>();
+        }
+
+        public ProbabilityDistribution GetDistribution(Distribution type, double withPeakAt, double withScale)
+        {
 
             var toReturn = distributions.Find(dist =>
             {

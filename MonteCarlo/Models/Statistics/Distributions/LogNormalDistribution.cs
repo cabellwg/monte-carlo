@@ -8,7 +8,7 @@ namespace MonteCarlo.Models.Statistics
 
         public LogNormalDistribution(double mean, double standardDeviation)
         {
-            normalSampler = DistributionPool.GetDistribution(Statistics.Distribution.Normal, 0, 1);
+            normalSampler = DistributionPool.Instance.GetDistribution(Statistics.Distribution.Normal, 0, 1);
             PeakX = mean;
             Scale = standardDeviation;
             Type = Statistics.Distribution.LogNormal;

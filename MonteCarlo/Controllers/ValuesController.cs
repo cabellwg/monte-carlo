@@ -15,8 +15,8 @@ namespace MonteCarlo.Controllers
             var stocksMC = new Models.MonteCarlo();
             var stocks = stocksMC.Run(withProfile: new RunProfile()
             {
-                SeedDistribution = DistributionPool.GetDistribution(Distribution.Normal, withPeakAt: 10.82, withScale: 17.16),
-                StepDistribution = DistributionPool.GetDistribution(Distribution.Normal, withPeakAt: 0.093, withScale: 27.814),
+                SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 10.82, withScale: 17.16),
+                StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 0.093, withScale: 27.814),
                 TrialLength = 30,
                 ContributionLength = 15,
                 InitialAmount = 10000,
@@ -28,8 +28,8 @@ namespace MonteCarlo.Controllers
             var bondsMC = new Models.MonteCarlo();
             var bonds = stocksMC.Run(withProfile: new RunProfile()
             {
-                SeedDistribution = DistributionPool.GetDistribution(Distribution.Normal, withPeakAt: 10.82, withScale: 17.16),
-                StepDistribution = DistributionPool.GetDistribution(Distribution.Normal, withPeakAt: 0.093, withScale: 27.814),
+                SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 10.82, withScale: 17.16),
+                StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 0.093, withScale: 27.814),
                 TrialLength = 30,
                 ContributionLength = 15,
                 InitialAmount = 5000,
@@ -41,8 +41,8 @@ namespace MonteCarlo.Controllers
             var savingsMC = new Models.MonteCarlo();
             var savings = savingsMC.Run(withProfile: new RunProfile()
             {
-                SeedDistribution = DistributionPool.GetDistribution(Distribution.Normal, withPeakAt: 10.82, withScale: 17.16),
-                StepDistribution = DistributionPool.GetDistribution(Distribution.Normal, withPeakAt: 0.093, withScale: 27.814),
+                SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 10.82, withScale: 17.16),
+                StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 0.093, withScale: 27.814),
                 TrialLength = 30,
                 ContributionLength = 15,
                 InitialAmount = 15000,
