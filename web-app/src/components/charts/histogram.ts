@@ -1,7 +1,4 @@
-import {GoogleCharts} from 'google-charts';
 import { Chart} from 'chart.js';
-import {inject, bindable} from 'aurelia-framework';
-import { EventAggregator } from "aurelia-event-aggregator";
 
 export class histogram {
 
