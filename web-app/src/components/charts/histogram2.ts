@@ -18,7 +18,7 @@ export class Histogram2 {
        },
        {
          label: 'Line Label',
-         data: [0,10,40,80,40,10,0],
+         data: [0,10,40,70,40,10,0],
          type: 'line'
        }],
        labels:["1", "2", "3", "4", "5", "6", "7"]
