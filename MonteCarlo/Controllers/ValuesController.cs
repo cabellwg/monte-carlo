@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using MonteCarlo.Models;
 using MonteCarlo.Models.Statistics;
 
 namespace MonteCarlo.Controllers
@@ -9,24 +11,57 @@ namespace MonteCarlo.Controllers
         [HttpGet]
         public JsonResult Get()
         {
-            var initialDistribution = DistributionPool.GetDistribution(Distribution.Normal, withPeakAt: 0.093, withScale: 27.814);
-            var stepDistribution = DistributionPool.GetDistribution(Distribution.Normal, withPeakAt: 10.82, withScale: 17.16);
+            // Stocks
+            var stocksMC = new Models.MonteCarlo();
+            var stocks = stocksMC.Run(withProfile: new RunProfile()
+            {
+                SeedDistribution = DistributionPool.GetDistribution(Distribution.Normal, withPeakAt: 10.82, withScale: 17.16),
+                StepDistribution = DistributionPool.GetDistribution(Distribution.Normal, withPeakAt: 0.093, withScale: 27.814),
+                TrialLength = 30,
+                ContributionLength = 15,
+                InitialAmount = 10000,
+                ContributionAmount = 500,
+                WithdrawalAmount = 5000
+            });
 
-            var mc = new Models.Statistics.MonteCarlo(
-                initialDistribution: initialDistribution,
-                stepDistribution: stepDistribution
-            );
+            // Bonds
+            var bondsMC = new Models.MonteCarlo();
+            var bonds = stocksMC.Run(withProfile: new RunProfile()
+            {
+                SeedDistribution = DistributionPool.GetDistribution(Distribution.Normal, withPeakAt: 10.82, withScale: 17.16),
+                StepDistribution = DistributionPool.GetDistribution(Distribution.Normal, withPeakAt: 0.093, withScale: 27.814),
+                TrialLength = 30,
+                ContributionLength = 15,
+                InitialAmount = 5000,
+                ContributionAmount = 100,
+                WithdrawalAmount = 5000
+            });
 
-            var result = mc.Run();
+            // Savings
+            var savingsMC = new Models.MonteCarlo();
+            var savings = savingsMC.Run(withProfile: new RunProfile()
+            {
+                SeedDistribution = DistributionPool.GetDistribution(Distribution.Normal, withPeakAt: 10.82, withScale: 17.16),
+                StepDistribution = DistributionPool.GetDistribution(Distribution.Normal, withPeakAt: 0.093, withScale: 27.814),
+                TrialLength = 30,
+                ContributionLength = 15,
+                InitialAmount = 15000,
+                ContributionAmount = 7500,
+                WithdrawalAmount = 5000
+            });
 
-            DistributionPool.ReleaseObject(initialDistribution);
-            DistributionPool.ReleaseObject(stepDistribution);
+            var result = new Dictionary<string, double[][]>()
+            {
+                { "stocks", stocks },
+                { "bonds", bonds },
+                { "savings", savings }
+            };
 
             return Json(result);
         }
 
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]DataModel value)
         {
         }
     }

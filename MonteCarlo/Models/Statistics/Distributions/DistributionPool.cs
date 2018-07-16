@@ -1,62 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace MonteCarlo.Models.Statistics
 {
     public static class DistributionPool
     {
         [ThreadStatic]
-        private static List<ProbabilityDistribution> _available;
-        [ThreadStatic]
-        private static List<ProbabilityDistribution> _inUse;
+        private static List<ProbabilityDistribution> distributions;
+        private static Mutex m = new Mutex();
 
         public static ProbabilityDistribution GetDistribution(Distribution type, double withPeakAt, double withScale)
-        {
-            if (_available == null)
-            {
-                _available = new List<ProbabilityDistribution>();
-            }
-            if (_inUse == null)
-            {
-                _inUse = new List<ProbabilityDistribution>();
+        {            
+            if (distributions == null)
+            {                
+                distributions = new List<ProbabilityDistribution>();
             }
 
-            lock (_available)
+            var toReturn = distributions.Find(dist =>
             {
-                var toReturn = _available.Find(dist =>
-                {
-                    return dist.Type == type &&
-                        dist.PeakX == withPeakAt &&
-                        dist.Scale == withScale;
-                });
+                return dist.Type == type &&
+                    dist.PeakX == withPeakAt &&
+                    dist.Scale == withScale;
+            });
 
-                if (type == Distribution.Uniform)
-                {
-                    toReturn = _available.Find(dist => dist.Type == Distribution.Uniform);
-                }
-
-                if (toReturn != null)
-                {
-                    _inUse.Add(toReturn);
-                    _available.Remove(toReturn);
-                    return toReturn;
-                }
-                else
-                {
-                    toReturn = DistributionFactory.Create(type, withPeakAt, withScale);
-                    _inUse.Add(toReturn);
-                    return toReturn;
-                }
-            }
-        }
-
-        public static void ReleaseObject(ProbabilityDistribution distribution)
-        {
-            lock (_available)
+            if (type == Distribution.Uniform)
             {
-                _available.Add(distribution);
-                _inUse.Remove(distribution);
+                toReturn = distributions.Find(dist => dist.Type == Distribution.Uniform);
             }
+            
+            if (toReturn == null)
+            {
+                m.WaitOne();
+                toReturn = DistributionFactory.Create(type, withPeakAt, withScale);
+                distributions.Add(toReturn);
+                m.ReleaseMutex();
+            }
+            
+            return toReturn;
         }
     }
 }
