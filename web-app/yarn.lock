@@ -3864,6 +3864,10 @@ glogg@^1.0.0:
   dependencies:
     sparkles "^1.0.0"
 
+google-charts@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/google-charts/-/google-charts-1.5.0.tgz#acf1412a10991e8b2d6e5eb53619f8136dc73e05"
+
 got@^6.7.1:
   version "6.7.1"
   resolved "https://registry.yarnpkg.com/got/-/got-6.7.1.tgz#240cd05785a9a18e561dc1b44b41c763ef1e8db0"

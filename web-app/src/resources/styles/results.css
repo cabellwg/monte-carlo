@@ -1,0 +1,28 @@
+input[type=submit] {
+  width: 12%;
+  background-color: #26A65B;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: rgb(43, 87, 48);
+}
+
+#wrapper{
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h2{
+  text-align: center;
+  margin: 0;
+  padding: 2%;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 35px;
+}
