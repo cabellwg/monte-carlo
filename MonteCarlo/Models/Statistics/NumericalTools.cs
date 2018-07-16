@@ -8,10 +8,10 @@ namespace MonteCarlo.Models.Statistics
 
     public class NumericalTools
     {
-        private static Mutex m = new Mutex();
-        private const int NUMERICAL_INTEGRATION_RESOLUTION = 10000;
+        private static readonly Mutex m = new Mutex();
+        private const int NUMERICAL_INTEGRATION_RESOLUTION = 100000;
         private const int ROOT_FIND_RESOLUTION = 10000;
-        private const int NUMERICAL_DIFFERENTIATION_RESOLUTION = 10000;
+        private const int NUMERICAL_DIFFERENTIATION_RESOLUTION = 100000;
 
         // Simpson's Rule approximation of the integral of a function
         public static double Integrate(MathFunction f,

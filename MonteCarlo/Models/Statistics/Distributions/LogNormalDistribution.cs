@@ -5,13 +5,13 @@ namespace MonteCarlo.Models.Statistics
     public class LogNormalDistribution : ProbabilityDistribution
     {
         private NormalDistribution normalSampler;
-        private readonly double sigma;
 
         public LogNormalDistribution(double mean, double standardDeviation)
         {
             normalSampler = new NormalDistribution(0, 1);
-            Mean = mean;
-            sigma = standardDeviation;
+            PeakX = mean;
+            Scale = standardDeviation;
+            Type = Statistics.Distribution.LogNormal;
         }
 
         public override MathFunction Distribution => x =>
@@ -21,7 +21,7 @@ namespace MonteCarlo.Models.Statistics
 
         public override double NextDouble()
         {
-            return Math.Exp(Mean + sigma * normalSampler.NextDouble());
+            return Math.Exp(PeakX + Scale * normalSampler.NextDouble());
         }
     }
 }

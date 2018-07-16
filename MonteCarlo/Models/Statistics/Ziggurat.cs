@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MonteCarlo.Models.Statistics
 {
@@ -88,10 +85,10 @@ namespace MonteCarlo.Models.Statistics
 
             while (topY(x0) < goal)
             {
-                x0 -= bound / 10;
+                x0 -= bound / 100;
             }
 
-            x0 += bound / 10;
+            x0 += bound / 100;
 
             while (topY(x0) < goal)
             {

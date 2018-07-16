@@ -8,21 +8,25 @@ namespace MonteCarlo.Models.Statistics
 {
     public class MonteCarlo
     {
+        public int TrialLength { get; set; } = 30;
+
         private readonly double[][] trials;
-        private IRandom random;
+        private ProbabilityDistribution initialDistribution;
+        private ProbabilityDistribution stepDistribution;
         private Mutex mutex = new Mutex();
 
-        private const int NUM_TRIALS = 10;
+        private const int NUM_TRIALS = 10000;
 
-        public MonteCarlo(IRandom random)
+        public MonteCarlo(ProbabilityDistribution initialDistribution, ProbabilityDistribution stepDistribution)
         {
-            this.random = random;
+            this.initialDistribution = initialDistribution;
+            this.stepDistribution = stepDistribution;
             trials = new double[NUM_TRIALS][];
         }
 
         public double[][] Run()
         {
-            Parallel.For(0, NUM_TRIALS - 1, i =>
+            Parallel.For(0, NUM_TRIALS, i =>
             {
                 RunTrial(i);
             });
@@ -32,13 +36,13 @@ namespace MonteCarlo.Models.Statistics
 
         private void RunTrial(int trialNumber)
         {
-            double[] trial = new double[10];
+            double[] trial = new double[TrialLength];
             // populate trial data
-            trial[0] = random.NextDouble();
+            trial[0] = initialDistribution.NextDouble();
 
-            for (var i = 1; i < 10; i++)
+            for (var i = 1; i < TrialLength; i++)
             {
-                trial[i] = trial[i - 1] + random.NextDouble();
+                trial[i] = trial[i - 1] + stepDistribution.NextDouble();
             }
 
             mutex.WaitOne();
