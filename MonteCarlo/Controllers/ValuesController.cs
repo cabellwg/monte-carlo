@@ -61,8 +61,11 @@ namespace MonteCarlo.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody]DataModel value)
+        public JsonResult Post([FromBody]DataModel value)
         {
+            var runner = new PortfolioSimulator(value);
+            var result = runner.Run();
+            return Json(result);
         }
     }
 }

@@ -1,14 +1,15 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using MonteCarlo.Models.Statistics;
 
 namespace MonteCarlo.Models
 {
     public class MonteCarlo
     {
+        public static int NUM_TRIALS = 100;
+
         private readonly double[][] trials;
         private Mutex mutex = new Mutex();
-
-        private const int NUM_TRIALS = 1000;
 
         public MonteCarlo()
         {
@@ -17,10 +18,21 @@ namespace MonteCarlo.Models
 
         public double[][] Run(RunProfile withProfile)
         {
-            Parallel.For(0, NUM_TRIALS, i =>
+            if (withProfile.StepDistribution.Type == Distribution.DiracDelta)
             {
-                RunTrial(i, withProfile);
-            });
+                RunTrial(0, withProfile);
+                for (var i = 1; i < NUM_TRIALS; i++)
+                {
+                    trials[i] = trials[0];
+                }
+            }
+            else
+            {
+                Parallel.For(0, NUM_TRIALS, i =>
+                {
+                    RunTrial(i, withProfile);
+                });
+            }
 
             return trials;
         }
