@@ -1,3 +1,7 @@
+body{
+  background: #F2F1EF;
+}
+
 input[type=submit] {
   width: 12%;
   background-color: #26A65B;
@@ -57,34 +61,6 @@ td, th{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* Slider wrapper*/
 .css-slider-wrapper {
   display: block;
@@ -141,18 +117,6 @@ td, th{
 
 .slider > div {
   text-align: center;
-}
-
-/* Slider inner slide effect */
-.slider h2 {
-  color:black;
-  font-weight: 900;
-  text-transform: uppercase;
-  font-size: 45px;
-  line-height: 120%;
-  opacity: 0;
-  -webkit-transform: translateX(500px);
-  transform: translateX(500px);
 }
 
 /* Next and Preive arrow */ 
