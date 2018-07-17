@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using MonteCarlo.Models.Statistics;
 
 namespace MonteCarlo.Models
@@ -49,8 +50,12 @@ namespace MonteCarlo.Models
             stocksSimulation = new MonteCarlo();
             stocksProfile = new RunProfile()
             {
-                SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 10.82, withScale: 17.16),
-                StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 0.093, withScale: 27.814),
+                SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal,
+                    withPeakAt: 10.82,
+                    withScale: 17.16),
+                StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal,
+                    withPeakAt: 0.093,
+                    withScale: 27.814 / trialLength),
                 TrialLength = trialLength,
                 ContributionLength = contributionLength,
                 InitialAmount = dataModel.StocksAmount,
@@ -62,8 +67,12 @@ namespace MonteCarlo.Models
             bondsSimulation = new MonteCarlo();
             bondsProfile = new RunProfile()
             {
-                SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 4.80, withScale: 3.68),
-                StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 0.00, withScale: 3.88),
+                SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal,
+                    withPeakAt: 4.80,
+                    withScale: 3.68),
+                StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal,
+                    withPeakAt: 0.00,
+                    withScale: 3.88 / trialLength),
                 TrialLength = trialLength,
                 ContributionLength = contributionLength,
                 InitialAmount = dataModel.BondsAmount,
@@ -75,8 +84,12 @@ namespace MonteCarlo.Models
             savingsSimulation = new MonteCarlo();
             savingsProfile = new RunProfile()
             {
-                SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.DiracDelta, withPeakAt: 0.001, withScale: 0),
-                StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.DiracDelta, withPeakAt: 0.0001, withScale: 0),
+                SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.DiracDelta,
+                    withPeakAt: 0.001,
+                    withScale: 0),
+                StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.DiracDelta,
+                    withPeakAt: 0.0001,
+                    withScale: 0 / trialLength),
                 TrialLength = trialLength,
                 ContributionLength = contributionLength,
                 InitialAmount = dataModel.SavingsAmount,
@@ -104,7 +117,7 @@ namespace MonteCarlo.Models
         private Result ProcessTrials(Dictionary<string, double[][]> trials)
         {
             Result result = new Result();
-            result.Trials = trials;
+            //result.Trials = trials;
 
             int numberOfSuccesses = 0;
 
@@ -119,8 +132,12 @@ namespace MonteCarlo.Models
             }
 
             result.SuccessRate = (int)Math.Round(100 * numberOfSuccesses / (double)MonteCarlo.NUM_TRIALS);
-            
 
+            double[] sortWeights = trials["stocks"].Select((trial, index) =>
+            {
+                
+                return 0.0;
+            }).AsParallel().ToArray();
 
             return result;
         }
