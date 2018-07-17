@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MonteCarlo.Models.Statistics
+﻿namespace MonteCarlo.Models.Statistics
 {
     public class DiracDeltaDistribution : ProbabilityDistribution
     {
@@ -11,6 +6,7 @@ namespace MonteCarlo.Models.Statistics
 
         public DiracDeltaDistribution(double peak)
         {
+            Type = Statistics.Distribution.DiracDelta;
             PeakX = peak;
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MonteCarlo.Models.Statistics;
 
 namespace MonteCarlo.Models
@@ -90,29 +91,36 @@ namespace MonteCarlo.Models
             var bondsResult = bondsSimulation.Run(withProfile: bondsProfile);
             var savingsResult = savingsSimulation.Run(withProfile: savingsProfile);
 
-            Result result = new Result()
+            var trials = new Dictionary<string, double[][]>()
             {
-                Trials = new Dictionary<string, double[][]>()
-                {
-                    { "stocks", stocksResult },
-                    { "bonds", bondsResult },
-                    { "savings", savingsResult }
-                }
+                { "stocks", stocksResult },
+                { "bonds", bondsResult },
+                { "savings", savingsResult }
             };
+
+            return ProcessTrials(trials);
+        }
+
+        private Result ProcessTrials(Dictionary<string, double[][]> trials)
+        {
+            Result result = new Result();
+            result.Trials = trials;
 
             int numberOfSuccesses = 0;
 
             for (var i = 0; i < MonteCarlo.NUM_TRIALS; i++)
             {
-                if (stocksResult[i][trialLength - 2] +
-                    bondsResult[i][trialLength - 2] +
-                    savingsResult[i][trialLength - 2] >= withdrawalAmount)
+                if (trials["stocks"][i][trialLength - 2] +
+                    trials["bonds"][i][trialLength - 2] +
+                    trials["savings"][i][trialLength - 2] >= withdrawalAmount)
                 {
                     numberOfSuccesses++;
                 }
             }
 
-            result.SuccessRate = numberOfSuccesses / (double)MonteCarlo.NUM_TRIALS;
+            result.SuccessRate = (int)Math.Round(100 * numberOfSuccesses / (double)MonteCarlo.NUM_TRIALS);
+            
+
 
             return result;
         }
