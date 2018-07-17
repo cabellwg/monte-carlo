@@ -1,27 +1,29 @@
 <template>
     <require from="../../resources/styles/form.css"></require>
-  
+    <link href="https://fonts.googleapis.com/css?family=Cantata+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Imprima" rel="stylesheet">
+
   <div class="container">
    <div class="form-group">
-     <label for="age">Age</label>
-     <input type="text" class="form-control" id="inputAge" placeholder="What is your age?" name="age" required>
+     <label for="age" class="labelHeading">Age</label>
+     <input type="text" class="form-control placeholderText" id="inputAge" placeholder="What is your age?" name="age" required>
    </div>
 
    <div class="form-group">
-      <label for="retireAge">Retire Age</label>
-      <input type="text" class="form-control" id="inputRetireAge" placeholder="When will you retire?" name="retireAge">
+      <label for="retireAge" class="labelHeading">Retire Age</label>
+      <input type="text" class="form-control placeholderText" id="inputRetireAge" placeholder="When will you retire?" name="retireAge">
     </div>
 
     <div class="form-group">
-      <label for="deathAge">DeathAge</label>
-      <input type="text" class="form-control" id="inputDeathAge" placeholder="Estimated death age?" name="deathAge">
+      <label for="deathAge" class="labelHeading">DeathAge</label>
+      <input type="text" class="form-control placeholderText" id="inputDeathAge" placeholder="Estimated death age?" name="deathAge">
     </div>
 
     <div class="form-group">
-      <label for="yearlyContributions">Yearly Contributions</label>
+      <label for="yearlyContributions" class="labelHeading">Yearly Contributions</label>
       <div class="inner-addon left-addon">
         <i class="glyphicon glyphicon-usd"></i>
-        <input type="text" class="form-control" id="inputYearlyContributions" placeholder="What are your yearly contributions?" name="yearlyContributions">
+        <input type="text" class="form-control placeholderText" id="inputYearlyContributions" placeholder="What are your yearly contributions?" name="yearlyContributions">
         <small id="yearlyContributionHelpLine" class="text-muted">
           This is a helper text for the yearly contributions
         </small>
@@ -29,38 +31,38 @@
     </div>
 
     <div class="form-group">
-      <label for="initialAmount">Initial Amount - <i><span style="color: rgb(131, 128, 128)">Optional</i></span></label>
+      <label for="initialAmount" class="labelHeading">Initial Amount - <i><span style="color: rgb(131, 128, 128)">Optional</i></span></label>
       <div class="inner-addon left-addon">
       <i class="glyphicon glyphicon-usd"></i>
-      <input type="text" class="form-control" id="inputInitialAmount" placeholder="What is your initial amount?" name="initialAmount">
+      <input type="text" class="form-control placeholderText" id="inputInitialAmount" placeholder="What is your initial amount?" name="initialAmount">
       </div>
     </div>
     
     <div class="form-group">
-      <label for="portfolio">Portfolio</label>
+      <label for="portfolio" class="labelHeading">Portfolio</label>
       <div class="list-group-horizontal">
-        <a href="#" class="list-group-item">Stock%</a>
-        <a href="#" class="list-group-item">Bond%</a>
-        <a href="#" class="list-group-item">Savings%</a>
-        <small id="yearlyContributionHelpLine" class="text-muted">
+        <a href="#" class="list-group-item placeholderText">Stock%</a>
+        <a href="#" class="list-group-item placeholderText">Bond%</a>
+        <a href="#" class="list-group-item placeholderText">Savings%</a>
+        <small id="yearlyContributionHelpLine placeholderText" class="text-muted">
           This is a helper text for the portfolio
         </small>
       </div>
     </div>
 
     <div class="form-group">
-      <label for="desiredSpendings">Desired Spendings</label>
+      <label for="desiredSpendings" class="labelHeading">Desired Spendings</label>
       <div class="inner-addon left-addon">
       <i class="glyphicon glyphicon-usd"></i>
-      <input type="text" class="form-control" id="inputDesiredSpendings" placeholder="What is your desired spendings?" name="desiredSpendings">
+      <input type="text" class="form-control placeholderText" id="inputDesiredSpendings" placeholder="What is your desired spendings?" name="desiredSpendings">
       </div>
     </div>
 
     <div class="form-group">
-      <label for="yearInRetirements">Year in Retirement</label>
+      <label for="yearInRetirements" class="labelHeading">Year in Retirement</label>
       <div class="inner-addon left-addon">
       <i class="glyphicon glyphicon-usd"></i>
-      <input type="text" class="form-control" id="inputYearInRetirement" placeholder="In how many year will you retire?" name="yearInRetirement">
+      <input type="text" class="form-control placeholderText" id="inputYearInRetirement" placeholder="In how many year will you retire?" name="yearInRetirement">
       </div>
     </div>
 

@@ -3,9 +3,14 @@
   <require from="../charts/histogram"></require>
   <require from="../charts/histogram2"></require>
 
+  <link href="https://fonts.googleapis.com/css?family=Cantata+One" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Imprima" rel="stylesheet">
+
 
 
   <h2>Probability of <span style="color: #26A65B">Success<span></span></h2>
+   
+
 
 
   <div class="css-slider-wrapper">
@@ -14,93 +19,88 @@
       <input type="radio" name="slider" class="slide-radio3" id="slider_3">
       <input type="radio" name="slider" class="slide-radio4" id="slider_4">
 
-      
       <div class="slider-pagination">
         <label for="slider_1" class="page1"></label>
         <label for="slider_2" class="page2"></label>
         <label for="slider_3" class="page3"></label>
         <label for="slider_4" class="page4"></label>
-       </div> 
+      </div>
 
-       <div class="next control">
-          <label for="slider_1" class="numb1"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></label>
-          <label for="slider_2" class="numb2"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></label>
-          <label for="slider_3" class="numb3"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></label>
-          <label for="slider_4" class="numb4"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></label>
-        </div>
+      <div class="next control">
+        <label for="slider_1" class="numb1"><span class="glyphicon glyphicon-chevron-right"></span></label>
+        <label for="slider_2" class="numb2"><span class="glyphicon glyphicon-chevron-right"></span></label>
+        <label for="slider_3" class="numb3"><span class="glyphicon glyphicon-chevron-right"></span></label>
+        <label for="slider_4" class="numb4"><span class="glyphicon glyphicon-chevron-right"></span></label>
+      </div>
+      
+      <div class="previous control">
+        <label for="slider_1" class="numb1"><span class="glyphicon glyphicon-chevron-left"></span></label>
+        <label for="slider_2" class="numb2"><span class="glyphicon glyphicon-chevron-left"></span></label>
+        <label for="slider_3" class="numb3"><span class="glyphicon glyphicon-chevron-left"></span></label>
+        <label for="slider_4" class="numb4"><span class="glyphicon glyphicon-chevron-left"></span></label>
+      </div>
 
-        <div class="previous control">
-          <label for="slider_1" class="numb1"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></i></label>
-          <label for="slider_2" class="numb2"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></i></label>
-          <label for="slider_3" class="numb3"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></i></label>
-          <label for="slider_4" class="numb4"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></i></label>
-        </div>
 
-        <div class="slider slider1">
-
+      <div class="slider slide1">
+        <div>
+          
             <histogram></histogram>
             <histogram2></histogram2>
-
+            
             <div class="container table">
-                <table>
-                  <tr>
-                    <th>Histogram 1</th>
-                    <th>Histogram 2</th>
-                 </tr>
-              
-                 <tr>
-                   <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
-                     exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
-                     pariatur. Excepteur sint occaecat cupidatat non proident, sunt in <span style="color: red"><b>80%</b></span> culpa qui officia deserunt mollit anim id est laborum.
-                    </td>
-              
-                     <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
-                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis <span style="color: red"><b>$70</b></span> aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
-                        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
-                 </tr>
-                </table>
-              </div>
+              <table>
+                <tr>
+                  <th class="chartHeading">Histogram 1</th>
+                 <th class="chartHeading">Histogram 2</th>
+               </tr>
+               
+               <tr>
+                 <td class="chartBody">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
+                   exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
+                   pariatur. Excepteur sint occaecat cupidatat non proident, sunt in <span style="color: red"><b>80%</b></span> culpa qui officia deserunt mollit anim id est laborum.</td>
+                   
+                   <td class="chartBody">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
+                     exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis <span style="color: red"><b>$70</b></span> aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
+                     pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
+                   </tr>
+               </table>
+             </div>
+           </div>
+
+      </div>
+
+
+      <div class="slider slide2">
+        <div>
+         Slide 2
+        </div>
+      </div>
+
+
+      <div class="slider slide3">
+        <div>
+        Slide 3
         </div>
 
-        <div class="slider slide2">
-            <div>
-              <h2>CHART 2</h2>
-          </div>
-          
-          <div class="slider slide3">
-            <div>
-              <h2>CHART 3</h2>     
-          </div>
-
-          <div class="slider slide4">
-            <div>
-              <h2>CHART 4</h2>
-          </div>
+      </div>
 
 
-    
-
+      <div class="slider slide4">
+        <div>
+        Slide 4
         </div>
 
+      </div>
 
 
 
 
 
-
-
-
-
-
-
-     
-        
-  
   <!--
   <div id="wrapper">
       <input type="submit" value="Return to Home Page" click.delegate="inputsReturnButton()">
-  </div> 
+  </div> --> 
   
-  -->
+
   </template>
   

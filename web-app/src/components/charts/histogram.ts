@@ -14,11 +14,13 @@ export class Histogram {
      data:{
        datasets:[{
          label: 'Histogram Label',
-         data: [0,10,40,80,40,10,0]
+         data: [0,10,40,80,40,10,0],
+         backgroundColor: "rgb(4, 147, 114)", 
        },
        {
          label: 'Line Label',
          data: [0,10,40,70,40,10,0],
+         backgroundColor: "rgba(255, 99, 132, 0.2)",
          type: 'line'
        }],
        labels:["1", "2", "3", "4", "5", "6", "7"]

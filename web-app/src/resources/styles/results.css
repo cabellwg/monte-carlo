@@ -13,7 +13,7 @@ input[type=submit]:hover {
 }
 
 #wrapper{
-  height: 100px;
+  height: 1700px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,11 +37,26 @@ h2{
 
 td, th{
   text-align: left;
+  padding: 0.7rem;
 }
 
 .table{
   margin-top: 500px;
 }
+
+.chartHeading{
+  font-family: 'Cantata One', serif;
+  font-weight: bold;
+  font-size: 1em; 
+}
+
+.chartBody{
+  font-family: 'Imprima', sans-serif;
+  font-size:medium; 
+}
+
+
+
 
 
 
@@ -55,10 +70,12 @@ td, th{
   top: 0;
   bottom: 0;
 }
+
 /* Slider */
 .slider {
   width: 100%;
   height: 100%;
+  background: transparent;
   position: absolute;
   left: 0;
   top: 0;
@@ -78,23 +95,39 @@ td, th{
   transition: -webkit-transform 1600ms, transform 1600ms;
   -webkit-transform: scale(1);
   transform: scale(1);
-} 
+}
 
 /* each slide backgound color */  
 .slide1 {
   left: 0;
 }
+
 .slide2 {
   left: 100%
 }
+
 .slide3 {
   left: 200%
 }
+
 .slide4 {
   left: 300%;
 }
+
 .slider > div {
   text-align: center;
+}
+
+/* Slider inner slide effect */
+.slider h2 {
+  color:black;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 45px;
+  line-height: 120%;
+  opacity: 0;
+  -webkit-transform: translateX(500px);
+  transform: translateX(500px);
 }
 
 /* Next and Preive arrow */ 
@@ -106,6 +139,7 @@ td, th{
   margin-top: -25px;
   z-index: 55;
 }
+
 .control label {
   z-index: 0;
   display: none;
@@ -116,15 +150,19 @@ td, th{
   cursor: pointer;
   opacity: 0.2;
 }
+
 .control label:hover {
   opacity: 0.5;
 }
+
 .next {
   right: 1%;
 }
+
 .previous {
   left: 1%;
 }
+
 /* Slider Pagger */ 
 .slider-pagination {
   position: absolute;
@@ -134,16 +172,18 @@ td, th{
   text-align: center;
   z-index: 1000;
 }
+
 .slider-pagination label {
   width: 10px;
   height: 10px;
   border-radius: 50%;
   display: inline-block;
-  background: rgba(255, 1, 1, 0.2);
+  background: rgba(41, 40, 40, 0.2);
   margin: 0 2px;
-  border: solid 1px rgba(65, 22, 22, 0.4);
+  border: solid 1px rgba(8, 8, 8, 0.4);
   cursor: pointer;
 }
+
 /* Slider Pagger arrow event */
 .slide-radio1:checked ~ .next .numb2, 
 .slide-radio2:checked ~ .next .numb3, 
@@ -154,30 +194,36 @@ td, th{
   display: block;
   z-index: 1
 }
+
 /* Slider Pagger event */
 .slide-radio1:checked ~ .slider-pagination .page1, 
 .slide-radio2:checked ~ .slider-pagination .page2, 
 .slide-radio3:checked ~ .slider-pagination .page3, 
 .slide-radio4:checked ~ .slider-pagination .page4 {
-  background: rgba(255,255,255,1)
+  background: rgb(90, 85, 85)
 }
+
 /* Slider slide effect */
 .slide-radio1:checked ~ .slider {
   -webkit-transform: translateX(0%);
   transform: translateX(0%);
 }
+
 .slide-radio2:checked ~ .slider {
   -webkit-transform: translateX(-100%);
   transform: translateX(-100%);
 }
+
 .slide-radio3:checked ~ .slider {
   -webkit-transform: translateX(-200%);
   transform: translateX(-200%);
 }
+
 .slide-radio4:checked ~ .slider {
   -webkit-transform: translateX(-300%);
   transform: translateX(-300%);
 }
+
 .slide-radio1:checked ~ .slide1 h2,  
 .slide-radio2:checked ~ .slide2 h2,  
 .slide-radio3:checked ~ .slide3 h2,  
@@ -192,9 +238,7 @@ td, th{
 }
 
 @media only screen and (max-width: 767px) {
-.slider h2 {
-  font-size: 20px;
-}
+
 .slider > div {
   padding: 0 2%
 }
