@@ -6,7 +6,7 @@ namespace MonteCarlo.Models
 {
     public class MonteCarlo
     {
-        public static int NUM_TRIALS = 100;
+        public static int NUM_TRIALS = 1000;
 
         private readonly double[][] trials;
         private Mutex mutex = new Mutex();
@@ -18,7 +18,8 @@ namespace MonteCarlo.Models
 
         public double[][] Run(RunProfile withProfile)
         {
-            if (withProfile.StepDistribution.Type == Distribution.DiracDelta)
+            if (withProfile.StepDistribution.Type == Distribution.DiracDelta ||
+                withProfile.StepDistribution.Type == Distribution.Testable)
             {
                 RunTrial(0, withProfile);
                 for (var i = 1; i < NUM_TRIALS; i++)
