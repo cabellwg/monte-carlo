@@ -7,6 +7,7 @@
         T,
         Laplace,
         Cauchy,
-        LogNormal
+        LogNormal,
+        DiracDelta
     }
 }

@@ -1,62 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace MonteCarlo.Models.Statistics
 {
-    public static class DistributionPool
+    public class DistributionPool
     {
-        [ThreadStatic]
-        private static List<ProbabilityDistribution> _available;
-        [ThreadStatic]
-        private static List<ProbabilityDistribution> _inUse;
+        private static DistributionPool instance;
+        private static readonly object padlock = new object();
 
-        public static ProbabilityDistribution GetDistribution(Distribution type, double withPeakAt, double withScale)
+        public static DistributionPool Instance
         {
-            if (_available == null)
+            get
             {
-                _available = new List<ProbabilityDistribution>();
-            }
-            if (_inUse == null)
-            {
-                _inUse = new List<ProbabilityDistribution>();
-            }
-
-            lock (_available)
-            {
-                var toReturn = _available.Find(dist =>
+                lock (padlock)
                 {
-                    return dist.Type == type &&
-                        dist.PeakX == withPeakAt &&
-                        dist.Scale == withScale;
-                });
-
-                if (type == Distribution.Uniform)
-                {
-                    toReturn = _available.Find(dist => dist.Type == Distribution.Uniform);
-                }
-
-                if (toReturn != null)
-                {
-                    _inUse.Add(toReturn);
-                    _available.Remove(toReturn);
-                    return toReturn;
-                }
-                else
-                {
-                    toReturn = DistributionFactory.Create(type, withPeakAt, withScale);
-                    _inUse.Add(toReturn);
-                    return toReturn;
+                    if (instance == null)
+                    {
+                        instance = new DistributionPool();
+                    }
+                    return instance;
                 }
             }
         }
 
-        public static void ReleaseObject(ProbabilityDistribution distribution)
+        private List<ProbabilityDistribution> distributions;
+        private Mutex m = new Mutex();
+
+        private DistributionPool()
         {
-            lock (_available)
+            distributions = new List<ProbabilityDistribution>();
+        }
+
+        public ProbabilityDistribution GetDistribution(Distribution type, double withPeakAt, double withScale)
+        {
+
+            var toReturn = distributions.Find(dist =>
             {
-                _available.Add(distribution);
-                _inUse.Remove(distribution);
+                return dist.Type == type &&
+                    dist.PeakX == withPeakAt &&
+                    dist.Scale == withScale;
+            });
+
+            if (type == Distribution.Uniform)
+            {
+                toReturn = distributions.Find(dist => dist.Type == Distribution.Uniform);
             }
+            
+            if (toReturn == null)
+            {
+                m.WaitOne();
+                toReturn = DistributionFactory.Create(type, withPeakAt, withScale);
+                distributions.Add(toReturn);
+                m.ReleaseMutex();
+            }
+            
+            return toReturn;
         }
     }
 }

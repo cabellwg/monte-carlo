@@ -4,11 +4,11 @@ namespace MonteCarlo.Models.Statistics
 {
     public class LogNormalDistribution : ProbabilityDistribution
     {
-        private NormalDistribution normalSampler;
+        private ProbabilityDistribution normalSampler;
 
         public LogNormalDistribution(double mean, double standardDeviation)
         {
-            normalSampler = new NormalDistribution(0, 1);
+            normalSampler = DistributionPool.Instance.GetDistribution(Statistics.Distribution.Normal, 0, 1);
             PeakX = mean;
             Scale = standardDeviation;
             Type = Statistics.Distribution.LogNormal;

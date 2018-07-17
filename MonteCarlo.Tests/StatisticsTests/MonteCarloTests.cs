@@ -1,6 +1,7 @@
 ﻿using Xunit;
 using MonteCarlo.Models.Statistics;
 using Newtonsoft.Json;
+using MonteCarlo.Models;
 
 namespace MonteCarlo.Tests.StatisticsTests
 {
@@ -9,9 +10,18 @@ namespace MonteCarlo.Tests.StatisticsTests
         [Fact]
         public void TestMonteCarlo()
         {
-            ProbabilityDistribution normal = new NormalDistribution(mean: 0, standardDeviation: 1);
-            Models.Statistics.MonteCarlo mc = new Models.Statistics.MonteCarlo(random: normal);
-            double[][] result = mc.Run();
+            var mc = new Models.MonteCarlo();
+
+            var result = mc.Run(withProfile: new RunProfile()
+            {
+                SeedDistribution = DistributionPool.GetDistribution(Distribution.Normal, withPeakAt: 0.093, withScale: 27.814),
+                StepDistribution = DistributionPool.GetDistribution(Distribution.Normal, withPeakAt: 10.82, withScale: 17.16),
+                TrialLength = 30,
+                ContributionLength = 15,
+                InitialAmount = 10000,
+                ContributionAmount = 500,
+                WithdrawalAmount = 5000
+            });
             string jsonResult = JsonConvert.SerializeObject(result);
         }
     }

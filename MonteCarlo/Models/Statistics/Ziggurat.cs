@@ -21,7 +21,7 @@ namespace MonteCarlo.Models.Statistics
         private MathFunction inverseOfCdf;
         private IRandom random;
 
-        /* This runs in O(n^3 * O(forPdf) + O(inverseOfPdf)).
+        /* This runs in O(O(forPdf) + O(inverseOfPdf)).
          * Call as few times as possible.
          */
         public Ziggurat(MathFunction forPdf,
@@ -51,13 +51,13 @@ namespace MonteCarlo.Models.Statistics
             xLimits = new double[NUM_RECTS];
             yLimits = new double[NUM_RECTS];
 
-            // Search for suitable area using numerical integration and Newton-Raphson root finder
+            // Search for suitable area using numerical integration
             double goal = pdf(0);
             double lowerBound = pdf(bound);
-            MathFunction currentTailArea = x => NumericalTools.Integrate(pdf, x, bound);
-            MathFunction currentR0Area = x => pdf(x) * x;
+            double currentTailArea(double x) => NumericalTools.Integrate(pdf, x, bound);
+            double currentR0Area(double x) => pdf(x) * x;
 
-            MathFunction topY = x =>
+            double topY(double x)
             {
                 xLimits[0] = x;
                 yLimits[0] = pdf(x);
@@ -71,9 +71,7 @@ namespace MonteCarlo.Models.Statistics
                 }
 
                 return yLimits[NUM_RECTS - 1];
-            };
-
-            //double x0 = NumericalTools.FindRoot(x => goal - topY(x), 0, bound);
+            }
 
             double x0 = bound;
 

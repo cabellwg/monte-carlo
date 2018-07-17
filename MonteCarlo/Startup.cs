@@ -13,10 +13,8 @@ namespace MonteCarlo
             Configuration = configuration;
 
             // Construct probability distributions
-            ProbabilityDistribution distribution = DistributionPool.GetDistribution(Distribution.Normal, 0.093, 27.814);
-            DistributionPool.ReleaseObject(distribution);
-            distribution = DistributionPool.GetDistribution(Distribution.Normal, 10.82, 17.16);
-            DistributionPool.ReleaseObject(distribution);
+            DistributionPool.Instance.GetDistribution(Distribution.Normal, 0.093, 27.814);
+            DistributionPool.Instance.GetDistribution(Distribution.Normal, 10.82, 17.16);
 
         }
 
