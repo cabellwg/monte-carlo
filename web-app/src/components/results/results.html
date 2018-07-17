@@ -2,6 +2,8 @@
   <require from="../../resources/styles/results.css"></require>
   <require from="../charts/histogram"></require>
   <require from="../charts/histogram2"></require>
+  <require from="../charts/historicalLine"></require>
+  <require from="../charts/projectedLine"></require>
 
   <link href="https://fonts.googleapis.com/css?family=Cantata+One" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Imprima" rel="stylesheet">
@@ -9,9 +11,7 @@
 
 
   <h2>Probability of <span style="color: #26A65B">Success<span></span></h2>
-   
-
-
+     
 
   <div class="css-slider-wrapper">
       <input type="radio" name="slider" class="slide-radio1" checked id="slider_1">
@@ -50,8 +50,8 @@
             <div class="container table">
               <table>
                 <tr>
-                  <th class="chartHeading">Histogram 1</th>
-                 <th class="chartHeading">Histogram 2</th>
+                  <th class="chartHeading">Historical</th>
+                 <th class="chartHeading">Projected</th>
                </tr>
                
                <tr>
@@ -65,14 +65,38 @@
                    </tr>
                </table>
              </div>
-           </div>
 
+           </div>
       </div>
 
 
       <div class="slider slide2">
         <div>
-         Slide 2
+
+          
+          <historical-line></historical-line>
+          <projected-line></projected-line>
+      
+          
+          <div class="container table">
+              <table>
+                <tr>
+                  <th class="chartHeading">Historical</th>
+                 <th class="chartHeading">Projected</th>
+               </tr>
+               
+               <tr>
+                 <td class="chartBody">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
+                   exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
+                   pariatur. Excepteur sint occaecat cupidatat non proident, sunt in <span style="color: red"><b>80%</b></span> culpa qui officia deserunt mollit anim id est laborum.</td>
+                   
+                   <td class="chartBody">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
+                     exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis <span style="color: red"><b>$70</b></span> aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
+                     pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
+                   </tr>
+               </table>
+             </div>
+
         </div>
       </div>
 
