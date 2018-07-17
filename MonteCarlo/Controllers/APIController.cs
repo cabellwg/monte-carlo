@@ -6,7 +6,7 @@ using MonteCarlo.Models.Statistics;
 namespace MonteCarlo.Controllers
 {
     [Route("api/")]
-    public class ValuesController : Controller
+    public class APIController : Controller
     {
         [HttpGet]
         public JsonResult Get()

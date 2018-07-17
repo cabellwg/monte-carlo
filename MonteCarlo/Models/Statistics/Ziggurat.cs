@@ -97,8 +97,12 @@ namespace MonteCarlo.Models.Statistics
 
             while (topY(x0) < goal)
             {
+                var top = topY(x0);
                 x0 -= bound / resolution;
             }
+
+            x0 += bound / (2 * resolution);
+            topY(x0);
 
             r0Area = currentR0Area(x0);
         }

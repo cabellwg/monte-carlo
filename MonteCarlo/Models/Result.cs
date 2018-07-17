@@ -4,7 +4,8 @@ namespace MonteCarlo.Models
 {
     public class Result
     {
-        public double SuccessRate { get; set; }
+        public int SuccessRate { get; set; }
         public Dictionary<string, double[][]> Trials { get; set; }
+        //public PortfolioPercentiles;
     }
 }
