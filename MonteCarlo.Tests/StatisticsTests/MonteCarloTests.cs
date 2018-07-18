@@ -10,7 +10,7 @@ namespace MonteCarlo.Tests.StatisticsTests
         [Fact]
         public void TestMonteCarlo()
         {
-            var mc = new Models.MonteCarlo();
+            var mc = new Models.MonteCarloSimulation();
 
             var result = mc.Run(withProfile: new RunProfile()
             {

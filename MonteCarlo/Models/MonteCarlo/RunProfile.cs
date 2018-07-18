@@ -11,5 +11,8 @@ namespace MonteCarlo.Models
         public double InitialAmount { get; set; }
         public double ContributionAmount { get; set; }
         public double WithdrawalAmount { get; set; }
+
+        public double Drift { get; set; }
+        public double Volatility { get; set; }
     }
 }
