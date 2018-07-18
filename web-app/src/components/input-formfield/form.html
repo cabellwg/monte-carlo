@@ -2,69 +2,97 @@
     <require from="../../resources/styles/form.css"></require>
     <link href="https://fonts.googleapis.com/css?family=Cantata+One" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Imprima" rel="stylesheet">
-
-  <div class="container">
-   <div class="form-group">
-     <label for="age" class="labelHeading">Age</label>
-     <input type="text" class="form-control placeholderText" id="inputAge" placeholder="What is your age?" name="age" required>
-   </div>
-
-   <div class="form-group">
-      <label for="retireAge" class="labelHeading">Retire Age</label>
-      <input type="text" class="form-control placeholderText" id="inputRetireAge" placeholder="When will you retire?" name="retireAge">
-    </div>
-
-    <div class="form-group">
-      <label for="deathAge" class="labelHeading">DeathAge</label>
-      <input type="text" class="form-control placeholderText" id="inputDeathAge" placeholder="Estimated death age?" name="deathAge">
-    </div>
-
-    <div class="form-group">
-      <label for="yearlyContributions" class="labelHeading">Yearly Contributions</label>
-      <div class="inner-addon left-addon">
-        <i class="glyphicon glyphicon-usd"></i>
-        <input type="text" class="form-control placeholderText" id="inputYearlyContributions" placeholder="What are your yearly contributions?" name="yearlyContributions">
-        <small id="yearlyContributionHelpLine" class="text-muted">
-          This is a helper text for the yearly contributions
-        </small>
-        </div>
-    </div>
-
-    <div class="form-group">
-      <label for="initialAmount" class="labelHeading">Initial Amount - <i><span style="color: rgb(131, 128, 128)">Optional</i></span></label>
-      <div class="inner-addon left-addon">
-      <i class="glyphicon glyphicon-usd"></i>
-      <input type="text" class="form-control placeholderText" id="inputInitialAmount" placeholder="What is your initial amount?" name="initialAmount">
-      </div>
-    </div>
     
-    <div class="form-group">
-      <label for="portfolio" class="labelHeading">Portfolio</label>
-      <div class="list-group-horizontal">
-        <a href="#" class="list-group-item placeholderText">Stock%</a>
-        <a href="#" class="list-group-item placeholderText">Bond%</a>
-        <a href="#" class="list-group-item placeholderText">Savings%</a>
-        <small id="yearlyContributionHelpLine placeholderText" class="text-muted">
-          This is a helper text for the portfolio
-        </small>
-      </div>
+    
+    <div class="container">
+      <fieldset class="form-group">
+        <label for="age" class="labelHeading">Age</label>
+        <input type="text" class="form-control placeholderText" id="inputAge" placeholder="What is your age?" name="age" value.bind="currentAge & validate">
+      </fieldset>
+
+      <fieldset class="form-group">
+          <label for="retireAge" class="labelHeading">Retire Age</label>
+          <input type="text" class="form-control placeholderText" id="inputRetireAge" placeholder="When will you retire?" name="retireAge" value.bind="retireAge & validate">
+      </fieldset>
+
+      <fieldset class="form-group">
+          <label for="deathAge" class="labelHeading">Death Age</label>
+          <input type="text" class="form-control placeholderText" id="inputDeathAge" placeholder="Estimated death age?" name="deathAge">
+      </fieldset>
+
+      <hr>
+
+      <h4>Stocks:</h4>
+      <fieldset class="form-group">
+        <div class="row">
+          <div class="col-md-6 form-group">
+            <label for="initialAmount" class="labelHeading">Initial Amount</label>
+            <div class="inner-addon left-addon"><i class="glyphicon glyphicon-usd"></i>
+              <input type="text" class="form-control placeholderText" id="inputInitialAmount" placeholder="What is your initial amount?" name="initialAmount">
+            </div>
+          </div>
+
+          <div class="col-md-6 form-group">
+            <label for="yearlyContributions" class="labelHeading">Yearly Contributions</label>
+            <div class="inner-addon left-addon"><i class="glyphicon glyphicon-usd"></i>
+              <input type="text" class="form-control placeholderText" id="inputYearlyContributions" placeholder="What are your yearly contributions?" name="yearlyContributions">
+            </div>
+          </div>
+        </div> 
+      </fieldset>
+
+      <hr>
+
+      <h4>Bonds:</h4>
+      <fieldset class="form-group">
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label for="initialAmount" class="labelHeading">Initial Amount</label>
+              <div class="inner-addon left-addon"><i class="glyphicon glyphicon-usd"></i>
+                <input type="text" class="form-control placeholderText" id="inputInitialAmount" placeholder="What is your initial amount?" name="initialAmount">
+              </div>
+            </div>
+  
+            <div class="col-md-6 form-group">
+              <label for="yearlyContributions" class="labelHeading">Yearly Contributions</label>
+              <div class="inner-addon left-addon"><i class="glyphicon glyphicon-usd"></i>
+                <input type="text" class="form-control placeholderText" id="inputYearlyContributions" placeholder="What are your yearly contributions?" name="yearlyContributions">
+              </div>
+            </div>
+          </div> 
+        </fieldset>
+
+      <hr>
+
+      <h4>Savings:</h4>
+
+      <fieldset class="form-group">
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label for="initialAmount" class="labelHeading">Initial Amount</label>
+              <div class="inner-addon left-addon"><i class="glyphicon glyphicon-usd"></i>
+                <input type="text" class="form-control placeholderText" id="inputInitialAmount" placeholder="What is your initial amount?" name="initialAmount">
+              </div>
+            </div>
+  
+            <div class="col-md-6 form-group">
+              <label for="yearlyContributions" class="labelHeading">Yearly Contributions</label>
+              <div class="inner-addon left-addon"><i class="glyphicon glyphicon-usd"></i>
+                <input type="text" class="form-control placeholderText" id="inputYearlyContributions" placeholder="What are your yearly contributions?" name="yearlyContributions">
+              </div>
+            </div>
+          </div> 
+        </fieldset>
+
+      <hr>
+
+      <fieldset class="form-group">
+          <label for="desiredIncome" class="labelHeading">Desired Retirement Income</label>
+          <input type="text" class="form-control placeholderText" id="DesiredRetirementIncome" placeholder="What is your desired retirement Income?" name="desiredRetirementIncome" required>
+        </fieldset>
+
     </div>
 
-    <div class="form-group">
-      <label for="desiredSpendings" class="labelHeading">Desired Spendings</label>
-      <div class="inner-addon left-addon">
-      <i class="glyphicon glyphicon-usd"></i>
-      <input type="text" class="form-control placeholderText" id="inputDesiredSpendings" placeholder="What is your desired spendings?" name="desiredSpendings">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="yearInRetirements" class="labelHeading">Year in Retirement</label>
-      <div class="inner-addon left-addon">
-      <i class="glyphicon glyphicon-usd"></i>
-      <input type="text" class="form-control placeholderText" id="inputYearInRetirement" placeholder="In how many year will you retire?" name="yearInRetirement">
-      </div>
-    </div>
 
     <div id="wrapper">
     <input type="submit" value="Submit" click.delegate="submitFormButton()">
