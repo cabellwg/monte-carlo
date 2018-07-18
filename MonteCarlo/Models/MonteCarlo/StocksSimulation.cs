@@ -31,6 +31,10 @@ namespace MonteCarlo.Models
                     : 0;
 
                 trial[i] = trial[i] > 0 ? trial[i] : 0;
+                if (trial[i] == 0) {
+                    break;
+                }
+                
             }
 
             // Add data to return value

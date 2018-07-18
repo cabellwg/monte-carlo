@@ -6,7 +6,8 @@ namespace MonteCarlo.Models
 {
     public abstract class MonteCarloSimulation
     {
-        public static int NUM_TRIALS = 1000;
+        // Make sure that NUM_TRIALS - 1 is an even multiple of NUM_PERCENTILES - 1 in SimulationManager
+        public static int NUM_TRIALS = 9999;
 
         protected readonly double[][] trials;
         protected Mutex mutex = new Mutex();

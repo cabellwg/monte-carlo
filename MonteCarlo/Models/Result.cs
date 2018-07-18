@@ -6,6 +6,6 @@ namespace MonteCarlo.Models
     {
         public int SuccessRate { get; set; }
         public Dictionary<string, double[][]> Trials { get; set; }
-        //public PortfolioPercentiles;
+        public List<double[]> PortfolioPercentiles;
     }
 }
