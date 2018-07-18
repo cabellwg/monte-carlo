@@ -10,12 +10,12 @@ namespace MonteCarlo.Tests.StatisticsTests
         [Fact]
         public void TestMonteCarlo()
         {
-            var mc = new Models.MonteCarloSimulation();
+            var mc = new BondsSimulation();
 
             var result = mc.Run(withProfile: new RunProfile()
             {
-                SeedDistribution = DistributionPool.GetDistribution(Distribution.Normal, withPeakAt: 0.093, withScale: 27.814),
-                StepDistribution = DistributionPool.GetDistribution(Distribution.Normal, withPeakAt: 10.82, withScale: 17.16),
+                SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 0.093, withScale: 27.814),
+                StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 10.82, withScale: 17.16),
                 TrialLength = 30,
                 ContributionLength = 15,
                 InitialAmount = 10000,
