@@ -32,7 +32,7 @@ namespace MonteCarlo.Models.Statistics
             distributions = new List<ProbabilityDistribution>();
         }
 
-        public ProbabilityDistribution GetDistribution(Distribution type, double withPeakAt, double withScale)
+        public ProbabilityDistribution GetDistribution(Distribution type, double withPeakAt = 0, double withScale = 0)
         {
 
             var toReturn = distributions.Find(dist =>

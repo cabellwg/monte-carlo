@@ -1,6 +1,6 @@
 ﻿namespace MonteCarlo.Models.Statistics
 {
-    public abstract class ProbabilityDistribution : IRandom
+    public abstract class ProbabilityDistribution
     {
         public virtual Distribution Type { get; set; }
         public double PeakX { get; protected set; }

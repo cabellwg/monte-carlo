@@ -1,44 +1,8 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using MonteCarlo.Models.Statistics;
-
-namespace MonteCarlo.Models
+﻿namespace MonteCarlo.Models
 {
-    public class MonteCarlo
+    public class SavingsSimulation : MonteCarloSimulation
     {
-        public static int NUM_TRIALS = 1000;
-
-        private readonly double[][] trials;
-        private Mutex mutex = new Mutex();
-
-        public MonteCarlo()
-        {
-            trials = new double[NUM_TRIALS][];
-        }
-
-        public double[][] Run(RunProfile withProfile)
-        {
-            if (withProfile.StepDistribution.Type == Distribution.DiracDelta ||
-                withProfile.StepDistribution.Type == Distribution.Testable)
-            {
-                RunTrial(0, withProfile);
-                for (var i = 1; i < NUM_TRIALS; i++)
-                {
-                    trials[i] = trials[0];
-                }
-            }
-            else
-            {
-                Parallel.For(0, NUM_TRIALS, i =>
-                {
-                    RunTrial(i, withProfile);
-                });
-            }
-
-            return trials;
-        }
-
-        private void RunTrial(int trialNumber, RunProfile profile)
+        protected override void RunTrial(int trialNumber, RunProfile profile)
         {
             double[] trial = new double[profile.TrialLength];
 

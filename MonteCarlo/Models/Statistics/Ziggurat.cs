@@ -8,7 +8,7 @@ namespace MonteCarlo.Models.Statistics
      * See https://en.wikipedia.org/wiki/Ziggurat_algorithm#Generating_the_tables
      * for the setup in the constructor.
      */
-    public class Ziggurat : IRandom
+    public class Ziggurat
     {
         private const int NUM_RECTS = 256;
 
@@ -19,7 +19,7 @@ namespace MonteCarlo.Models.Statistics
         private double mean;
         private MathFunction pdf;
         private MathFunction inverseOfCdf;
-        private IRandom random;
+        private ProbabilityDistribution random;
 
         /* This runs in O(O(forPdf) + O(inverseOfPdf)).
          * Call as few times as possible.
@@ -27,7 +27,7 @@ namespace MonteCarlo.Models.Statistics
         public Ziggurat(MathFunction forPdf,
             double mean,
             double bound,
-            IRandom randomNumberGenerator,
+            ProbabilityDistribution randomNumberGenerator,
             int resolution = 1000000,
             MathFunction inverseOfCdf = null,
             MathFunction inverseOfPdf = null)

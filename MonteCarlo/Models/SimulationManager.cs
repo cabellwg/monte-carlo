@@ -5,15 +5,17 @@ using MonteCarlo.Models.Statistics;
 
 namespace MonteCarlo.Models
 {
-    public class PortfolioSimulator
+    public class SimulationManager
     {
+        private const int NUM_PERCENTILES = 10;
+
         private readonly RunProfile stocksProfile;
         private readonly RunProfile bondsProfile;
         private readonly RunProfile savingsProfile;
 
-        private MonteCarlo stocksSimulation;
-        private MonteCarlo bondsSimulation;
-        private MonteCarlo savingsSimulation;
+        private MonteCarloSimulation stocksSimulation;
+        private MonteCarloSimulation bondsSimulation;
+        private MonteCarloSimulation savingsSimulation;
 
         private readonly int trialLength;
         private readonly double withdrawalAmount;
@@ -21,7 +23,7 @@ namespace MonteCarlo.Models
         private readonly double bondsWithdrawalAmount;
         private readonly double savingsWithdrawalAmount;
 
-        public PortfolioSimulator(DataModel dataModel)
+        public SimulationManager(DataModel dataModel)
         {
             int contributionLength = dataModel.RetirementAge - dataModel.Age;
             contributionLength = contributionLength > 0 ? contributionLength : 0;
@@ -44,18 +46,27 @@ namespace MonteCarlo.Models
             bondsWithdrawalAmount = withdrawalAmount * bondsContribProportion;
             savingsWithdrawalAmount = withdrawalAmount * savingsContribProportion;
 
+            /* **********************************************************************
+             *                                                                      *
+             *           Change parameters for the Postman tests below              *
+             *                                                                      *
+             *                                                                      *
+             *                                                                      *
+             *                                                                      *
+             * **********************************************************************/
 
             // Set up simulations
             // Stocks
-            stocksSimulation = new MonteCarlo();
+            stocksSimulation = new StocksSimulation();
             stocksProfile = new RunProfile()
             {
-                SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal,
-                    withPeakAt: 10.82,
-                    withScale: 17.16),
+                SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.DiracDelta),
+                // This should always be the unit distribution, the scaling is done by Drift and Volatility
                 StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal,
-                    withPeakAt: 0.093,
-                    withScale: 27.814 / trialLength),
+                    withPeakAt: 0,
+                    withScale: 1),
+                Drift = 0.056331,
+                Volatility = 0.188768 / trialLength,
                 TrialLength = trialLength,
                 ContributionLength = contributionLength,
                 InitialAmount = dataModel.StocksAmount,
@@ -64,12 +75,10 @@ namespace MonteCarlo.Models
             };
 
             // Bonds
-            bondsSimulation = new MonteCarlo();
+            bondsSimulation = new BondsSimulation();
             bondsProfile = new RunProfile()
             {
-                SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal,
-                    withPeakAt: 4.80,
-                    withScale: 3.68),
+                SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.DiracDelta, withPeakAt: 1.18),
                 StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal,
                     withPeakAt: 0.00,
                     withScale: 3.88 / trialLength),
@@ -81,7 +90,7 @@ namespace MonteCarlo.Models
             };
 
             // Savings
-            savingsSimulation = new MonteCarlo();
+            savingsSimulation = new SavingsSimulation();
             savingsProfile = new RunProfile()
             {
                 SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.DiracDelta,
@@ -121,7 +130,7 @@ namespace MonteCarlo.Models
 
             int numberOfSuccesses = 0;
 
-            for (var i = 0; i < MonteCarlo.NUM_TRIALS; i++)
+            for (var i = 0; i < MonteCarloSimulation.NUM_TRIALS; i++)
             {
                 if (trials["stocks"][i][trialLength - 2] +
                     trials["bonds"][i][trialLength - 2] +
@@ -131,14 +140,13 @@ namespace MonteCarlo.Models
                 }
             }
 
-            result.SuccessRate = (int)Math.Round(100 * numberOfSuccesses / (double)MonteCarlo.NUM_TRIALS);
+            result.SuccessRate = (int)Math.Round(100 * numberOfSuccesses / (double)MonteCarloSimulation.NUM_TRIALS);
 
             double[] sortWeights = trials["stocks"].Select((trial, index) =>
             {
-                
                 return 0.0;
             }).AsParallel().ToArray();
-
+            
             return result;
         }
     }
