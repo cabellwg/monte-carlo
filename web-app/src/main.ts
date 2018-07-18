@@ -12,6 +12,7 @@ Bluebird.config({ warnings: { wForgottenReturn: false } });
 export function configure(aurelia: Aurelia) {
   aurelia.use
     .standardConfiguration()
+    .developmentLogging()
     .plugin(PLATFORM.moduleName('aurelia-bootstrap'))
     .plugin(PLATFORM.moduleName('aurelia-validation'))
     .plugin(PLATFORM.moduleName('aurelia-validatejs'))
