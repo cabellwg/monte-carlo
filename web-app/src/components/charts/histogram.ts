@@ -6,19 +6,8 @@ import {Data} from 'resources/scripts/data';
 @inject(EventAggregator)
 export class Histogram {
   
-  @bindable data: Data;
-  ea: EventAggregator;
 
-  constructor(EventAggregator){
-    this.ea = EventAggregator;
-  }
-  
   attached() {
-    this.ea.subscribe("reload", r => {
-      if(r === "reloaded"){
-        this.buildChart();
-      }
-    });
     this.buildChart();
   }
    

@@ -1,7 +1,13 @@
+import { Data } from './resources/scripts/data';
+import { EventAggregator} from 'aurelia-event-aggregator';
 import {PLATFORM} from 'aurelia-pal';
 import {Router, RouterConfiguration} from 'aurelia-router';
+import { inject } from 'aurelia-framework';
 
+
+@inject(EventAggregator)
 export class App {
+
   router: Router;
   configureRouter(config: RouterConfiguration, router: Router){
     config.title = 'Aurelia Router';
@@ -12,4 +18,8 @@ export class App {
     ]);
     this.router = router;
   }
+
+  
+
+
 }

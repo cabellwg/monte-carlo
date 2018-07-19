@@ -1,6 +1,6 @@
 
 export class Data{
 
-  successRate: number;
-  portfolioPercentiles: number;
+  static successRate: number;
+  static portfolioPercentiles: number;
 }

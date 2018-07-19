@@ -1,3 +1,4 @@
+import { Router } from 'aurelia-router';
 import { APIRequest } from './../../resources/scripts/api';
 import { Data } from './../../resources/scripts/data';
 import { Inputs } from './../../resources/scripts/inputs';
@@ -9,14 +10,16 @@ import { ValidationControllerFactory, ValidationController, ValidationRules, val
 import { BootstrapFormRenderer } from './bootstrap-form-renderer';
 
 @inject(ValidationControllerFactory)*/
-@inject(EventAggregator)
+@inject(EventAggregator, Router)
 export class Form{
 
-  inputs: Inputs
+  inputs: Inputs = new Inputs()
   ea: EventAggregator
+  router: Router
 
-  constructor(EventAggregator){
+  constructor(EventAggregator, router){
     this.ea = EventAggregator;
+    this.router = router;
   }
 
   /*
@@ -45,10 +48,14 @@ export class Form{
   }*/
 
   submitFormButton(){
+    console.log(this.inputs)
     APIRequest.postInputs(this.inputs)
       .then(data => {
-        this.ea.publish("dataStream", data)
-        window.location.href="/results"
+        Data.portfolioPercentiles = data.portfolioPercentiles
+        Data.successRate = data.successRate
+        console.log(Data.portfolioPercentiles)
+        this.router.navigateToRoute("results")
+        // window.location.href="/results"
       })
     
   }

@@ -1,26 +1,20 @@
 import { Data } from 'resources/scripts/data';
 import { inject } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
+import { Router } from 'aurelia-router';
 
-@inject(EventAggregator)
+@inject(EventAggregator, Router)
 export class Results {
 
-  ea: EventAggregator
-  data: Data;
+  router: Router
 
-  constructor(EventAggregator){
-    this.ea = EventAggregator;
+  constructor(router){
+    this.router = router
   }
 
   attached(){
-    this.ea.subscribe("dataStream", result =>{
-      this.data = result;
-      console.log("Got the data")
-    })
+    console.log(Data.portfolioPercentiles)
   }
 
- 
-  inputsReturnButton(){
-    window.location.href="/"
-   }
+
 }
