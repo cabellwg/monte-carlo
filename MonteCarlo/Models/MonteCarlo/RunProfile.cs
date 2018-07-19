@@ -84,7 +84,7 @@ namespace MonteCarlo.Models
                             Volatility = 0.0;
                             break;
                         default:
-
+                            Drift = 0.001;
                             break;
                     }
 
