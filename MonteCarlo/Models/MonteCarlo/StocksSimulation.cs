@@ -23,11 +23,11 @@ namespace MonteCarlo.Models
                 unitValue = Math.Exp((profile.Drift - (Math.Pow(profile.Volatility, 2) / 2) * i) + profile.Volatility * step);
 
                 trial[i] = trial[i - 1] > 0 ?
-                    i < profile.ContributionLength ?
+                    (i < profile.ContributionLength ?
                         // Contribution period
                         (trial[i - 1] + profile.ContributionAmount) * unitValue :
                         // Withdrawal period
-                        (trial[i - 1] - profile.WithdrawalAmount) * unitValue
+                        (trial[i - 1] - profile.WithdrawalAmount) * unitValue)
                     : 0;
 
                 trial[i] = trial[i] > 0 ? trial[i] : 0;

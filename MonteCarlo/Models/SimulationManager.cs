@@ -130,6 +130,10 @@ namespace MonteCarlo.Models
             int[] rateFrequencies = new int[25];
             foreach (var rate in returnRates)
             {
+                if (rate == 0)
+                {
+                    continue;
+                }
                 var i = 0;
                 while (i < 24 && rate > rateBrackets[i])
                 {
