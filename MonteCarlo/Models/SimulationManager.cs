@@ -152,7 +152,7 @@ namespace MonteCarlo.Models
                 {
                     return value + trials["bonds"][i][j] + trials["savings"][i][j];
                 }).ToArray();
-            }).ToList();
+            }).ToArray();
 
             int numberOfSuccesses = 0;
 
@@ -171,8 +171,8 @@ namespace MonteCarlo.Models
             result.PortfolioPercentiles = portfolios.Where((trial, index) =>
             {
                 // Make sure that NUM_TRIALS - 1 in MonteCarloSimulation is an even multiple of NUM_PERCENTILES - 1
-                return index % ((portfolios.Count - 1) / (NUM_PERCENTILES - 1)) == 0;
-            }).ToList();
+                return index % ((portfolios.Length - 1) / (NUM_PERCENTILES - 1)) == 0;
+            });
             
             return result;
         }

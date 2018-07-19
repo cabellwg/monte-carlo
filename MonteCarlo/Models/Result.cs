@@ -5,7 +5,6 @@ namespace MonteCarlo.Models
     public class Result
     {
         public int SuccessRate { get; set; }
-        public Dictionary<string, double[][]> Trials { get; set; }
-        public List<double[]> PortfolioPercentiles;
+        public IEnumerable<double[]> PortfolioPercentiles;
     }
 }
