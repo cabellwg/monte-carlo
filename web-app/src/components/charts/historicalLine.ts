@@ -1,8 +1,9 @@
+import { Data } from './../../resources/scripts/data';
 import { Chart } from 'chart.js';
 
 export class HistoricalLine {
 
-  attached() {
+  attached(){
     this.buildChart();
   }
    
@@ -14,7 +15,7 @@ export class HistoricalLine {
      data:{
        datasets:[{
          label: 'Label 1',
-         data: [0, 59, 75, 20, 20, 55, 40],
+         data: [Data.successRate],
          lineTension: 0.3,
          fill: false,
          borderColor: 'red',
@@ -39,7 +40,7 @@ export class HistoricalLine {
        },
        {
          label: 'Label 3',
-         data: [56, 78, 12, 30, 45, 15, 65],
+         data: [Data.portfolioPercentiles],
          lineTension: 0.3,
          fill: false,
          borderColor: 'orange',
