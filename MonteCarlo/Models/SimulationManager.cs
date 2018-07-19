@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MonteCarlo.Models.Statistics;
 using Sto;
 
 namespace MonteCarlo.Models
@@ -102,6 +103,46 @@ namespace MonteCarlo.Models
                 // Make sure that NUM_TRIALS - 1 in MonteCarloSimulation is an even multiple of NUM_PERCENTILES - 1
                 return index % ((portfolios.Length - 1) / (NUM_PERCENTILES - 1)) == 0;
             });
+
+            var returnRates = portfolios.SelectMany(trial =>
+            {
+                return trial.Skip(1).Select((value, index) =>
+                {
+                    return trial[index] == 0 ? 0 : value / trial[index];
+                });
+            });
+
+            result.FrequencyPeak = returnRates.Average();
+            switch (stocksProfile.StepDistribution.Type)
+            {
+                default:
+                    result.FrequencyScale = Math.Sqrt(returnRates.Aggregate((sum, next) => sum + Math.Pow(result.FrequencyPeak - next, 2))
+                        / (returnRates.Count() - 1));
+                    break;
+            }
+
+            double[] rateBrackets = new double[24];
+            for (var i = 0; i < 24; i++)
+            {
+                rateBrackets[i] = result.FrequencyPeak - 4 * result.FrequencyScale + result.FrequencyScale * i / 3;
+            }
+
+            int[] rateFrequencies = new int[25];
+            foreach (var rate in returnRates)
+            {
+                if (rate == 0)
+                {
+                    continue;
+                }
+                var i = 0;
+                while (i < 24 && rate > rateBrackets[i])
+                {
+                    i++;
+                }
+                rateFrequencies[i]++;
+            }
+
+            result.ReturnRateFrequencies = rateFrequencies;
             
             return result;
         }
