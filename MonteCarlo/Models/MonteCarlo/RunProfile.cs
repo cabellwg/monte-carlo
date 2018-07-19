@@ -27,8 +27,8 @@ namespace MonteCarlo.Models
         public RunProfile(InvestmentType investmentType, DataModel dataModel)
         {
             // Process data into usable form
-            int contributionLength = dataModel.RetirementAge - dataModel.Age;
-            contributionLength = contributionLength > 0 ? contributionLength : 0;
+            ContributionLength = dataModel.RetirementAge - dataModel.Age;
+            ContributionLength = ContributionLength > 0 ? ContributionLength : 0;
 
             TrialLength = dataModel.DeathAge - dataModel.Age;
             TrialLength = TrialLength > 0 ? TrialLength : 0;
@@ -72,8 +72,8 @@ namespace MonteCarlo.Models
                     switch (dataModel.DataStartDate)
                     {
                         case DataStartDate._1928:
-                            Drift = 0.056331;
-                            Volatility = 0.188768;
+                            Drift = 0.0819;
+                            Volatility = 0.088;
                             break;
                         case DataStartDate._1975:
                             Drift = 0.0;
@@ -105,11 +105,11 @@ namespace MonteCarlo.Models
                     ContributionAmount = dataModel.YearlyBondsContributions;
                     WithdrawalAmount = bondsWithdrawalAmount;
 
-                    SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.DiracDelta, withPeakAt: 0.0);
+                    SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.DiracDelta, withPeakAt: 3.05);
                     switch (dataModel.DistributionType)
                     {
                         case Distribution.Normal:
-                            StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 0.0, withScale: 1.0);
+                            StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 0.0, withScale: 1.71);
                             break;
                         case Distribution.Laplace:
                             StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Laplace, withPeakAt: 0.0, withScale: 1.0);
