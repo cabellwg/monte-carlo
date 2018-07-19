@@ -1,4 +1,4 @@
-import {ValidationRenderer, RenderInstruction} from 'aurelia-validation';
+/*import {ValidationRenderer, RenderInstruction} from 'aurelia-validation';
 
 export class BootstrapFormRenderer{
   render(instruction){
@@ -44,4 +44,4 @@ export class BootstrapFormRenderer{
     }
   }
 
-}
+}*/

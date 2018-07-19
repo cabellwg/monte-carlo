@@ -18,22 +18,6 @@ body{
   border-radius: 0;
 }
 
-.list-group-item:hover{
-  background-color: #26A65B !important;
-  color: white !important;
-}
-
-
-.list-group-horizontal .list-group-item:first-child{
-  border-bottom-left-radius: 3px;
-  border-top-left-radius: 3px;
-}
-
-.list-group-horizontal .list-group-item:last-child{
-  border-bottom-right-radius: 3px;
-  border-top-right-radius: 3px;
-}
-
 input[type=submit] {
   width: 10%;
   background-color: #26A65B;
@@ -85,7 +69,7 @@ pointer-events: none;
   font-size: 55px;
 }
 
-.labelHeading, h4{
+.labelHeading{
   font-family: 'Cantata One', serif;
   font-weight: bold;
   font-size: 1em; 
@@ -99,5 +83,10 @@ pointer-events: none;
 hr{
   border-bottom: 1px solid #8C8C8C;
   margin-top: 3%;
+}
+
+.portfolioHeading{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 1.3em;
 }
 

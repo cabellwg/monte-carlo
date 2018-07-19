@@ -1,10 +1,11 @@
-import {inject} from 'aurelia-dependency-injection';
+/*import {inject} from 'aurelia-dependency-injection';
 import { ValidationControllerFactory, ValidationController, ValidationRules, validateTrigger, ValidationRenderer } from 'aurelia-validation';
 import { BootstrapFormRenderer } from './bootstrap-form-renderer';
 
-@inject(ValidationControllerFactory)
+@inject(ValidationControllerFactory)*/
 export class Form{
 
+  /*
   currentAge = '';
   retireAge = '';
   controller = null;
@@ -27,6 +28,10 @@ export class Form{
     window.location.href="/results"
   }
 
+  }*/
+
+  submitFormButton(){
+    window.location.href="/results"
   }
 }
 
