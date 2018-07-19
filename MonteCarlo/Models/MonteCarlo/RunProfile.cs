@@ -69,6 +69,7 @@ namespace MonteCarlo.Models
                     ContributionAmount = dataModel.YearlyStocksContributions;
                     WithdrawalAmount = stocksWithdrawalAmount;
 
+                    // Stock GBM parameters
                     switch (dataModel.DataStartDate)
                     {
                         case DataStartDate._1928:
@@ -88,6 +89,7 @@ namespace MonteCarlo.Models
                             break;
                     }
 
+                    // Stock GBM generators
                     switch (dataModel.DistributionType)
                     {
                         case Distribution.Laplace:
@@ -105,6 +107,7 @@ namespace MonteCarlo.Models
                     ContributionAmount = dataModel.YearlyBondsContributions;
                     WithdrawalAmount = bondsWithdrawalAmount;
 
+                    // Bonds random walk generators
                     SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.DiracDelta, withPeakAt: 3.05);
                     switch (dataModel.DistributionType)
                     {
@@ -126,6 +129,7 @@ namespace MonteCarlo.Models
                     InitialAmount = dataModel.SavingsAmount;
                     ContributionAmount = dataModel.YearlySavingsContributions;
                     WithdrawalAmount = savingsWithdrawalAmount;
+                    // Interest on savings accounts
                     SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.DiracDelta, withPeakAt: 0.1);
                     StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.DiracDelta);
                     break;
