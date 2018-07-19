@@ -1,9 +1,23 @@
+import { APIRequest } from './../../resources/scripts/api';
+import { Data } from './../../resources/scripts/data';
+import { Inputs } from './../../resources/scripts/inputs';
+import {EventAggregator} from 'aurelia-event-aggregator';
+import { inject } from 'aurelia-framework';
+
 /*import {inject} from 'aurelia-dependency-injection';
 import { ValidationControllerFactory, ValidationController, ValidationRules, validateTrigger, ValidationRenderer } from 'aurelia-validation';
 import { BootstrapFormRenderer } from './bootstrap-form-renderer';
 
 @inject(ValidationControllerFactory)*/
+@inject(EventAggregator)
 export class Form{
+
+  inputs: Inputs
+  ea: EventAggregator
+
+  constructor(EventAggregator){
+    this.ea = EventAggregator;
+  }
 
   /*
   currentAge = '';
@@ -31,8 +45,15 @@ export class Form{
   }*/
 
   submitFormButton(){
-    window.location.href="/results"
+    APIRequest.postInputs(this.inputs)
+      .then(data => {
+        this.ea.publish("dataStream", data)
+        window.location.href="/results"
+      })
+    
   }
+
+
 }
 
 

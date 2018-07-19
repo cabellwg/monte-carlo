@@ -4,20 +4,20 @@
     <link href="https://fonts.googleapis.com/css?family=Imprima" rel="stylesheet">
     
     
-    <div class="container">
+    <div class="container" with.bind="inputs">
       <fieldset class="form-group">
         <label for="age" class="labelHeading">Age</label>
-        <input type="text" class="form-control placeholderText" id="inputAge" placeholder="What is your age?" name="age">
+        <input type="text" class="form-control placeholderText" id="inputAge" placeholder="What is your age?" name="age" value.bind="currentAge">
       </fieldset>
 
       <fieldset class="form-group">
           <label for="retireAge" class="labelHeading">Retire Age</label>
-          <input type="text" class="form-control placeholderText" id="inputRetireAge" placeholder="When will you retire?" name="retireAge">
+          <input type="text" class="form-control placeholderText" id="inputRetireAge" placeholder="When will you retire?" name="retireAge" value.bind="retireAge">
       </fieldset>
 
       <fieldset class="form-group">
           <label for="deathAge" class="labelHeading">Death Age</label>
-          <input type="text" class="form-control placeholderText" id="inputDeathAge" placeholder="Estimated death age?" name="deathAge">
+          <input type="text" class="form-control placeholderText" id="inputDeathAge" placeholder="Estimated death age?" name="deathAge" value.bind="deathAge">
       </fieldset>
 
       <hr>
@@ -28,14 +28,14 @@
           <div class="col-md-6 form-group">
             <label for="initialAmount" class="labelHeading">Initial Amount</label>
             <div class="inner-addon left-addon"><i class="glyphicon glyphicon-usd"></i>
-              <input type="text" class="form-control placeholderText" id="inputInitialAmount" placeholder="What is your initial amount?" name="initialAmount">
+              <input type="text" class="form-control placeholderText" id="inputInitialAmount" placeholder="What is your initial amount?" name="initialAmount" value.bind="initialAmout">
             </div>
           </div>
 
           <div class="col-md-6 form-group">
             <label for="yearlyContributions" class="labelHeading">Yearly Contributions</label>
             <div class="inner-addon left-addon"><i class="glyphicon glyphicon-usd"></i>
-              <input type="text" class="form-control placeholderText" id="inputYearlyContributions" placeholder="What are your yearly contributions?" name="yearlyContributions">
+              <input type="text" class="form-control placeholderText" id="inputYearlyContributions" placeholder="What are your yearly contributions?" name="yearlyContributions" value.bind="yearlyContributions">
             </div>
           </div>
         </div> 
@@ -49,14 +49,14 @@
             <div class="col-md-6 form-group">
               <label for="initialAmount" class="labelHeading">Initial Amount</label>
               <div class="inner-addon left-addon"><i class="glyphicon glyphicon-usd"></i>
-                <input type="text" class="form-control placeholderText" id="inputInitialAmount" placeholder="What is your initial amount?" name="initialAmount">
+                <input type="text" class="form-control placeholderText" id="inputInitialAmount" placeholder="What is your initial amount?" name="initialAmount" value.bind="initialAmout">
               </div>
             </div>
   
             <div class="col-md-6 form-group">
               <label for="yearlyContributions" class="labelHeading">Yearly Contributions</label>
               <div class="inner-addon left-addon"><i class="glyphicon glyphicon-usd"></i>
-                <input type="text" class="form-control placeholderText" id="inputYearlyContributions" placeholder="What are your yearly contributions?" name="yearlyContributions">
+                <input type="text" class="form-control placeholderText" id="inputYearlyContributions" placeholder="What are your yearly contributions?" name="yearlyContributions" value.bind="yearlyContributions">
               </div>
             </div>
           </div> 
@@ -71,14 +71,14 @@
             <div class="col-md-6 form-group">
               <label for="initialAmount" class="labelHeading">Initial Amount</label>
               <div class="inner-addon left-addon"><i class="glyphicon glyphicon-usd"></i>
-                <input type="text" class="form-control placeholderText" id="inputInitialAmount" placeholder="What is your initial amount?" name="initialAmount">
+                <input type="text" class="form-control placeholderText" id="inputInitialAmount" placeholder="What is your initial amount?" name="initialAmount" value.bind="initialAmout">
               </div>
             </div>
   
             <div class="col-md-6 form-group">
               <label for="yearlyContributions" class="labelHeading">Yearly Contributions</label>
               <div class="inner-addon left-addon"><i class="glyphicon glyphicon-usd"></i>
-                <input type="text" class="form-control placeholderText" id="inputYearlyContributions" placeholder="What are your yearly contributions?" name="yearlyContributions">
+                <input type="text" class="form-control placeholderText" id="inputYearlyContributions" placeholder="What are your yearly contributions?" name="yearlyContributions" value.bind="yearlyContributions">
               </div>
             </div>
           </div> 
@@ -88,7 +88,7 @@
 
       <fieldset class="form-group">
           <label for="desiredIncome" class="labelHeading">Desired Retirement Income</label>
-          <input type="text" class="form-control placeholderText" id="DesiredRetirementIncome" placeholder="What is your desired retirement Income?" name="desiredRetirementIncome" required>
+          <input type="text" class="form-control placeholderText" id="DesiredRetirementIncome" placeholder="What is your desired retirement Income?" name="desiredRetirementIncome" value.bind="desiredRetirementIncome">
         </fieldset>
 
     </div>
