@@ -1,4 +1,6 @@
-﻿namespace MonteCarlo.Models
+﻿using MonteCarlo.Models.Statistics;
+
+namespace MonteCarlo.Models
 {
     public class DataModel
     {
@@ -12,5 +14,14 @@
         public double BondsAmount { get; set; }
         public double SavingsAmount { get; set; }
         public double DesiredRetirementIncome { get; set; }
+        public Distribution DistributionType { get; set; }
+        public DataStartDate DataStartDate { get; set; }
+    }
+
+    public enum DataStartDate
+    {
+        _1928,
+        _1975,
+        _2000
     }
 }
