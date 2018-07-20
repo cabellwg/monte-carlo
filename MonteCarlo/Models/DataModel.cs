@@ -14,8 +14,10 @@ namespace MonteCarlo.Models
         public double BondsAmount { get; set; }
         public double SavingsAmount { get; set; }
         public double DesiredRetirementIncome { get; set; }
-        public Distribution DistributionType { get; set; }
-        public DataStartDate DataStartDate { get; set; }
+        public Distribution StocksDistributionType { get; set; }
+        public DataStartDate StocksDataStartDate { get; set; }
+        public Distribution BondsDistributionType { get; set; }
+        public DataStartDate BondsDataStartDate { get; set; }
     }
 
     public enum DataStartDate

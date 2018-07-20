@@ -69,11 +69,11 @@ namespace MonteCarlo.Models
                     WithdrawalAmount = stocksWithdrawalAmount;
 
                     // Stock GBM parameters
-                    Drift = Constants.GBMValues[dataModel.DataStartDate]["drift"];
-                    Volatility = Constants.GBMValues[dataModel.DataStartDate]["volatility"];
+                    Drift = Constants.GBMValues[dataModel.StocksDataStartDate]["drift"];
+                    Volatility = Constants.GBMValues[dataModel.StocksDataStartDate]["volatility"];
 
                     // Stock GBM generators
-                    switch (dataModel.DistributionType)
+                    switch (dataModel.StocksDistributionType)
                     {
                         case Distribution.Laplace:
                             StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Laplace, withScale: 1.0);
@@ -94,10 +94,10 @@ namespace MonteCarlo.Models
                     WithdrawalAmount = bondsWithdrawalAmount;
 
                     // Bonds random walk generators
-                    SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.DiracDelta, withPeakAt: 3.05);
-                    StepDistribution = DistributionPool.Instance.GetDistribution(dataModel.DistributionType,
-                        withPeakAt: Constants.BondValues[dataModel.DataStartDate][dataModel.DistributionType]["peak"],
-                        withScale: Constants.BondValues[dataModel.DataStartDate][dataModel.DistributionType]["scale"] / Math.Sqrt(TrialLength));
+                    SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.DiracDelta, withPeakAt: 2.94);
+                    StepDistribution = DistributionPool.Instance.GetDistribution(dataModel.BondsDistributionType,
+                        withPeakAt: Constants.BondValues[dataModel.BondsDataStartDate][dataModel.BondsDistributionType]["peak"],
+                        withScale: Constants.BondValues[dataModel.BondsDataStartDate][dataModel.BondsDistributionType]["scale"] / Math.Sqrt(TrialLength));
 
                     break;
                 case InvestmentType.Savings:

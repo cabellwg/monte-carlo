@@ -47,7 +47,7 @@ namespace MonteCarlo.Models
                         Distribution.Laplace, new Dictionary<string, double>()
                         {
                             { "peak", -0.01 },
-                            { "scale", 0.64 }
+                            { "scale", 0.61 }
                         }
                     },
                     {
@@ -73,7 +73,7 @@ namespace MonteCarlo.Models
                         Distribution.Laplace, new Dictionary<string, double>()
                         {
                             { "peak", -0.12 },
-                            { "scale", 1.35 }
+                            { "scale", 0.811 }
                         }
                     },
                     {
@@ -99,7 +99,7 @@ namespace MonteCarlo.Models
                         Distribution.Laplace, new Dictionary<string, double>()
                         {
                             { "peak", -0.13 },
-                            { "scale", 3.35 }
+                            { "scale", 0.552 }
                         }
                     },
                     {
