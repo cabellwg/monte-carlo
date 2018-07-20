@@ -18,6 +18,7 @@
             for (var i = 1; i < profile.TrialLength; i++)
             {
                 interestRate += profile.StepDistribution.NextDouble() / 100;
+                interestRate = interestRate < 0.03 ? 0.03 : interestRate;
                 bondRates[i] = interestRate;
 
                 trial[i] = trial[i - 1] > 0 ?
