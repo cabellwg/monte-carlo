@@ -8,8 +8,12 @@ namespace MonteCarlo.Models
 
         public IEnumerable<double[]> PortfolioPercentiles { get; set; }
 
-        public int[] ReturnRateFrequencies { get; set; }
-        public double FrequencyPeak { get; set; }
-        public double FrequencyScale { get; set; }
+        public int[] StocksReturnRateFrequencies { get; set; }
+        public double StocksFrequencyPeak { get; set; }
+        public double StocksFrequencyScale { get; set; }
+
+        public int[] BondsReturnRateFrequencies { get; set; }
+        public double BondsFrequencyPeak { get; set; }
+        public double BondsFrequencyScale { get; set; }
     }
 }

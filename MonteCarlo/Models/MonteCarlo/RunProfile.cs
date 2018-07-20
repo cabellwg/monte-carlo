@@ -1,4 +1,5 @@
-﻿using MonteCarlo.Models.Statistics;
+﻿using System;
+using MonteCarlo.Models.Statistics;
 
 namespace MonteCarlo.Models
 {
@@ -57,8 +58,6 @@ namespace MonteCarlo.Models
              *           Change parameters for the Postman tests below              *
              *                                                                      *
              *                                                                      *
-             *                                                                      *
-             *                                                                      *
              * **********************************************************************/
 
             // Set specific data
@@ -70,24 +69,8 @@ namespace MonteCarlo.Models
                     WithdrawalAmount = stocksWithdrawalAmount;
 
                     // Stock GBM parameters
-                    switch (dataModel.DataStartDate)
-                    {
-                        case DataStartDate._1928:
-                            Drift = 0.0819;
-                            Volatility = 0.088;
-                            break;
-                        case DataStartDate._1975:
-                            Drift = 0.0;
-                            Volatility = 0.0;
-                            break;
-                        case DataStartDate._2000:
-                            Drift = 0.0;
-                            Volatility = 0.0;
-                            break;
-                        default:
-                            Drift = 0.001;
-                            break;
-                    }
+                    Drift = Constants.GBMValues[dataModel.DataStartDate]["drift"];
+                    Volatility = Constants.GBMValues[dataModel.DataStartDate]["volatility"];
 
                     // Stock GBM generators
                     switch (dataModel.DistributionType)
@@ -112,23 +95,10 @@ namespace MonteCarlo.Models
 
                     // Bonds random walk generators
                     SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.DiracDelta, withPeakAt: 3.05);
-                    switch (dataModel.DistributionType)
-                    {
-                        case Distribution.Normal:
-                            StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 0.0, withScale: 1.71 / TrialLength);
-                            break;
-                        case Distribution.Laplace:
-                            StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Laplace, withPeakAt: 0.0, withScale: 1.0 / TrialLength);
-                            break;
-                        case Distribution.T:
-                            StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.T, withPeakAt: 0.0, withScale: 1.0 / TrialLength);
-                            break;
-                        case Distribution.Logistic:
-                            StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Logistic, withPeakAt: 0.0, withScale: 1.0);
-                            break;
-                        default:
-                            break;
-                    }
+                    StepDistribution = DistributionPool.Instance.GetDistribution(dataModel.DistributionType,
+                        withPeakAt: Constants.BondValues[dataModel.DataStartDate][dataModel.DistributionType]["peak"],
+                        withScale: Constants.BondValues[dataModel.DataStartDate][dataModel.DistributionType]["scale"] / Math.Sqrt(TrialLength));
+
                     break;
                 case InvestmentType.Savings:
                 default:
