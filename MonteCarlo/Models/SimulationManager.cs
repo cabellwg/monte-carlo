@@ -104,30 +104,46 @@ namespace MonteCarlo.Models
                 return index % ((portfolios.Length - 1) / (NUM_PERCENTILES - 1)) == 0;
             });
 
+            // Get return rates
+            var portfolioContribution = stocksProfile.ContributionAmount +
+                                        bondsProfile.ContributionAmount +
+                                        savingsProfile.ContributionAmount;
+            var portfolioWithdrawal = stocksProfile.WithdrawalAmount +
+                                      bondsProfile.WithdrawalAmount +
+                                      savingsProfile.WithdrawalAmount;
+
             var returnRates = portfolios.SelectMany(trial =>
             {
                 return trial.Skip(1).Select((value, index) =>
                 {
-                    return trial[index] == 0 ? 0 : value / trial[index];
+                    if (index < savingsProfile.ContributionLength - 1)
+                    {
+                        return trial[index] == 0 || value == 0 ? 0 : (value - trial[index] - portfolioContribution) / (trial[index] + portfolioContribution);
+                    }
+                    else
+                    {
+                        return trial[index] == 0 || value == 0 ? 0 : (value - trial[index] + portfolioWithdrawal) / (trial[index] - portfolioWithdrawal);
+                    }
                 });
             });
 
-            result.FrequencyPeak = returnRates.Average();
+            // Get frequencies of return rates
+            result.FrequencyPeak = returnRates.Where(x => x != 0).Average();
             switch (stocksProfile.StepDistribution.Type)
             {
                 default:
-                    result.FrequencyScale = Math.Sqrt(returnRates.Aggregate((sum, next) => sum + Math.Pow(result.FrequencyPeak - next, 2))
+                    result.FrequencyScale = Math.Sqrt(returnRates.Where(x => x != 0).Aggregate((sum, next) => sum + Math.Pow(result.FrequencyPeak - next, 2))
                         / (returnRates.Count() - 1));
                     break;
             }
 
-            double[] rateBrackets = new double[24];
-            for (var i = 0; i < 24; i++)
+            double[] rateBrackets = new double[19];
+            for (var i = -9; i <= 9; i++)
             {
-                rateBrackets[i] = result.FrequencyPeak - 4 * result.FrequencyScale + result.FrequencyScale * i / 3;
+                rateBrackets[i + 9] = result.FrequencyPeak + result.FrequencyScale * i / 3.0;
             }
 
-            int[] rateFrequencies = new int[25];
+            int[] rateFrequencies = new int[20];
             foreach (var rate in returnRates)
             {
                 if (rate == 0)
@@ -135,15 +151,16 @@ namespace MonteCarlo.Models
                     continue;
                 }
                 var i = 0;
-                while (i < 24 && rate > rateBrackets[i])
+                while (i < 19 && rate > rateBrackets[i])
                 {
                     i++;
                 }
                 rateFrequencies[i]++;
             }
-
             result.ReturnRateFrequencies = rateFrequencies;
             
+
+
             return result;
         }
 

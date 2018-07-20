@@ -98,6 +98,9 @@ namespace MonteCarlo.Models
                         case Distribution.T:
                             StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.T, withScale: 1.0);
                             break;
+                        case Distribution.Logistic:
+                            StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Logistic, withScale: 1.0);
+                            break;
                         default:
                             break;
                     }
@@ -112,13 +115,16 @@ namespace MonteCarlo.Models
                     switch (dataModel.DistributionType)
                     {
                         case Distribution.Normal:
-                            StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 0.0, withScale: 1.71);
+                            StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 0.0, withScale: 1.71 / TrialLength);
                             break;
                         case Distribution.Laplace:
-                            StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Laplace, withPeakAt: 0.0, withScale: 1.0);
+                            StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Laplace, withPeakAt: 0.0, withScale: 1.0 / TrialLength);
                             break;
                         case Distribution.T:
-                            StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.T, withPeakAt: 0.0, withScale: 1.0);
+                            StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.T, withPeakAt: 0.0, withScale: 1.0 / TrialLength);
+                            break;
+                        case Distribution.Logistic:
+                            StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Logistic, withPeakAt: 0.0, withScale: 1.0);
                             break;
                         default:
                             break;
