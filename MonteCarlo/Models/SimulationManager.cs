@@ -133,11 +133,11 @@ namespace MonteCarlo.Models
                         }
                         if (index < savingsProfile.ContributionLength - 1)
                         {
-                            return trial[index] == 0 || value == 0 ? 0 : (value - trial[index] - stocksProfile.ContributionAmount) / (trial[index] + stocksProfile.ContributionAmount);
+                            return trial[index] == 0 || value == 0 ? 0 : Math.Log(value / (trial[index] + stocksProfile.ContributionAmount));
                         }
                         else
                         {
-                            return trial[index] == 0 || value == 0 ? 0 : (value - trial[index] + stocksProfile.WithdrawalAmount) / (trial[index] - stocksProfile.WithdrawalAmount);
+                            return trial[index] == 0 || value == 0 ? 0 : Math.Log(value / (trial[index] - stocksProfile.WithdrawalAmount));
                         }
                     });
                 });
