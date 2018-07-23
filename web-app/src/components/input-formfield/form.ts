@@ -5,49 +5,40 @@ import { Inputs } from './../../resources/scripts/inputs';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import { inject } from 'aurelia-framework';
 
-/*import {inject} from 'aurelia-dependency-injection';
-import { ValidationControllerFactory, ValidationController, ValidationRules, validateTrigger, ValidationRenderer } from 'aurelia-validation';
-import { BootstrapFormRenderer } from './bootstrap-form-renderer';
 
-@inject(ValidationControllerFactory)*/
 @inject(EventAggregator, Router)
 export class Form{
-
   inputs: Inputs = new Inputs()
   ea: EventAggregator
   router: Router
 
+  age: string = '';
+
   constructor(EventAggregator, router){
     this.ea = EventAggregator;
     this.router = router;
+
+    if(sessionStorage.getItem("saveData")){
+      var storage = JSON.parse(sessionStorage.saveData);
+      this.age = storage.currentAge
+    }
+
   }
 
-  /*
-  currentAge = '';
-  retireAge = '';
-  controller = null;
 
-  constructor(controllerFactory){
-    this.controller = controllerFactory.createForCurrentScope();
-    this.controller.addRenderer(new BootstrapFormRenderer());
-    this.controller.validateTrigger= validateTrigger.change;
-  }
+  //storing form data on browser back button
 
-  bind(){
-    ValidationRules
-      .ensure((m: Form) => m.currentAge).required()
-      .ensure((m: Form) => m.retireAge).required()
-      .on(this);
+  storeInputFields(){
+    sessionStorage.saveData = JSON.stringify({
+      "currentAge": this.age
+    });
   }
   
-  submitFormButton(){
-  if(this.controller.validate()){
-    window.location.href="/results"
-  }
+  
 
-  }*/
 
   submitFormButton(){
+
     console.log(this.inputs)
     APIRequest.postInputs(this.inputs)
       .then(data => {
@@ -57,7 +48,7 @@ export class Form{
         this.router.navigateToRoute("results")
         // window.location.href="/results"
       })
-    
+
   }
 
 

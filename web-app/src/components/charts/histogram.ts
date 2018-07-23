@@ -34,7 +34,9 @@ export class Histogram {
       scales:{
         yAxis:[{
           ticks:{
-            beginAtZero: true
+            beginAtZero: true,
+            min: 0,
+            max: 25000
           }
         }]
       },
