@@ -56,6 +56,13 @@ namespace MonteCarlo.Models
                             { "peak", -0.013 },
                             { "scale", 0.745 * Math.Sqrt(3) / Math.PI }
                         }
+                    },
+                    {
+                        Distribution.LogNormal, new Dictionary<string, double>()
+                        {
+                            { "peak", -0.013 },
+                            { "scale", 0.745 }
+                        }
                     }
                 }
             },
@@ -82,6 +89,13 @@ namespace MonteCarlo.Models
                             { "peak", -0.123 },
                             { "scale", 0.961 * Math.Sqrt(3) / Math.PI }
                         }
+                    },
+                    {
+                        Distribution.LogNormal, new Dictionary<string, double>()
+                        {
+                            { "peak", -0.123 },
+                            { "scale", 0.961 }
+                        }
                     }
                 }
             },
@@ -107,6 +121,13 @@ namespace MonteCarlo.Models
                         {
                             { "peak", -0.176 },
                             { "scale", 0.573 * Math.Sqrt(3) / Math.PI }
+                        }
+                    },
+                    {
+                        Distribution.LogNormal, new Dictionary<string, double>()
+                        {
+                            { "peak", -0.176 },
+                            { "scale", 0.573 }
                         }
                     }
                 }
