@@ -135,36 +135,39 @@ namespace MonteCarlo.Models
             });
 
             // Get frequencies of return rates
-            result.StocksFrequencyPeak = stocksReturnRates.Where(x => x != 0).Average();
-            switch (stocksProfile.StepDistribution.Type)
+            if (stocksReturnRates.Where(x => x != 0).Count() > 0)
             {
-                default:
-                    result.StocksFrequencyScale = Math.Sqrt(stocksReturnRates.Where(x => x != 0).Aggregate((sum, next) => sum + Math.Pow(result.StocksFrequencyPeak - next, 2))
-                        / (stocksReturnRates.Count() - 1));
-                    break;
-            }
-
-            double[] stocksRateBrackets = new double[19];
-            for (var i = -9; i <= 9; i++)
-            {
-                stocksRateBrackets[i + 9] = result.StocksFrequencyPeak + result.StocksFrequencyScale * i / 3.0;
-            }
-
-            int[] stocksRateFrequencies = new int[20];
-            foreach (var rate in stocksReturnRates)
-            {
-                if (rate == 0)
+                result.StocksFrequencyPeak = stocksReturnRates.Where(x => x != 0).Average();
+                switch (stocksProfile.StepDistribution.Type)
                 {
-                    continue;
+                    default:
+                        result.StocksFrequencyScale = Math.Sqrt(stocksReturnRates.Where(x => x != 0).Aggregate((sum, next) => sum + Math.Pow(result.StocksFrequencyPeak - next, 2))
+                            / (stocksReturnRates.Count() - 1));
+                        break;
                 }
-                var i = 0;
-                while (i < 19 && rate > stocksRateBrackets[i])
+
+                double[] stocksRateBrackets = new double[19];
+                for (var i = -9; i <= 9; i++)
                 {
-                    i++;
+                    stocksRateBrackets[i + 9] = result.StocksFrequencyPeak + result.StocksFrequencyScale * i / 3.0;
                 }
-                stocksRateFrequencies[i]++;
+
+                int[] stocksRateFrequencies = new int[20];
+                foreach (var rate in stocksReturnRates)
+                {
+                    if (rate == 0)
+                    {
+                        continue;
+                    }
+                    var i = 0;
+                    while (i < 19 && rate > stocksRateBrackets[i])
+                    {
+                        i++;
+                    }
+                    stocksRateFrequencies[i]++;
+                }
+                result.StocksReturnRateFrequencies = stocksRateFrequencies;
             }
-            result.StocksReturnRateFrequencies = stocksRateFrequencies;
 
             // Get return rates
             var bondsReturnRates = trials["bonds"].SelectMany((trial, trialNumber) =>
@@ -195,36 +198,40 @@ namespace MonteCarlo.Models
             });
 
             // Get frequencies of return rates
-            result.BondsFrequencyPeak = bondsReturnRates.Where(x => x != 0).Average();
-            switch (bondsProfile.StepDistribution.Type)
+            if (bondsReturnRates.Where(x => x != 0).Count() > 0)
             {
-                default:
-                    result.BondsFrequencyScale = Math.Sqrt(bondsReturnRates.Where(x => x != 0).Aggregate((sum, next) => sum + Math.Pow(result.BondsFrequencyPeak - next, 2))
-                        / (bondsReturnRates.Count() - 1));
-                    break;
-            }
-
-            double[] bondsRateBrackets = new double[19];
-            for (var i = -9; i <= 9; i++)
-            {
-                bondsRateBrackets[i + 9] = result.BondsFrequencyPeak + result.BondsFrequencyScale * i / 3.0;
-            }
-
-            int[] bondsRateFrequencies = new int[20];
-            foreach (var rate in bondsReturnRates)
-            {
-                if (rate == 0)
+                result.BondsFrequencyPeak = bondsReturnRates.Where(x => x != 0).Average();
+                switch (bondsProfile.StepDistribution.Type)
                 {
-                    continue;
+                    default:
+                        result.BondsFrequencyScale = Math.Sqrt(bondsReturnRates.Where(x => x != 0).Aggregate((sum, next) => sum + Math.Pow(result.BondsFrequencyPeak - next, 2))
+                            / (bondsReturnRates.Count() - 1));
+                        break;
                 }
-                var i = 0;
-                while (i < 19 && rate > bondsRateBrackets[i])
+
+                double[] bondsRateBrackets = new double[19];
+                for (var i = -9; i <= 9; i++)
                 {
-                    i++;
+                    bondsRateBrackets[i + 9] = result.BondsFrequencyPeak + result.BondsFrequencyScale * i / 3.0;
                 }
-                bondsRateFrequencies[i]++;
+
+                int[] bondsRateFrequencies = new int[20];
+                foreach (var rate in bondsReturnRates)
+                {
+                    if (rate == 0)
+                    {
+                        continue;
+                    }
+                    var i = 0;
+                    while (i < 19 && rate > bondsRateBrackets[i])
+                    {
+                        i++;
+                    }
+                    bondsRateFrequencies[i]++;
+                }
+                result.BondsReturnRateFrequencies = bondsRateFrequencies;
             }
-            result.BondsReturnRateFrequencies = bondsRateFrequencies;
+            
 
             return result;
         }
