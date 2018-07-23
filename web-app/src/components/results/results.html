@@ -2,8 +2,7 @@
   <require from="../../resources/styles/results.css"></require>
   <require from="../charts/histogram"></require>
   <require from="../charts/histogram2"></require>
-  <require from="../charts/historicalLine"></require>
-  <require from="../charts/projectedLine"></require>
+  <require from="../charts/LineChart"></require>
 
   <div class="container">
   <div class="row">
@@ -69,7 +68,10 @@
       
       <div class="slider slide2">
         <div>
-          <historical-line></historical-line><projected-line></projected-line>
+          <div class="row">
+          <line-chart percentiles.bind="Data.portfolioPercentiles"></line-chart>
+          <line-chart percentiles.bind="Data.portfolioPercentiles"></line-chart>
+        </div>
           <div class="container table">
             <table>
               <tr>

@@ -1,12 +1,15 @@
 import { Data } from './../../resources/scripts/data';
 import { Chart } from 'chart.js';
+import { bindable } from 'aurelia-framework';
 
-export class HistoricalLine {
+export class LineChart {
+
 
   attached(){
     this.buildChart();
   }
-   
+
+  @bindable percentiles;
 
   buildChart() {
     let ctx = (document.getElementById("historicalLine") as HTMLCanvasElement).getContext("2d");
@@ -15,7 +18,7 @@ export class HistoricalLine {
      data:{
        datasets:[{
          label: 'Label 1',
-         data: Data.portfolioPercentiles[0],
+         data: this.percentiles[0],
          lineTension: 0.3,
          fill: false,
          borderColor: 'red',
@@ -27,7 +30,7 @@ export class HistoricalLine {
        },
        {
          label: 'Label 2',
-         data: Data.portfolioPercentiles[1],
+         data: this.percentiles[1],
          lineTension: 0.3,
          fill: false,
          borderColor: 'purple',
@@ -40,7 +43,7 @@ export class HistoricalLine {
        },
        {
          label: 'Label 3',
-         data: Data.portfolioPercentiles[2],
+         data:  this.percentiles[2],
          lineTension: 0.3,
          fill: false,
          borderColor: 'orange',
@@ -53,7 +56,7 @@ export class HistoricalLine {
        },
        {
         label: 'Label 4',
-        data: Data.portfolioPercentiles[3],
+        data:  this.percentiles[3],
         lineTension: 0.3,
         fill: false,
         borderColor: 'green',
@@ -67,7 +70,7 @@ export class HistoricalLine {
 
       {
         label: 'Label 5',
-        data: Data.portfolioPercentiles[4],
+        data:  this.percentiles[4],
         lineTension: 0.3,
         fill: false,
         borderColor: 'pink',
@@ -81,7 +84,7 @@ export class HistoricalLine {
 
       {
         label: 'Label 6',
-        data: Data.portfolioPercentiles[5],
+        data:  this.percentiles[5],
         lineTension: 0.3,
         fill: false,
         borderColor: 'light green',
@@ -95,7 +98,7 @@ export class HistoricalLine {
 
       {
         label: 'Label 7',
-        data: Data.portfolioPercentiles[6],
+        data:  this.percentiles[6],
         lineTension: 0.3,
         fill: false,
         borderColor: 'blue',
@@ -109,7 +112,7 @@ export class HistoricalLine {
 
       {
         label: 'Label 8',
-        data: Data.portfolioPercentiles[7],
+        data:  this.percentiles[7],
         lineTension: 0.3,
         fill: false,
         borderColor: 'cyan',
@@ -123,7 +126,7 @@ export class HistoricalLine {
 
       {
         label: 'Label 9',
-        data: Data.portfolioPercentiles[8],
+        data:  this.percentiles[8],
         lineTension: 0.3,
         fill: false,
         borderColor: 'yellow',
@@ -137,7 +140,7 @@ export class HistoricalLine {
 
       {
         label: 'Label 10',
-        data: Data.portfolioPercentiles[9],
+        data:  this.percentiles[9],
         lineTension: 0.3,
         fill: false,
         borderColor: 'black',
@@ -146,9 +149,9 @@ export class HistoricalLine {
         pointBackgroundColor: 'black',
         pointHitRadius: 30,
         pointBorderWidth: 2,
-        type: 'line'
+        type: 'line',
       }],
-       labels:["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+       labels:  this.percentiles[5].map((element,index)=>index),
      },
      options:{
       scales:{

@@ -7,6 +7,7 @@ import { Router } from 'aurelia-router';
 export class Results {
 
   router: Router
+  private Data: typeof Data = Data
 
   constructor(router){
     this.router = router
