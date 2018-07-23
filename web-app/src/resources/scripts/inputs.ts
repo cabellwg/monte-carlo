@@ -21,7 +21,11 @@ export class Inputs{
   
   desiredRetirementIncome: number = undefined;
 
-  distributionType: string = "Normal";
+  stocksDistributionType: string = "Normal";
 
-  dataStartDate: string = "_1928";
+  stocksDataStartDate: string = "_1928";
+
+  bondsDistributionType: string = "Normal";
+
+  bondsDataStartDate: string = "_1928";
 }

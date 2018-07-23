@@ -4,7 +4,7 @@ namespace MonteCarlo.Models.Statistics
 {
     public class LogisticDistribution : ProbabilityDistribution
     {
-        private Ziggurat z;
+        private ProbabilityDistribution z;
 
         public LogisticDistribution(double location, double scale)
         {
@@ -12,7 +12,7 @@ namespace MonteCarlo.Models.Statistics
             PeakX = location;
             Type = Statistics.Distribution.Logistic;
 
-            z = new Ziggurat(Distribution, PeakX, 175 * scale, new UniformDistribution());
+            z = new UniformDistribution();
         }
 
         public override MathFunction Distribution => x =>
@@ -20,6 +20,10 @@ namespace MonteCarlo.Models.Statistics
             return Math.Exp(-(x - PeakX) / Scale) / (Scale * Math.Pow(1 + Math.Exp(-(x - PeakX) / Scale), 2));
         };
 
-        public override double NextDouble() => z.NextDouble();
+        public override double NextDouble()
+        {
+            var u = z.NextDouble() - 0.5;
+            return PeakX + Scale * Math.Log(u / 1 - u);
+        }
     }
 }

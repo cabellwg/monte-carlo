@@ -96,6 +96,8 @@ namespace MonteCarlo.Models
             }
             result.SuccessRate = (int)Math.Round(100 * numberOfSuccesses / (double)MonteCarloSimulation.NUM_TRIALS);
             
+
+
             // Get percentiles
             portfolios.ParallelMergeSort(CompareTrials);
             result.PortfolioPercentiles = portfolios.Where((trial, index) =>
@@ -109,6 +111,10 @@ namespace MonteCarlo.Models
             {
                 return trial.Skip(1).Select((value, index) =>
                 {
+                    if (index == savingsProfile.ContributionLength)
+                    {
+
+                    }
                     if (index < savingsProfile.ContributionLength - 1)
                     {
                         return trial[index] == 0 || value == 0 ? 0 : (value - trial[index] - stocksProfile.ContributionAmount) / (trial[index] + stocksProfile.ContributionAmount);

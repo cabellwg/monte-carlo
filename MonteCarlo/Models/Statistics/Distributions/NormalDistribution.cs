@@ -15,7 +15,7 @@ namespace MonteCarlo.Models.Statistics
 
             if (Scale == 1 && PeakX == 0)
             {
-                z = new Ziggurat(NormalizedDistribution, 0, 4, new UniformDistribution());
+                z = new Ziggurat(NormalizedDistribution, 0, 5, new UniformDistribution());
             }
             else
             {

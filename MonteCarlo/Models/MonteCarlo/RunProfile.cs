@@ -72,21 +72,8 @@ namespace MonteCarlo.Models
                     Drift = Constants.GBMValues[dataModel.StocksDataStartDate]["drift"];
                     Volatility = Constants.GBMValues[dataModel.StocksDataStartDate]["volatility"];
 
-                    // Stock GBM generators
-                    switch (dataModel.StocksDistributionType)
-                    {
-                        case Distribution.Laplace:
-                            StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Laplace, withScale: 1.0);
-                            break;
-                        case Distribution.T:
-                            StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.T, withScale: 1.0);
-                            break;
-                        case Distribution.Logistic:
-                            StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Logistic, withScale: 1.0);
-                            break;
-                        default:
-                            break;
-                    }
+                    // Stock GBM generator
+                    StepDistribution = DistributionPool.Instance.GetDistribution(dataModel.StocksDistributionType, withScale: 1.0);
                     break;
                 case InvestmentType.Bonds:
                     InitialAmount = dataModel.BondsAmount;
@@ -95,10 +82,18 @@ namespace MonteCarlo.Models
 
                     // Bonds random walk generators
                     SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.DiracDelta, withPeakAt: 2.94);
-                    StepDistribution = DistributionPool.Instance.GetDistribution(dataModel.BondsDistributionType,
-                        withPeakAt: Constants.BondValues[dataModel.BondsDataStartDate][dataModel.BondsDistributionType]["peak"],
-                        withScale: Constants.BondValues[dataModel.BondsDataStartDate][dataModel.BondsDistributionType]["scale"] / Math.Sqrt(TrialLength));
-
+                    if (dataModel.BondsDistributionType == Distribution.T)
+                    {
+                        StepDistribution = DistributionPool.Instance.GetDistribution(dataModel.BondsDistributionType,
+                            withPeakAt: Constants.BondValues[dataModel.BondsDataStartDate][dataModel.BondsDistributionType]["peak"],
+                            withScale: (TrialLength - 1) / Math.Sqrt(TrialLength));
+                    }
+                    else
+                    {
+                        StepDistribution = DistributionPool.Instance.GetDistribution(dataModel.BondsDistributionType,
+                            withPeakAt: Constants.BondValues[dataModel.BondsDataStartDate][dataModel.BondsDistributionType]["peak"],
+                            withScale: Constants.BondValues[dataModel.BondsDataStartDate][dataModel.BondsDistributionType]["scale"] / Math.Sqrt(TrialLength));
+                    }
                     break;
                 case InvestmentType.Savings:
                 default:
