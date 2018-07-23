@@ -12,8 +12,6 @@
                     return new UniformDistribution();
                 case Distribution.Normal:
                     return new NormalDistribution(withPeakAt, withScale);
-                case Distribution.T:
-                    return new TDistribution(withPeakAt, withScale);
                 case Distribution.Laplace:
                     return new LaplaceDistribution(withPeakAt, withScale);
                 case Distribution.LogNormal:

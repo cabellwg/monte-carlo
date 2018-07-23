@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using MonteCarlo.Models;
-using MonteCarlo.Models.Statistics;
+using System.Threading.Tasks;
 
 namespace MonteCarlo.Controllers
 {
@@ -9,10 +9,25 @@ namespace MonteCarlo.Controllers
     public class APIController : Controller
     {
         [HttpPost]
-        public JsonResult Post([FromBody]DataModel value)
+        public JsonResult Post([FromBody]DataModel inputs)
         {
-            var runner = new SimulationManager(value);
-            var result = runner.Run();
+            var result = new Dictionary<string, Result>();
+            var projectedInputs = inputs;
+            projectedInputs.BondsDataStartDate = DataStartDate._2000;
+            projectedInputs.StocksDataStartDate = DataStartDate._2000;
+
+            result.Add("historical", Task.Factory.StartNew(() =>
+            {
+                var runner = new SimulationManager(inputs);
+                return runner.Run();
+            }).Result);
+
+            result.Add("projected", Task.Factory.StartNew(() =>
+            {
+                var runner = new SimulationManager(projectedInputs);
+                return runner.Run();
+            }).Result);
+
             return Json(result);
         }
     }
