@@ -18,23 +18,22 @@ export class Form{
     this.ea = EventAggregator;
     this.router = router;
 
-    /*
+    
     if(sessionStorage.getItem("saveData")){
       var storage = JSON.parse(sessionStorage.saveData);
       this.age = storage.currentAge
-    }*/
+    }
 
   }
 
 
   //storing form data on browser back button
 
-  /*
   storeInputFields(){
     sessionStorage.saveData = JSON.stringify({
       "currentAge": this.age
     });
-  }*/
+  }
   
   
 
