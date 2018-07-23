@@ -97,7 +97,7 @@ namespace MonteCarlo.Models
                     break;
             }
 
-            Volatility /= TrialLength <= 0 ? 1 : Math.Sqrt(TrialLength);
+            Volatility /= TrialLength <= 0 ? 1 : TrialLength;
         }
     }
 }
