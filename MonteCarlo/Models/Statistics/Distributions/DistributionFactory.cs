@@ -20,6 +20,8 @@
                     return new LogNormalDistribution(withPeakAt, withScale);
                 case Distribution.Cauchy:
                     return new CauchyDistribution(withPeakAt, withScale);
+                case Distribution.Logistic:
+                    return new LogisticDistribution(withPeakAt, withScale);
                 case Distribution.DiracDelta:
                     return new DiracDeltaDistribution(withPeakAt);
                 default:

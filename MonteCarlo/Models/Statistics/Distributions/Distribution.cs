@@ -8,6 +8,7 @@
         Laplace,
         Cauchy,
         LogNormal,
+        Logistic,
         DiracDelta,
         Testable
     }

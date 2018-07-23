@@ -2,11 +2,11 @@
 
 namespace MonteCarlo.Models.Statistics
 {
-    public class CauchyDistribution : ProbabilityDistribution
+    public class LogisticDistribution : ProbabilityDistribution
     {
         private Ziggurat z;
 
-        public CauchyDistribution(double location, double scale)
+        public LogisticDistribution(double location, double scale)
         {
             Scale = scale;
             PeakX = location;
@@ -15,12 +15,11 @@ namespace MonteCarlo.Models.Statistics
             z = new Ziggurat(Distribution, PeakX, 175 * scale, new UniformDistribution());
         }
 
-        public override double NextDouble() => z.NextDouble();
-
         public override MathFunction Distribution => x =>
         {
-            var normalizer = Scale * Math.PI;
-            return 1 / (normalizer * (1 + Math.Pow((x - PeakX) / Scale, 2)));
+            return Math.Exp(-(x - PeakX) / Scale) / (Scale * Math.Pow(1 + Math.Exp(-(x - PeakX) / Scale), 2));
         };
+
+        public override double NextDouble() => z.NextDouble();
     }
 }
