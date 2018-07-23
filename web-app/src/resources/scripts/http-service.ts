@@ -1,7 +1,7 @@
 import {HttpClient} from 'aurelia-fetch-client';
 
 export class HttpService{
-  endpoint: string = "http://localhost:60745/api/values";
+  endpoint: string = "http://localhost:54126/api";
   client: HttpClient;
 
   configureClient(){
