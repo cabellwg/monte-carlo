@@ -5,9 +5,17 @@
   <require from="../charts/historicalLine"></require>
   <require from="../charts/projectedLine"></require>
 
-  <link href="https://fonts.googleapis.com/css?family=Cantata+One" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Imprima" rel="stylesheet">
-
+  <div class="container">
+  <div class="row">
+    <label for="distribution-type">Choose the distribution of changes in stock prices you want to assume.</label><br>
+    <div name="distribution-type" class="btn-group">
+      <button type="button" class="btn btn-primary">Normal</button>
+      <button type="button" class="btn btn-primary">Laplace</button>
+      <button type="button" class="btn btn-primary">Logistic</button>
+      <button type="button" class="btn btn-primary">T</button>
+      <button type="button" class="btn btn-primary">Log-Normal</button>
+    </div>
+  </div>
 
   <h2>Probability of <span style="color: #26A65B">Success<span></span></h2>
   
@@ -105,9 +113,9 @@
     <div id="wrapper">
       <input type="submit" value="Return to Home Page" click.delegate="inputsReturnButton()">
     </div>-->
+  </div>
 
-
-  </template>
+</template>
 
  
   
