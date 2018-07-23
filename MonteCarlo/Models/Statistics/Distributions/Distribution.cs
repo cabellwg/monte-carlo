@@ -2,8 +2,8 @@
 {
     public enum Distribution
     {
-        Uniform,
         Normal,
+        Uniform,
         T,
         Laplace,
         Cauchy,

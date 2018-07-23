@@ -96,6 +96,8 @@ namespace MonteCarlo.Models
             }
             result.SuccessRate = (int)Math.Round(100 * numberOfSuccesses / (double)MonteCarloSimulation.NUM_TRIALS);
             
+
+
             // Get percentiles
             portfolios.ParallelMergeSort(CompareTrials);
             result.PortfolioPercentiles = portfolios.Where((trial, index) =>
@@ -104,11 +106,23 @@ namespace MonteCarlo.Models
                 return index % ((portfolios.Length - 1) / (NUM_PERCENTILES - 1)) == 0;
             });
 
-            // Get return rates
-            var stocksReturnRates = trials["stocks"].SelectMany(trial =>
+            // Get return rates & peak amount
+            var stocksReturnRates = trials["stocks"].SelectMany((trial, trialNumber) =>
             {
                 return trial.Skip(1).Select((value, index) =>
                 {
+                    if (index == savingsProfile.ContributionLength - 1 &&
+                        trialNumber != 0 && trialNumber != MonteCarloSimulation.NUM_TRIALS &&
+                        trialNumber % ((portfolios.Length - 1) / 4) == 0)
+                    {
+                        result.StocksRetirementAmount.Add(value);
+                    }
+                    if (index == savingsProfile.TrialLength - 1 &&
+                        trialNumber != 0 && trialNumber != MonteCarloSimulation.NUM_TRIALS &&
+                        trialNumber % ((portfolios.Length - 1) / 4) == 0)
+                    {
+                        result.StocksEndAmount.Add(value);
+                    }
                     if (index < savingsProfile.ContributionLength - 1)
                     {
                         return trial[index] == 0 || value == 0 ? 0 : (value - trial[index] - stocksProfile.ContributionAmount) / (trial[index] + stocksProfile.ContributionAmount);
@@ -153,10 +167,22 @@ namespace MonteCarlo.Models
             result.StocksReturnRateFrequencies = stocksRateFrequencies;
 
             // Get return rates
-            var bondsReturnRates = trials["bonds"].SelectMany(trial =>
+            var bondsReturnRates = trials["bonds"].SelectMany((trial, trialNumber) =>
             {
                 return trial.Skip(1).Select((value, index) =>
                 {
+                    if (index == savingsProfile.ContributionLength - 1 &&
+                        trialNumber != 0 && trialNumber != MonteCarloSimulation.NUM_TRIALS &&
+                        trialNumber % ((portfolios.Length - 1) / 4) == 0)
+                    {
+                        result.BondsRetirementAmount.Add(trial[index]);
+                    }
+                    if (index == savingsProfile.TrialLength - 1 &&
+                        trialNumber != 0 && trialNumber != MonteCarloSimulation.NUM_TRIALS &&
+                        trialNumber % ((portfolios.Length - 1) / 4) == 0)
+                    {
+                        result.BondsEndAmount.Add(value);
+                    }
                     if (index < savingsProfile.ContributionLength - 1)
                     {
                         return trial[index] == 0 || value == 0 ? 0 : (value - trial[index] - bondsProfile.ContributionAmount) / (trial[index] + bondsProfile.ContributionAmount);

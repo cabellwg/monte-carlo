@@ -6,8 +6,12 @@ namespace MonteCarlo.Models
     {
         public int SuccessRate { get; set; }
 
+
+        // Line graph
         public IEnumerable<double[]> PortfolioPercentiles { get; set; }
 
+
+        // Histograms
         public int[] StocksReturnRateFrequencies { get; set; }
         public double StocksFrequencyPeak { get; set; }
         public double StocksFrequencyScale { get; set; }
@@ -15,5 +19,13 @@ namespace MonteCarlo.Models
         public int[] BondsReturnRateFrequencies { get; set; }
         public double BondsFrequencyPeak { get; set; }
         public double BondsFrequencyScale { get; set; }
+
+
+        // Stacked bar
+        public List<double> StocksRetirementAmount { get; set; }
+        public List<double> StocksEndAmount { get; set; }
+
+        public List<double> BondsRetirementAmount { get; set; }
+        public List<double> BondsEndAmount { get; set; }
     }
 }
