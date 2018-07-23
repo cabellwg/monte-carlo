@@ -22,7 +22,10 @@ namespace MonteCarlo.Models
 
 
         // Stacked bar
-        public List<double> StocksPeakAmount { get; set; }
-        public List<double> BondsPeakAmount { get; set; }
+        public List<double> StocksRetirementAmount { get; set; }
+        public List<double> StocksEndAmount { get; set; }
+
+        public List<double> BondsRetirementAmount { get; set; }
+        public List<double> BondsEndAmount { get; set; }
     }
 }

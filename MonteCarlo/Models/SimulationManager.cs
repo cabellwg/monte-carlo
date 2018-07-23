@@ -115,7 +115,13 @@ namespace MonteCarlo.Models
                         trialNumber != 0 && trialNumber != MonteCarloSimulation.NUM_TRIALS &&
                         trialNumber % ((portfolios.Length - 1) / 4) == 0)
                     {
-                        result.StocksPeakAmount.Add(trial[index]);
+                        result.StocksRetirementAmount.Add(value);
+                    }
+                    if (index == savingsProfile.TrialLength - 1 &&
+                        trialNumber != 0 && trialNumber != MonteCarloSimulation.NUM_TRIALS &&
+                        trialNumber % ((portfolios.Length - 1) / 4) == 0)
+                    {
+                        result.StocksEndAmount.Add(value);
                     }
                     if (index < savingsProfile.ContributionLength - 1)
                     {
@@ -169,7 +175,13 @@ namespace MonteCarlo.Models
                         trialNumber != 0 && trialNumber != MonteCarloSimulation.NUM_TRIALS &&
                         trialNumber % ((portfolios.Length - 1) / 4) == 0)
                     {
-                        result.BondsPeakAmount.Add(trial[index]);
+                        result.BondsRetirementAmount.Add(trial[index]);
+                    }
+                    if (index == savingsProfile.TrialLength - 1 &&
+                        trialNumber != 0 && trialNumber != MonteCarloSimulation.NUM_TRIALS &&
+                        trialNumber % ((portfolios.Length - 1) / 4) == 0)
+                    {
+                        result.BondsEndAmount.Add(value);
                     }
                     if (index < savingsProfile.ContributionLength - 1)
                     {
