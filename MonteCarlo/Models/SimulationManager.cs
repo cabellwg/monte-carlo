@@ -85,14 +85,7 @@ namespace MonteCarlo.Models
                 }).ToArray();
             }).ToArray();
 
-
-
-
-
-
-
-
-
+            
             // Get success rate
             Task<int> successRate = new Task<int>(() =>
             {
@@ -107,15 +100,7 @@ namespace MonteCarlo.Models
                 return (int)Math.Round(100 * numberOfSuccesses / (double)MonteCarloSimulation.NUM_TRIALS);
             });
 
-
-
-
-
-
-
-
-
-
+            
             // Get percentiles
             Task<IEnumerable<double[]>> percentiles = new Task<IEnumerable<double[]>>(() =>
             {
@@ -126,12 +111,7 @@ namespace MonteCarlo.Models
                 });
             });
 
-
-
-
-
-
-
+            
             // Look at distribution of stock returns
             Task stocksReturns = new Task(() =>
             {
@@ -198,14 +178,7 @@ namespace MonteCarlo.Models
                 }
             });
 
-
-
-
-
-
-
-
-
+            
             Task bondsReturns = new Task(() =>
             {
                 var bondsReturnRates = trials["bonds"].SelectMany((trial, trialNumber) =>
@@ -271,14 +244,7 @@ namespace MonteCarlo.Models
                 }
             });
 
-
             
-
-
-
-
-
-
             // Sort the trials
             portfolios.ParallelMergeSort(CompareTrials);
 

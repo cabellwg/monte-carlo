@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using MonteCarlo.Models.Statistics;
 
 namespace MonteCarlo.Tests.Tools
 {
-    class TestableRandom : IRandom
+    class TestableRandom
     {
         public IEnumerable<double> sequence { get; set; }
         private int index;
