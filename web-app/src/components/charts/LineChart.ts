@@ -11,13 +11,15 @@ export class LineChart {
 
   @bindable percentiles;
 
+  @bindable localId: string;
+
   buildChart() {
-    let ctx = (document.getElementById("historicalLine") as HTMLCanvasElement).getContext("2d");
+    let ctx = (document.getElementById(this.localId) as HTMLCanvasElement).getContext("2d");
     new Chart(ctx, {
      type: 'line',
      data:{
        datasets:[{
-         label: 'Label 1',
+         label: '10',
          data: this.percentiles[0],
          lineTension: 0.3,
          fill: false,
@@ -29,7 +31,7 @@ export class LineChart {
          pointBorderWidth: 2,
        },
        {
-         label: 'Label 2',
+         label: '20',
          data: this.percentiles[1],
          lineTension: 0.3,
          fill: false,
@@ -42,7 +44,7 @@ export class LineChart {
          type: 'line'
        },
        {
-         label: 'Label 3',
+         label: '30',
          data:  this.percentiles[2],
          lineTension: 0.3,
          fill: false,
@@ -55,7 +57,7 @@ export class LineChart {
          type: 'line'
        },
        {
-        label: 'Label 4',
+        label: '40',
         data:  this.percentiles[3],
         lineTension: 0.3,
         fill: false,
@@ -69,7 +71,7 @@ export class LineChart {
       },
 
       {
-        label: 'Label 5',
+        label: '50',
         data:  this.percentiles[4],
         lineTension: 0.3,
         fill: false,
@@ -83,7 +85,7 @@ export class LineChart {
       },
 
       {
-        label: 'Label 6',
+        label: '60',
         data:  this.percentiles[5],
         lineTension: 0.3,
         fill: false,
@@ -97,7 +99,7 @@ export class LineChart {
       },
 
       {
-        label: 'Label 7',
+        label: '70',
         data:  this.percentiles[6],
         lineTension: 0.3,
         fill: false,
@@ -111,7 +113,7 @@ export class LineChart {
       },
 
       {
-        label: 'Label 8',
+        label: '80',
         data:  this.percentiles[7],
         lineTension: 0.3,
         fill: false,
@@ -125,7 +127,7 @@ export class LineChart {
       },
 
       {
-        label: 'Label 9',
+        label: '90',
         data:  this.percentiles[8],
         lineTension: 0.3,
         fill: false,
@@ -139,7 +141,7 @@ export class LineChart {
       },
 
       {
-        label: 'Label 10',
+        label: '100',
         data:  this.percentiles[9],
         lineTension: 0.3,
         fill: false,

@@ -4,19 +4,19 @@
   <require from="../charts/histogram2"></require>
   <require from="../charts/LineChart"></require>
 
-  <div class="container">
-  <div class="row">
-    <label for="distribution-type">Choose the distribution of changes in stock prices you want to assume.</label><br>
-    <div name="distribution-type" class="btn-group">
-      <button type="button" class="btn btn-primary">Normal</button>
-      <button type="button" class="btn btn-primary">Laplace</button>
-      <button type="button" class="btn btn-primary">Logistic</button>
-      <button type="button" class="btn btn-primary">T</button>
-      <button type="button" class="btn btn-primary">Log-Normal</button>
-    </div>
-  </div>
-
   <h2>Probability of <span style="color: #26A65B">Success<span></span></h2>
+
+  <div class="container">
+      <div class="row">
+        <label for="distribution-type">Choose the distribution of changes in stock prices you want to assume.</label><br>
+        <div name="distribution-type" class="btn-group">
+          <button type="button" class="btn btn-primary">Normal</button>
+          <button type="button" class="btn btn-primary">Laplace</button>
+          <button type="button" class="btn btn-primary">Logistic</button>
+          <button type="button" class="btn btn-primary">T</button>
+          <button type="button" class="btn btn-primary">Log-Normal</button>
+        </div>
+      </div>
   
   <div class="css-slider-wrapper">
     <input type="radio" name="slider" class="slide-radio1 hide" checked id="slider_1">
@@ -51,15 +51,15 @@
 
         <div class="row">
           <div class="text">
-            <h4>Historical</h4>
-            <p>Some Lorem Ipsum text need to go here, which sound really cool but its just random text which can be repeated at random spaces. Now I am going
+            <h4 class="chartHeading">Historical</h4>
+            <p class="chartBody">Some Lorem Ipsum text need to go here, which sound really cool but its just random text which can be repeated at random spaces. Now I am going
               to repeat the same line again and again and again. Some Lorem Ipsum text need to go here, which sound really cool but its just random text which can be repeated at random spaces
             </p>
           </div>
 
           <div class="text">
-            <h4>Projected</h4>
-            <p>Some Lorem Ipsum text need to go here, which sound really cool but its just random text which can be repeated at random spaces. Now I am going
+            <h4 class="chartHeading">Projected</h4>
+            <p class="chartBody">Some Lorem Ipsum text need to go here, which sound really cool but its just random text which can be repeated at random spaces. Now I am going
               to repeat the same line again and again and again. Some Lorem Ipsum text need to go here, which sound really cool but its just random text which can be repeated at random spaces</p>
           </div>
         </div>
@@ -68,27 +68,22 @@
       
       <div class="slider slide2">
         <div>
-          <line-chart percentiles.bind="Data.portfolioPercentiles"></line-chart>
-          <line-chart percentiles.bind="Data.portfolioPercentiles"></line-chart>
-          
-          <div class="container table">
-            <table>
-              <tr>
-                <th class="chartHeading">Historical</th>
-                <th class="chartHeading">Projected</th>
-              </tr>
-              
-              <tr>
-                <td class="chartBody">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim 
-                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum 
-                dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in <span style="color: red"><b>80%</b></span> culpa qui officia deserunt 
-                mollit anim id est laborum.</td>
-                
-                <td class="chartBody">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod impor incididunt ut labore et dolore magna aliqua. Ut enim ad minim 
-                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis <span style="color: red"><b>$70</b></span> aute irure dolor in 
-                reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt moll.</td>
-              </tr>
-              </table>
+          <line-chart local-id="chart1" percentiles.bind="Data.portfolioPercentiles" class="historical"></line-chart>
+          <line-chart local-id="chart2" percentiles.bind="Data.portfolioPercentiles" class="projected"></line-chart>
+
+          <div class="row">
+              <div class="text">
+                <h4 class="chartHeading">Historical</h4>
+                <p class="chartBody">Some Lorem Ipsum text need to go here, which sound really cool but its just random text which can be repeated at random spaces. Now I am going
+                  to repeat the same line again and again and again. Some Lorem Ipsum text need to go here, which sound really cool but its just random text which can be repeated at random spaces
+                </p>
+              </div>
+    
+              <div class="text">
+                <h4 class="chartHeading">Projected</h4>
+                <p class="chartBody">Some Lorem Ipsum text need to go here, which sound really cool but its just random text which can be repeated at random spaces. Now I am going
+                  to repeat the same line again and again and again. Some Lorem Ipsum text need to go here, which sound really cool but its just random text which can be repeated at random spaces</p>
+              </div>
             </div>
        </div>
      </div>

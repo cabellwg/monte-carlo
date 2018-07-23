@@ -5,21 +5,38 @@ body{
 .text{
   float: left;
   width: 50%;
-  padding: 10px;
+  padding: 56px;
   height: 300px;
-  margin-top: 678px;
+  margin-top: 750px;
+  text-align: left;
 }
 .row::after{
   display: table;
   clear: both;
 }
 
+.historical{
+  position: absolute;
+  top: 275px;
+  left: 30px;
+  width: 900px;
+  height: 500px;
+}
+
+.projected{
+  position: absolute;
+  top: 275px;
+  right: 30px;
+  width: 900px;
+  height: 500px;
+}
+
 h2{
   text-align: center;
-  margin: 0;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 35px;
-  top: 90px;
+  margin-top: 2px;
+  padding: 1px;
 }
 
 .header{
@@ -30,24 +47,14 @@ h2{
   font-size: 55px;
 }
 
-td, th{
-  text-align: left;
-  padding: 0.7rem;
-}
-
-.table{
-  margin-top: 570px;
-}
-
 .chartHeading{
   font-family: 'Cantata One', serif;
   font-weight: bold;
-  font-size: 1em; 
 }
 
 .chartBody{
   font-family: 'Imprima', sans-serif;
-  font-size:medium; 
+  font-size:inherit; 
 }
 
 
