@@ -10,20 +10,14 @@ namespace MonteCarlo.Tests.StatisticsTests
         [Fact]
         public void TestNormal()
         {
-            ProbabilityDistribution normal = new NormalDistribution(mean: 0.093, standardDeviation: 27.814);
-            var mc = new BondsSimulation();
-
-            var result = mc.Run(withProfile: new RunProfile()
+            ProbabilityDistribution normal = new NormalDistribution(mean: 0, standardDeviation: 1);
+            double[] tester = new double[100];
+            for (var i = 0; i < 100; i++)
             {
-                SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 0.093, withScale: 27.814),
-                StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 10.82, withScale: 17.16),
-                TrialLength = 30,
-                ContributionLength = 15,
-                InitialAmount = 10000,
-                ContributionAmount = 500,
-                WithdrawalAmount = 5000
-            });
-            string jsonResult = JsonConvert.SerializeObject(result);
+                tester[i] = normal.NextDouble();
+            }
+
+            string jsonResult = JsonConvert.SerializeObject(tester);
         }
 
         [Fact]
@@ -68,25 +62,6 @@ namespace MonteCarlo.Tests.StatisticsTests
         public void TestLaplace()
         {
             ProbabilityDistribution laplace = new LaplaceDistribution(location: 10.82, diversity: 17.16);
-            var mc = new BondsSimulation();
-
-            var result = mc.Run(withProfile: new RunProfile()
-            {
-                SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 0.093, withScale: 27.814),
-                StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 10.82, withScale: 17.16),
-                TrialLength = 30,
-                ContributionLength = 15,
-                InitialAmount = 10000,
-                ContributionAmount = 500,
-                WithdrawalAmount = 5000
-            });
-            string jsonResult = JsonConvert.SerializeObject(result);
-        }
-
-        [Fact]
-        public void TestT()
-        {
-            ProbabilityDistribution t = new TDistribution(location: 10.82, scale: 17.16);
             var mc = new BondsSimulation();
 
             var result = mc.Run(withProfile: new RunProfile()

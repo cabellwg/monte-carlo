@@ -55,7 +55,7 @@ namespace MonteCarlo.Models
 
             /* **********************************************************************
              *                                                                      *
-             *           Change parameters for the Postman tests below              *
+             *                 Change parameters for the MCMC below                 *
              *                                                                      *
              *                                                                      *
              * **********************************************************************/
@@ -82,18 +82,9 @@ namespace MonteCarlo.Models
 
                     // Bonds random walk generators
                     SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.DiracDelta, withPeakAt: 2.94);
-                    if (dataModel.BondsDistributionType == Distribution.T)
-                    {
-                        StepDistribution = DistributionPool.Instance.GetDistribution(dataModel.BondsDistributionType,
-                            withPeakAt: Constants.BondValues[dataModel.BondsDataStartDate][dataModel.BondsDistributionType]["peak"],
-                            withScale: (TrialLength - 1) / Math.Sqrt(TrialLength));
-                    }
-                    else
-                    {
-                        StepDistribution = DistributionPool.Instance.GetDistribution(dataModel.BondsDistributionType,
+                    StepDistribution = DistributionPool.Instance.GetDistribution(dataModel.BondsDistributionType,
                             withPeakAt: Constants.BondValues[dataModel.BondsDataStartDate][dataModel.BondsDistributionType]["peak"],
                             withScale: Constants.BondValues[dataModel.BondsDataStartDate][dataModel.BondsDistributionType]["scale"] / Math.Sqrt(TrialLength));
-                    }
                     break;
                 case InvestmentType.Savings:
                 default:

@@ -4,7 +4,6 @@
     {
         Normal,
         Uniform,
-        T,
         Laplace,
         Cauchy,
         LogNormal,

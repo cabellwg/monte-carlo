@@ -85,153 +85,180 @@ namespace MonteCarlo.Models
                 }).ToArray();
             }).ToArray();
 
+            
             // Get success rate
-            int numberOfSuccesses = 0;
-            for (var i = 0; i < MonteCarloSimulation.NUM_TRIALS; i++)
+            Task<int> successRate = new Task<int>(() =>
             {
-                if (portfolios[i][trialLength - 2] >= withdrawalAmount)
+                int numberOfSuccesses = 0;
+                for (var i = 0; i < MonteCarloSimulation.NUM_TRIALS; i++)
                 {
-                    numberOfSuccesses++;
+                    if (portfolios[i][trialLength - 2] >= withdrawalAmount)
+                    {
+                        numberOfSuccesses++;
+                    }
                 }
-            }
-            result.SuccessRate = (int)Math.Round(100 * numberOfSuccesses / (double)MonteCarloSimulation.NUM_TRIALS);
+                return (int)Math.Round(100 * numberOfSuccesses / (double)MonteCarloSimulation.NUM_TRIALS);
+            });
+
             
-
-
             // Get percentiles
-            portfolios.ParallelMergeSort(CompareTrials);
-            result.PortfolioPercentiles = portfolios.Where((trial, index) =>
+            Task<IEnumerable<double[]>> percentiles = new Task<IEnumerable<double[]>>(() =>
             {
-                // Make sure that NUM_TRIALS - 1 in MonteCarloSimulation is an even multiple of NUM_PERCENTILES - 1
-                return index % ((portfolios.Length - 1) / (NUM_PERCENTILES - 1)) == 0;
-            });
-
-            // Get return rates & peak amount
-            var stocksReturnRates = trials["stocks"].SelectMany((trial, trialNumber) =>
-            {
-                return trial.Skip(1).Select((value, index) =>
+                return portfolios.Where((trial, index) =>
                 {
-                    if (index == savingsProfile.ContributionLength - 1 &&
-                        trialNumber != 0 && trialNumber != MonteCarloSimulation.NUM_TRIALS &&
-                        trialNumber % ((portfolios.Length - 1) / 4) == 0)
-                    {
-                        result.StocksRetirementAmount.Add(value);
-                    }
-                    if (index == savingsProfile.TrialLength - 1 &&
-                        trialNumber != 0 && trialNumber != MonteCarloSimulation.NUM_TRIALS &&
-                        trialNumber % ((portfolios.Length - 1) / 4) == 0)
-                    {
-                        result.StocksEndAmount.Add(value);
-                    }
-                    if (index < savingsProfile.ContributionLength - 1)
-                    {
-                        return trial[index] == 0 || value == 0 ? 0 : (value - trial[index] - stocksProfile.ContributionAmount) / (trial[index] + stocksProfile.ContributionAmount);
-                    }
-                    else
-                    {
-                        return trial[index] == 0 || value == 0 ? 0 : (value - trial[index] + stocksProfile.WithdrawalAmount) / (trial[index] - stocksProfile.WithdrawalAmount);
-                    }
+                    // Make sure that NUM_TRIALS - 1 in MonteCarloSimulation is an even multiple of NUM_PERCENTILES - 1
+                    return index % ((portfolios.Length - 1) / (NUM_PERCENTILES - 1)) == 0;
                 });
             });
 
-            // Get frequencies of return rates
-            if (stocksReturnRates.Where(x => x != 0).Count() > 0)
-            {
-                result.StocksFrequencyPeak = stocksReturnRates.Where(x => x != 0).Average();
-                switch (stocksProfile.StepDistribution.Type)
-                {
-                    default:
-                        result.StocksFrequencyScale = Math.Sqrt(stocksReturnRates.Where(x => x != 0).Aggregate((sum, next) => sum + Math.Pow(result.StocksFrequencyPeak - next, 2))
-                            / (stocksReturnRates.Count() - 1));
-                        break;
-                }
-
-                double[] stocksRateBrackets = new double[19];
-                for (var i = -9; i <= 9; i++)
-                {
-                    stocksRateBrackets[i + 9] = result.StocksFrequencyPeak + result.StocksFrequencyScale * i / 3.0;
-                }
-
-                int[] stocksRateFrequencies = new int[20];
-                foreach (var rate in stocksReturnRates)
-                {
-                    if (rate == 0)
-                    {
-                        continue;
-                    }
-                    var i = 0;
-                    while (i < 19 && rate > stocksRateBrackets[i])
-                    {
-                        i++;
-                    }
-                    stocksRateFrequencies[i]++;
-                }
-                result.StocksReturnRateFrequencies = stocksRateFrequencies;
-            }
-
-            // Get return rates
-            var bondsReturnRates = trials["bonds"].SelectMany((trial, trialNumber) =>
-            {
-                return trial.Skip(1).Select((value, index) =>
-                {
-                    if (index == savingsProfile.ContributionLength - 1 &&
-                        trialNumber != 0 && trialNumber != MonteCarloSimulation.NUM_TRIALS &&
-                        trialNumber % ((portfolios.Length - 1) / 4) == 0)
-                    {
-                        result.BondsRetirementAmount.Add(trial[index]);
-                    }
-                    if (index == savingsProfile.TrialLength - 1 &&
-                        trialNumber != 0 && trialNumber != MonteCarloSimulation.NUM_TRIALS &&
-                        trialNumber % ((portfolios.Length - 1) / 4) == 0)
-                    {
-                        result.BondsEndAmount.Add(value);
-                    }
-                    if (index < savingsProfile.ContributionLength - 1)
-                    {
-                        return trial[index] == 0 || value == 0 ? 0 : (value - trial[index] - bondsProfile.ContributionAmount) / (trial[index] + bondsProfile.ContributionAmount);
-                    }
-                    else
-                    {
-                        return trial[index] == 0 || value == 0 ? 0 : (value - trial[index] + bondsProfile.WithdrawalAmount) / (trial[index] - bondsProfile.WithdrawalAmount);
-                    }
-                });
-            });
-
-            // Get frequencies of return rates
-            if (bondsReturnRates.Where(x => x != 0).Count() > 0)
-            {
-                result.BondsFrequencyPeak = bondsReturnRates.Where(x => x != 0).Average();
-                switch (bondsProfile.StepDistribution.Type)
-                {
-                    default:
-                        result.BondsFrequencyScale = Math.Sqrt(bondsReturnRates.Where(x => x != 0).Aggregate((sum, next) => sum + Math.Pow(result.BondsFrequencyPeak - next, 2))
-                            / (bondsReturnRates.Count() - 1));
-                        break;
-                }
-
-                double[] bondsRateBrackets = new double[19];
-                for (var i = -9; i <= 9; i++)
-                {
-                    bondsRateBrackets[i + 9] = result.BondsFrequencyPeak + result.BondsFrequencyScale * i / 3.0;
-                }
-
-                int[] bondsRateFrequencies = new int[20];
-                foreach (var rate in bondsReturnRates)
-                {
-                    if (rate == 0)
-                    {
-                        continue;
-                    }
-                    var i = 0;
-                    while (i < 19 && rate > bondsRateBrackets[i])
-                    {
-                        i++;
-                    }
-                    bondsRateFrequencies[i]++;
-                }
-                result.BondsReturnRateFrequencies = bondsRateFrequencies;
-            }
             
+            // Look at distribution of stock returns
+            Task stocksReturns = new Task(() =>
+            {
+                var stocksReturnRates = trials["stocks"].SelectMany((trial, trialNumber) =>
+                {
+                    return trial.Skip(1).Select((value, index) =>
+                    {
+                        if (index == savingsProfile.ContributionLength - 1 &&
+                            trialNumber != 0 && trialNumber != MonteCarloSimulation.NUM_TRIALS &&
+                            trialNumber % ((portfolios.Length - 1) / 4) == 0)
+                        {
+                            result.StocksRetirementAmount.Add(value);
+                        }
+                        if (index == savingsProfile.TrialLength - 1 &&
+                            trialNumber != 0 && trialNumber != MonteCarloSimulation.NUM_TRIALS &&
+                            trialNumber % ((portfolios.Length - 1) / 4) == 0)
+                        {
+                            result.StocksEndAmount.Add(value);
+                        }
+                        if (index < savingsProfile.ContributionLength - 1)
+                        {
+                            return trial[index] == 0 || value == 0 ? 0 : Math.Log(value / (trial[index] + stocksProfile.ContributionAmount));
+                        }
+                        else
+                        {
+                            return trial[index] == 0 || value == 0 ? 0 : Math.Log(value / (trial[index] - stocksProfile.WithdrawalAmount));
+                        }
+                    });
+                });
+
+                // Get frequencies of return rates
+                if (stocksReturnRates.Where(x => x != 0).Count() > 0)
+                {
+                    result.StocksFrequencyPeak = stocksReturnRates.Where(x => x != 0).Average();
+                    switch (stocksProfile.StepDistribution.Type)
+                    {
+                        default:
+                            result.StocksFrequencyScale = Math.Sqrt(stocksReturnRates.Where(x => x != 0).Aggregate((sum, next) => sum + Math.Pow(result.StocksFrequencyPeak - next, 2))
+                                / (stocksReturnRates.Count() - 1));
+                            break;
+                    }
+
+                    double[] stocksRateBrackets = new double[19];
+                    for (var i = -9; i <= 9; i++)
+                    {
+                        stocksRateBrackets[i + 9] = result.StocksFrequencyPeak + result.StocksFrequencyScale * i / 3.0;
+                    }
+
+                    int[] stocksRateFrequencies = new int[20];
+                    foreach (var rate in stocksReturnRates)
+                    {
+                        if (rate == 0)
+                        {
+                            continue;
+                        }
+                        var i = 0;
+                        while (i < 19 && rate > stocksRateBrackets[i])
+                        {
+                            i++;
+                        }
+                        stocksRateFrequencies[i]++;
+                    }
+                    result.StocksReturnRateFrequencies = stocksRateFrequencies;
+                }
+            });
+
+            
+            Task bondsReturns = new Task(() =>
+            {
+                var bondsReturnRates = trials["bonds"].SelectMany((trial, trialNumber) =>
+                {
+                    return trial.Skip(1).Select((value, index) =>
+                    {
+                        if (index == savingsProfile.ContributionLength - 1 &&
+                            trialNumber != 0 && trialNumber != MonteCarloSimulation.NUM_TRIALS &&
+                            trialNumber % ((portfolios.Length - 1) / 4) == 0)
+                        {
+                            result.BondsRetirementAmount.Add(trial[index]);
+                        }
+                        if (index == savingsProfile.TrialLength - 1 &&
+                            trialNumber != 0 && trialNumber != MonteCarloSimulation.NUM_TRIALS &&
+                            trialNumber % ((portfolios.Length - 1) / 4) == 0)
+                        {
+                            result.BondsEndAmount.Add(value);
+                        }
+                        if (index < savingsProfile.ContributionLength - 1)
+                        {
+                            return trial[index] == 0 || value == 0 ? 0 : (value - trial[index] - bondsProfile.ContributionAmount) / (trial[index] + bondsProfile.ContributionAmount);
+                        }
+                        else
+                        {
+                            return trial[index] == 0 || value == 0 ? 0 : (value - trial[index] + bondsProfile.WithdrawalAmount) / (trial[index] - bondsProfile.WithdrawalAmount);
+                        }
+                    });
+                });
+
+                // Get frequencies of return rates
+                if (bondsReturnRates.Where(x => x != 0).Count() > 0)
+                {
+                    result.BondsFrequencyPeak = bondsReturnRates.Where(x => x != 0).Average();
+                    switch (bondsProfile.StepDistribution.Type)
+                    {
+                        default:
+                            result.BondsFrequencyScale = Math.Sqrt(bondsReturnRates.Where(x => x != 0).Aggregate((sum, next) => sum + Math.Pow(result.BondsFrequencyPeak - next, 2))
+                                / (bondsReturnRates.Count() - 1));
+                            break;
+                    }
+
+                    double[] bondsRateBrackets = new double[19];
+                    for (var i = -9; i <= 9; i++)
+                    {
+                        bondsRateBrackets[i + 9] = result.BondsFrequencyPeak + result.BondsFrequencyScale * i / 3.0;
+                    }
+
+                    int[] bondsRateFrequencies = new int[20];
+                    foreach (var rate in bondsReturnRates)
+                    {
+                        if (rate == 0)
+                        {
+                            continue;
+                        }
+                        var i = 0;
+                        while (i < 19 && rate > bondsRateBrackets[i])
+                        {
+                            i++;
+                        }
+                        bondsRateFrequencies[i]++;
+                    }
+                    result.BondsReturnRateFrequencies = bondsRateFrequencies;
+                }
+            });
+
+            
+            // Sort the trials
+            portfolios.ParallelMergeSort(CompareTrials);
+
+
+            // Run each task
+            percentiles.Start();
+            successRate.Start();
+            stocksReturns.Start();
+            bondsReturns.Start();
+
+            result.PortfolioPercentiles = percentiles.Result;
+            result.SuccessRate = successRate.Result;
+            stocksReturns.Wait();
+            bondsReturns.Wait();
 
             return result;
         }
