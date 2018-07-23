@@ -2,25 +2,12 @@ body{
   background: #F2F1EF;
 }
 
-input[type=submit] {
-  width: 12%;
-  background-color: #26A65B;
-  color: white;
-  padding: 14px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+.text{
+  text-align:left;
+  padding:600px 0 5px 15px;
 }
-
-input[type=submit]:hover {
-  background-color: rgb(43, 87, 48);
-}
-
-#wrapper{
-  height: 1700px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.text h4{
+  padding-bottom:5px;
 }
 
 h2{

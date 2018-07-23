@@ -3,98 +3,70 @@
     <link href="https://fonts.googleapis.com/css?family=Cantata+One" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Imprima" rel="stylesheet">
     
-    
     <div class="container" with.bind="inputs">
       <fieldset class="form-group">
         <label for="age" class="labelHeading">Age</label>
-        <input type="text" class="form-control placeholderText" id="inputAge" placeholder="What is your age?" name="age" value.bind="age">
+        <input type="text" class="form-control placeholderText" id="inputAge" name="age" value.bind="age" >
       </fieldset>
-
+      
       <fieldset class="form-group">
-          <label for="retireAge" class="labelHeading">Retire Age</label>
-          <input type="text" class="form-control placeholderText" id="inputRetireAge" placeholder="When will you retire?" name="retireAge" value.bind="retirementAge">
+        <label for="retireAge" class="labelHeading">Retire Age</label>
+        <input type="text" class="form-control placeholderText" id="inputRetireAge" name="retireAge" value.bind="retirementAge">
       </fieldset>
-
+      
       <fieldset class="form-group">
-          <label for="deathAge" class="labelHeading">Death Age</label>
-          <input type="text" class="form-control placeholderText" id="inputDeathAge" placeholder="Estimated death age?" name="deathAge" value.bind="deathAge">
-      </fieldset>
-
-      <hr>
-
+        <label for="deathAge" class="labelHeading">Death Age</label>
+        <input type="text" class="form-control placeholderText" id="inputDeathAge"name="deathAge" value.bind="deathAge">
+      </fieldset><hr>
+      
       <h4 class="portfolioHeading">Stocks:</h4>
+      <fieldset class="form-group"><div class="row"><div class="col-md-6 form-group">
+        <label for="initialAmount" class="labelHeading">Initial Amount</label><div class="inner-addon left-addon"><i class="glyphicon glyphicon-usd"></i>
+        <input type="text" class="form-control placeholderText" id="inputInitialAmount" name="initialAmount" value.bind="stocksAmount"></div>
+      </div>
+      
+      <div class="col-md-6 form-group">
+        <label for="yearlyContributions" class="labelHeading">Yearly Contributions</label><div class="inner-addon left-addon"><i class="glyphicon glyphicon-usd"></i>
+        <input type="text" class="form-control placeholderText" id="inputYearlyContributions" name="yearlyContributions" value.bind="yearlyStocksContributions"></div>
+      </div>
+    </div>
+      </fieldset><hr>
+      
+      <h4 class="portfolioHeading">Bonds:</h4>
       <fieldset class="form-group">
         <div class="row">
           <div class="col-md-6 form-group">
-            <label for="initialAmount" class="labelHeading">Initial Amount</label>
-            <div class="inner-addon left-addon"><i class="glyphicon glyphicon-usd"></i>
-              <input type="text" class="form-control placeholderText" id="inputInitialAmount" placeholder="What is your initial amount?" name="initialAmount" value.bind="stocksAmount">
-            </div>
+            <label for="initialAmount" class="labelHeading">Initial Amount</label><div class="inner-addon left-addon"><i class="glyphicon glyphicon-usd"></i>
+            <input type="text" class="form-control placeholderText" id="inputInitialAmount" name="initialAmount" value.bind="bondsAmount"></div>
           </div>
-
+          
           <div class="col-md-6 form-group">
-            <label for="yearlyContributions" class="labelHeading">Yearly Contributions</label>
-            <div class="inner-addon left-addon"><i class="glyphicon glyphicon-usd"></i>
-              <input type="text" class="form-control placeholderText" id="inputYearlyContributions" placeholder="What are your yearly contributions?" name="yearlyContributions" value.bind="yearlyStocksContributions">
-            </div>
+            <label for="yearlyContributions" class="labelHeading">Yearly Contributions</label><div class="inner-addon left-addon"><i class="glyphicon glyphicon-usd"></i>
+            <input type="text" class="form-control placeholderText" id="inputYearlyContributions" name="yearlyContributions" value.bind="yearlyBondsContributions"></div>
           </div>
-        </div> 
-      </fieldset>
-
-      <hr>
-
-      <h4 class="portfolioHeading">Bonds:</h4>
-      <fieldset class="form-group">
-          <div class="row">
-            <div class="col-md-6 form-group">
-              <label for="initialAmount" class="labelHeading">Initial Amount</label>
-              <div class="inner-addon left-addon"><i class="glyphicon glyphicon-usd"></i>
-                <input type="text" class="form-control placeholderText" id="inputInitialAmount" placeholder="What is your initial amount?" name="initialAmount" value.bind="bondsAmount">
-              </div>
-            </div>
-  
-            <div class="col-md-6 form-group">
-              <label for="yearlyContributions" class="labelHeading">Yearly Contributions</label>
-              <div class="inner-addon left-addon"><i class="glyphicon glyphicon-usd"></i>
-                <input type="text" class="form-control placeholderText" id="inputYearlyContributions" placeholder="What are your yearly contributions?" name="yearlyContributions" value.bind="yearlyBondsContributions">
-              </div>
-            </div>
-          </div> 
-        </fieldset>
-
-      <hr>
-
+        </div>
+      </fieldset><hr>
+      
       <h4 class="portfolioHeading">Savings:</h4>
-
       <fieldset class="form-group">
-          <div class="row">
-            <div class="col-md-6 form-group">
-              <label for="initialAmount" class="labelHeading">Initial Amount</label>
-              <div class="inner-addon left-addon"><i class="glyphicon glyphicon-usd"></i>
-                <input type="text" class="form-control placeholderText" id="inputInitialAmount" placeholder="What is your initial amount?" name="initialAmount" value.bind="savingsAmount">
-              </div>
-            </div>
-  
-            <div class="col-md-6 form-group">
-              <label for="yearlyContributions" class="labelHeading">Yearly Contributions</label>
-              <div class="inner-addon left-addon"><i class="glyphicon glyphicon-usd"></i>
-                <input type="text" class="form-control placeholderText" id="inputYearlyContributions" placeholder="What are your yearly contributions?" name="yearlyContributions" value.bind="yearlySavingsContributions">
-              </div>
-            </div>
-          </div> 
-        </fieldset>
-
-      <hr>
-
+        <div class="row">
+          <div class="col-md-6 form-group">
+            <label for="initialAmount" class="labelHeading">Initial Amount</label><div class="inner-addon left-addon"><i class="glyphicon glyphicon-usd"></i>
+            <input type="text" class="form-control placeholderText" id="inputInitialAmount" name="initialAmount" value.bind="savingsAmount"></div>
+          </div>
+          
+          <div class="col-md-6 form-group">
+            <label for="yearlyContributions" class="labelHeading">Yearly Contributions</label><div class="inner-addon left-addon"><i class="glyphicon glyphicon-usd"></i>
+            <input type="text" class="form-control placeholderText" id="inputYearlyContributions" name="yearlyContributions" value.bind="yearlySavingsContributions"></div>
+          </div>
+        </div>
+      </fieldset><hr>
+      
       <fieldset class="form-group">
-          <label for="desiredIncome" class="labelHeading">Desired Retirement Income</label>
-          <input type="text" class="form-control placeholderText" id="DesiredRetirementIncome" placeholder="What is your desired retirement Income?" name="desiredRetirementIncome" value.bind="desiredRetirementIncome">
-        </fieldset>
-
+        <label for="desiredIncome" class="labelHeading">Desired Retirement Income</label>
+        <input type="text" class="form-control placeholderText" id="DesiredRetirementIncome" name="desiredRetirementIncome" value.bind="desiredRetirementIncome">
+      </fieldset>
     </div>
-
-
-    <div id="wrapper">
-    <input type="submit" value="Submit" click.delegate="submitFormButton()">
-    </div>
+    
+    <div id="wrapper"><input type="submit" value="Submit" click.delegate="submitFormButton()"></div>
 </template>

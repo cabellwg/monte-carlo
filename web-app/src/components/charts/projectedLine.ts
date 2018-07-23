@@ -75,8 +75,9 @@ export class ProjectedLine {
         }]
       },
       layout:{
-        padding: 0
-      }
+      padding: 0
+      },
+      max: 10000
 
     }
   });
