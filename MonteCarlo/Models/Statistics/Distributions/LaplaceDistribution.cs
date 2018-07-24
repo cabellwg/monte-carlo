@@ -17,7 +17,7 @@ namespace MonteCarlo.Models.Statistics
 
         public override double NextDouble()
         {
-            var u = z.NextDouble();
+            var u = z.NextDouble() - 0.5;
             return PeakX - Scale * Math.Sign(u) * Math.Log(1 - 2 * Math.Abs(u));
         }
 
