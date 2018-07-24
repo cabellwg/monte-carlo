@@ -38,36 +38,32 @@ namespace MonteCarlo.Models
 
         public Result Run()
         {
-            Task<double[][]> stocks = Task<double[][]>.Factory.StartNew(() =>
+            Trials trials = new Trials();
+
+            Task<Trial[]> stocks = Task<Trial[]>.Factory.StartNew(() =>
             {
                 return stocksSimulation.Run(withProfile: stocksProfile);
             });
 
-            Task<double[][]> bonds = Task<double[][]>.Factory.StartNew(() =>
+            Task<Trial[]> bonds = Task<Trial[]>.Factory.StartNew(() =>
             {
                 return bondsSimulation.Run(withProfile: bondsProfile);
             });
 
-            Task<double[][]> savings = Task<double[][]>.Factory.StartNew(() =>
+            Task<Trial[]> savings = Task<Trial[]>.Factory.StartNew(() =>
             {
                 return savingsSimulation.Run(withProfile: savingsProfile);
             });
 
-            double[][] stocksResult = stocks.Result;
-            double[][] bondsResult = bonds.Result;
-            double[][] savingsResult = savings.Result;
-
-            var trials = new Dictionary<string, double[][]>()
-            {
-                { "stocks", stocksResult },
-                { "bonds", bondsResult },
-                { "savings", savingsResult }
-            };
+            trials.StocksTrials = stocks.Result;
+            trials.BondsTrials = bonds.Result;
+            trials.SavingsTrials = savings.Result;
+            
 
             return ProcessTrials(trials);
         }
 
-        private Result ProcessTrials(Dictionary<string, double[][]> trials)
+        private Result ProcessTrials(Trials trials)
         {
             Result result = new Result();
 
@@ -77,13 +73,17 @@ namespace MonteCarlo.Models
                                       savingsProfile.WithdrawalAmount;
 
             // Aggregate trials
-            var portfolios = trials["stocks"].Select((trial, i) =>
+            var portfolios = new double[MonteCarloSimulation.NUM_TRIALS][];
+            for (var i = 0; i < portfolios.Length; i++)
             {
-                return trial.Select((value, j) =>
+                portfolios[i] = new double[trialLength];
+                for (var j = 0; j < trialLength; j++)
                 {
-                    return value + trials["bonds"][i][j] + trials["savings"][i][j];
-                }).ToArray();
-            }).ToArray();
+                    portfolios[i][j] = trials.StocksTrials[i].Balances[j] +
+                                        trials.BondsTrials[i].Balances[j] +
+                                        trials.SavingsTrials[i].Balances[j];
+                }
+            }
 
             
             // Get success rate
@@ -115,136 +115,33 @@ namespace MonteCarlo.Models
             // Look at distribution of stock returns
             Task stocksReturns = new Task(() =>
             {
-                var stocksReturnRates = trials["stocks"].SelectMany((trial, trialNumber) =>
-                {
-                    return trial.Skip(1).Select((value, index) =>
-                    {
-                        if (index == savingsProfile.ContributionLength - 1 &&
-                            trialNumber != 0 && trialNumber != MonteCarloSimulation.NUM_TRIALS &&
-                            trialNumber % ((portfolios.Length - 1) / 4) == 0)
-                        {
-                            result.StocksRetirementAmounts.Add(value);
-                        }
-                        if (index == savingsProfile.TrialLength - 1 &&
-                            trialNumber != 0 && trialNumber != MonteCarloSimulation.NUM_TRIALS &&
-                            trialNumber % ((portfolios.Length - 1) / 4) == 0)
-                        {
-                            result.StocksEndAmounts.Add(value);
-                        }
-                        if (index < savingsProfile.ContributionLength - 1)
-                        {
-                            return trial[index] == 0 || value == 0 ? 0 : (value - trial[index] - stocksProfile.ContributionAmount) / (trial[index] + stocksProfile.ContributionAmount);
-                        }
-                        else
-                        {
-                            return trial[index] == 0 || value == 0 ? 0 : (value - trial[index] + stocksProfile.WithdrawalAmount) / (trial[index] - stocksProfile.WithdrawalAmount);
-                        }
-                    });
-                });
-
-                // Get frequencies of return rates
-                if (stocksReturnRates.Where(x => x != 0).Count() > 0)
-                {
-                    result.StocksFrequencyPeak = stocksReturnRates.Where(x => x != 0).Average();
-                    switch (stocksProfile.StepDistribution.Type)
-                    {
-                        default:
-                            result.StocksFrequencyScale = Math.Sqrt(stocksReturnRates.Where(x => x != 0).Aggregate((sum, next) => sum + Math.Pow(result.StocksFrequencyPeak - next, 2))
-                                / (stocksReturnRates.Count() - 1));
-                            break;
-                    }
-
-                    double[] stocksRateBrackets = new double[19];
-                    for (var i = -9; i <= 9; i++)
-                    {
-                        stocksRateBrackets[i + 9] = result.StocksFrequencyPeak + result.StocksFrequencyScale * i / 3.0;
-                    }
-
-                    int[] stocksRateFrequencies = new int[20];
-                    foreach (var rate in stocksReturnRates)
-                    {
-                        if (rate == 0)
-                        {
-                            continue;
-                        }
-                        var i = 0;
-                        while (i < 19 && rate > stocksRateBrackets[i])
-                        {
-                            i++;
-                        }
-                        stocksRateFrequencies[i]++;
-                    }
-                    result.StocksReturnRateFrequencies = stocksRateFrequencies;
-                }
+                var distribution = GetDistributionOf(trials.StocksTrials.SelectMany(trial => trial.ReturnRates));
+                result.StocksFrequencyPeak = distribution.Mean;
+                result.StocksFrequencyScale = distribution.StdDev;
+                result.StocksReturnRateFrequencies = distribution.Distribution;
             });
 
             
+            // Look at distribution of bond returns
             Task bondsReturns = new Task(() =>
             {
-                var bondsReturnRates = trials["bonds"].SelectMany((trial, trialNumber) =>
-                {
-                    return trial.Skip(1).Select((value, index) =>
-                    {
-                        if (index == savingsProfile.ContributionLength - 1 &&
-                            trialNumber != 0 && trialNumber != MonteCarloSimulation.NUM_TRIALS &&
-                            trialNumber % ((portfolios.Length - 1) / 4) == 0)
-                        {
-                            result.BondsRetirementAmounts.Add(trial[index]);
-                        }
-                        if (index == savingsProfile.TrialLength - 1 &&
-                            trialNumber != 0 && trialNumber != MonteCarloSimulation.NUM_TRIALS &&
-                            trialNumber % ((portfolios.Length - 1) / 4) == 0)
-                        {
-                            result.BondsEndAmounts.Add(value);
-                        }
-                        if (index < savingsProfile.ContributionLength - 1)
-                        {
-                            return trial[index] == 0 || value == 0 ? 0 : (value - trial[index] - bondsProfile.ContributionAmount) / (trial[index] + bondsProfile.ContributionAmount);
-                        }
-                        else
-                        {
-                            return trial[index] == 0 || value == 0 ? 0 : (value - trial[index] + bondsProfile.WithdrawalAmount) / (trial[index] - bondsProfile.WithdrawalAmount);
-                        }
-                    });
-                });
-
-                // Get frequencies of return rates
-                if (bondsReturnRates.Where(x => x != 0).Count() > 0)
-                {
-                    result.BondsFrequencyPeak = bondsReturnRates.Where(x => x != 0).Average();
-                    switch (bondsProfile.StepDistribution.Type)
-                    {
-                        default:
-                            result.BondsFrequencyScale = Math.Sqrt(bondsReturnRates.Where(x => x != 0).Aggregate((sum, next) => sum + Math.Pow(result.BondsFrequencyPeak - next, 2))
-                                / (bondsReturnRates.Count() - 1));
-                            break;
-                    }
-
-                    double[] bondsRateBrackets = new double[19];
-                    for (var i = -9; i <= 9; i++)
-                    {
-                        bondsRateBrackets[i + 9] = result.BondsFrequencyPeak + result.BondsFrequencyScale * i / 3.0;
-                    }
-
-                    int[] bondsRateFrequencies = new int[20];
-                    foreach (var rate in bondsReturnRates)
-                    {
-                        if (rate == 0)
-                        {
-                            continue;
-                        }
-                        var i = 0;
-                        while (i < 19 && rate > bondsRateBrackets[i])
-                        {
-                            i++;
-                        }
-                        bondsRateFrequencies[i]++;
-                    }
-                    result.BondsReturnRateFrequencies = bondsRateFrequencies;
-                }
+                var distribution = GetDistributionOf(trials.BondsTrials.SelectMany(trial => trial.ReturnRates));
+                result.BondsFrequencyPeak = distribution.Mean;
+                result.BondsFrequencyScale = distribution.StdDev;
+                result.BondsReturnRateFrequencies = distribution.Distribution;
             });
 
-            
+
+            //Task calculatePeaks = new Task(() =>
+            //{
+            //    List<double> stockPeaks = new List<double>(3);
+            //    List<double> bondPeaks = new List<double>(3);
+            //    for (var i = 1; i < 4; i++)
+            //    {
+                    
+            //    }
+            //});
+
             // Sort the trials
             portfolios.ParallelMergeSort(CompareTrials);
 
@@ -254,13 +151,74 @@ namespace MonteCarlo.Models
             successRate.Start();
             stocksReturns.Start();
             bondsReturns.Start();
+            
 
             result.PortfolioPercentiles = percentiles.Result;
             result.SuccessRate = successRate.Result;
-            stocksReturns.Wait();
             bondsReturns.Wait();
+            stocksReturns.Wait();
 
             return result;
+        }
+
+        private ExperimentalDistribution GetDistributionOf(IEnumerable<double> samples)
+        {
+            var toReturn = new ExperimentalDistribution();
+
+            if (samples.Count() == 0)
+            {
+                toReturn.Mean = 0;
+                toReturn.StdDev = 0;
+                toReturn.Distribution = new int[0];
+            }
+
+            var sum = 0.0;
+            var number = 0;
+            foreach (var sample in samples)
+            {
+                if (sample != 0)
+                {
+                    sum += sample;
+                    number++;
+                }
+            }
+            var mean = sum / number;
+
+            var absDev = 0.0;
+            foreach (var sample in samples)
+            {
+                if (sample != 0)
+                {
+                    absDev += (sample - mean) * (sample - mean);
+                }
+            }
+            var stdDev = Math.Sqrt(absDev / number);
+
+            double[] brackets = new double[19];
+            for (var i = -9; i <= 9; i++)
+            {
+                brackets[i + 9] = mean + stdDev * i / 3.0;
+            }
+
+            int[] frequencies = new int[20];
+            foreach (var sample in samples)
+            {
+                if (sample != 0)
+                {
+                    var i = 0;
+                    while (i < 19 && sample > brackets[i])
+                    {
+                        i++;
+                    }
+                    frequencies[i]++;
+                }
+            }
+
+            toReturn.Mean = mean;
+            toReturn.StdDev = stdDev;
+            toReturn.Distribution = frequencies;
+
+            return toReturn;
         }
 
         private int CompareTrials(double[] a, double[] b)
@@ -295,6 +253,20 @@ namespace MonteCarlo.Models
             }
 
             return 0;
+        }
+
+        private struct Trials
+        {
+            public Trial[] StocksTrials;
+            public Trial[] BondsTrials;
+            public Trial[] SavingsTrials;
+        }
+
+        private struct ExperimentalDistribution
+        {
+            public double Mean;
+            public double StdDev;
+            public int[] Distribution;
         }
     }
 }

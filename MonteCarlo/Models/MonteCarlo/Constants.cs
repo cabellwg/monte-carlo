@@ -39,28 +39,28 @@ namespace MonteCarlo.Models
                     {
                         Distribution.Normal, new Dictionary<string, double>()
                         {
-                            { "peak", -0.013 },
+                            { "peak", 0.0 },
                             { "scale", 0.745 }
                         }
                     },
                     {
                         Distribution.Laplace, new Dictionary<string, double>()
                         {
-                            { "peak", -0.01 },
+                            { "peak", 0.0 },
                             { "scale", 0.61 }
                         }
                     },
                     {
                         Distribution.Logistic, new Dictionary<string, double>()
                         {
-                            { "peak", -0.013 },
+                            { "peak", 0.0 },
                             { "scale", 0.745 * Math.Sqrt(3) / Math.PI }
                         }
                     },
                     {
                         Distribution.LogNormal, new Dictionary<string, double>()
                         {
-                            { "peak", -0.013 },
+                            { "peak", 0.0 },
                             { "scale", 0.745 }
                         }
                     }
@@ -72,28 +72,28 @@ namespace MonteCarlo.Models
                     {
                         Distribution.Normal, new Dictionary<string, double>()
                         {
-                            { "peak", -0.123 },
+                            { "peak", 0.0 },
                             { "scale", 0.961 }
                         }
                     },
                     {
                         Distribution.Laplace, new Dictionary<string, double>()
                         {
-                            { "peak", -0.12 },
+                            { "peak", 0.0 },
                             { "scale", 0.811 }
                         }
                     },
                     {
                         Distribution.Logistic, new Dictionary<string, double>()
                         {
-                            { "peak", -0.123 },
+                            { "peak", 0.0 },
                             { "scale", 0.961 * Math.Sqrt(3) / Math.PI }
                         }
                     },
                     {
                         Distribution.LogNormal, new Dictionary<string, double>()
                         {
-                            { "peak", -0.123 },
+                            { "peak", 0.0 },
                             { "scale", 0.961 }
                         }
                     }
@@ -105,28 +105,28 @@ namespace MonteCarlo.Models
                     {
                         Distribution.Normal, new Dictionary<string, double>()
                         {
-                            { "peak", -0.176 },
+                            { "peak", 0.0 },
                             { "scale", 0.573 }
                         }
                     },
                     {
                         Distribution.Laplace, new Dictionary<string, double>()
                         {
-                            { "peak", -0.13 },
+                            { "peak", 0.0 },
                             { "scale", 0.552 }
                         }
                     },
                     {
                         Distribution.Logistic, new Dictionary<string, double>()
                         {
-                            { "peak", -0.176 },
+                            { "peak", 0.0 },
                             { "scale", 0.573 * Math.Sqrt(3) / Math.PI }
                         }
                     },
                     {
                         Distribution.LogNormal, new Dictionary<string, double>()
                         {
-                            { "peak", -0.176 },
+                            { "peak", 0.0 },
                             { "scale", 0.573 }
                         }
                     }

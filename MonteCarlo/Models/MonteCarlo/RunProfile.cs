@@ -53,13 +53,6 @@ namespace MonteCarlo.Models
             SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.DiracDelta);
             StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withScale: 1);
 
-            /* **********************************************************************
-             *                                                                      *
-             *                 Change parameters for the MCMC below                 *
-             *                                                                      *
-             *                                                                      *
-             * **********************************************************************/
-
             // Set specific data
             switch (investmentType)
             {

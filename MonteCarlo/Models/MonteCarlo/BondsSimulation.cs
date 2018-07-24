@@ -6,35 +6,57 @@
 
         protected override void RunTrial(int trialNumber, RunProfile profile)
         {
-            double[] trial = new double[profile.TrialLength];
-            double[] bondRates = new double[profile.TrialLength];
+            Trial trial = new Trial();
+            var addAmt = profile.ContributionAmount;
+            var withdrawAmt = profile.WithdrawalAmount;
+            var trialLength = profile.TrialLength;
+            var contribLength = profile.ContributionLength;
+            var seed = profile.SeedDistribution.NextDouble();
+            var stepSampler = profile.StepDistribution;
+
+            double[] balances = new double[trialLength];
+            double[] bondRates = new double[trialLength];
+            double[] returnRates = new double[trialLength - 1];
 
             // Populate trial data
-            double interestRate = profile.SeedDistribution.NextDouble() / 100;
+            double interestRate = seed * 0.01;
             bondRates[0] = interestRate;
-            trial[0] = (profile.InitialAmount + profile.ContributionAmount) * (1 + interestRate);
+            balances[0] = (profile.InitialAmount + addAmt) * (1 + interestRate);
 
             // Contribution period
-            for (var i = 1; i < profile.TrialLength; i++)
+            for (var i = 1; i < trialLength; i++)
             {
-                interestRate += profile.StepDistribution.NextDouble() / 100;
+                interestRate += stepSampler.NextDouble() * 0.01;
                 interestRate = interestRate < 0.03 ? 0.03 : interestRate;
                 bondRates[i] = interestRate;
 
-                trial[i] = trial[i - 1] > 0 ?
-                    (i < profile.ContributionLength ?
+                var prevBalance = balances[i - 1];
+
+                var balance = prevBalance > 0 ?
+                    (i < contribLength ?
                         // Contribution period
-                        (trial[i - 1] + profile.ContributionAmount) * (1 + interestRate) :
+                        (prevBalance + addAmt) * (1 + interestRate) :
                         // Withdrawal period
-                        (trial[i - 1] - profile.WithdrawalAmount) * (1 + interestRate))
+                        (prevBalance - withdrawAmt) * (1 + interestRate))
                     : 0;
 
-                trial[i] = trial[i] > 0 ? trial[i] : 0;
-                if (trial[i] == 0)
+                balances[i] = balance > 0 ? balance : 0;
+
+                returnRates[i - 1] = interestRate;
+
+                if (i == contribLength - 1)
+                {
+                    trial.Peak = balance;
+                }
+
+                if (balance == 0)
                 {
                     break;
                 }
             }
+
+            trial.Balances = balances;
+            trial.ReturnRates = returnRates;
 
             // Add data to return value
             mutex.WaitOne();
