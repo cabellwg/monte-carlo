@@ -38,21 +38,13 @@ export class Form{
   
 
 
-  submitFormButton(){
-
-    console.log(this.inputs)
+  submitFormButton() {
     APIRequest.postInputs(this.inputs)
       .then(data => {
-        Data.portfolioPercentiles = data.portfolioPercentiles
-        Data.successRate = data.successRate
-        console.log(Data.portfolioPercentiles)
-        this.router.navigateToRoute("results")
-        // window.location.href="/results"
-      })
-
+        Data.instance = data as Data;
+        this.router.navigateToRoute("results");
+    });
   }
-
-
 }
 
 

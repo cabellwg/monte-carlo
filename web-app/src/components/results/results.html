@@ -68,8 +68,8 @@
       
       <div class="slider slide2">
         <div>
-          <line-chart local-id="chart1" percentiles.bind="Data.portfolioPercentiles" class="historical"></line-chart>
-          <line-chart local-id="chart2" percentiles.bind="Data.portfolioPercentiles" class="projected"></line-chart>
+          <line-chart local-id="historical" data.bind="data.historical" class="historical"></line-chart>
+          <line-chart local-id="projected" data.bind="data.projected" class="projected"></line-chart>
 
           <div class="row">
               <div class="text">
