@@ -7,8 +7,10 @@ export class Data {
 export class Result {
   successRate: number;
 
+  //Line Graph
   portfolioPercentiles: [[number]];
 
+  //Histogram
   stocksReturnRateFrequencies: [number];
   stocksFrequencyPeak: number;
   stocksFrequencyScale: number;
@@ -17,6 +19,7 @@ export class Result {
   bondsFrequencyPeak: number;
   bondsFrequencyScale: number;
 
+  //Stacked bar
   stocksRetirementAmounts: [number];
   stocksEndAmounts: [number];
 
