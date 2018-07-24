@@ -6,36 +6,62 @@ namespace MonteCarlo.Models
     {
         protected override void RunTrial(int trialNumber, RunProfile profile)
         {
-            double[] trial = new double[profile.TrialLength];
-            double[] unitValues = new double[profile.TrialLength];
+            Trial trial = new Trial();
+            var addAmt = profile.ContributionAmount;
+            var withdrawAmt = profile.WithdrawalAmount;
+            var trialLength = profile.TrialLength;
+            var contribLength = profile.ContributionLength;
+            var stepSampler = profile.StepDistribution;
+            var sigma = profile.Volatility;
+            var mu = profile.Drift;
+
+            double[] balances = new double[trialLength];
+            double[] unitValues = new double[trialLength];
+            double[] returnRates = new double[trialLength - 1];
             unitValues[0] = 1.0;
 
             // Populate trial data
             double step = 0;
-            trial[0] = (profile.InitialAmount + profile.ContributionAmount) * unitValues[0];
+            balances[0] = profile.InitialAmount + addAmt;
             
-            for (var i = 1; i < profile.TrialLength; i++)
+            for (var i = 1; i < trialLength; i++)
             {
                 // Discretized Levy process (random walk with steps distributed as stepDistribution)
-                step += profile.StepDistribution.NextDouble();
+                step += stepSampler.NextDouble();
 
                 // Discretized geometric Brownian motion
-                unitValues[i] = Math.Exp((profile.Drift - (Math.Pow(profile.Volatility, 2) / 2) * i) + profile.Volatility * step);
+                var unitValue = Math.Exp((mu - (sigma * sigma * i * 0.5) + sigma * step));
 
-                trial[i] = trial[i - 1] > 0 ?
-                    (i < profile.ContributionLength ?
+                // Get return rate
+                var returnRate = unitValue / unitValues[i - 1];
+
+                var prevBalance = balances[i - 1];
+
+                var balance = prevBalance > 0 ?
+                    (i < contribLength ?
                         // Contribution period
-                        (trial[i - 1] + profile.ContributionAmount) * (unitValues[i] / unitValues[i - 1]) :
+                        (prevBalance + addAmt) * returnRate :
                         // Withdrawal period
-                        (trial[i - 1] - profile.WithdrawalAmount) * (unitValues[i] / unitValues[i - 1]))
+                        (prevBalance - withdrawAmt) * returnRate)
                     : 0;
 
-                trial[i] = trial[i] > 0 ? trial[i] : 0;
-                if (trial[i] == 0) {
+                if (i == contribLength - 1)
+                {
+                    trial.Peak = balance;
+                }
+
+                balances[i] = balance > 0 ? balance : 0;
+                unitValues[i] = unitValue;
+                returnRates[i - 1] = returnRate;
+                
+                if (balance == 0) {
                     break;
                 }
                 
             }
+
+            trial.Balances = balances;
+            trial.ReturnRates = returnRates;
 
             // Add data to return value
             mutex.WaitOne();
