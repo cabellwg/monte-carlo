@@ -31,6 +31,38 @@ body{
   height: 500px;
 }
 
+.historicalHisto{
+  position: absolute;
+  top: 275px;
+  left: 30px;
+  width: 900px;
+  height: 500px;
+}
+
+.projectedHisto{
+  position: absolute;
+  top: 275px;
+  right: 30px;
+  width: 900px;
+  height: 500px;
+}
+
+.historicalHistoBonds{
+  position: absolute;
+  top: 275px;
+  left: 30px;
+  width: 900px;
+  height: 500px;
+}
+
+.projectedHistoBonds{
+  position: absolute;
+  top: 275px;
+  right: 30px;
+  width: 900px;
+  height: 500px;
+}
+
 h2{
   text-align: center;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;

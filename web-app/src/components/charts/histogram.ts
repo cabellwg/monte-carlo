@@ -4,15 +4,9 @@ import { bindable } from 'aurelia-framework';
 
 export class Histogram {
 
-  //Stocks Histogram
   stocksReturnRate: [number];
   stocksPeak: number;
   stocksScale: number;
-
-  //Bonds Histogram
-  bondsReturnRate: [number];
-  bondsPeak: number;
-  bondsScale: number;
 
   @bindable data: Result;
   @bindable histogramId: string
@@ -22,12 +16,6 @@ export class Histogram {
     this.stocksReturnRate = this.data.stocksReturnRateFrequencies;
     this.stocksPeak = this.data.stocksFrequencyPeak;
     this.stocksScale = this.data.stocksFrequencyScale;
-
-    this.bondsReturnRate = this.data.stocksReturnRateFrequencies;
-    this.bondsPeak = this.data.stocksFrequencyPeak;
-    this.bondsScale = this.data.stocksFrequencyScale;
-
-
     this.buildChart();
   }
    

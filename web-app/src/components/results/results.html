@@ -3,6 +3,7 @@
   <require from="../charts/histogram"></require>
   <require from="../charts/LineChart"></require>
   <require from="../charts/bar"></require>
+  <require from="../charts/histogramBonds"></require>
 
   <h2>Probability of <span style="color: #26A65B">Success<span></span></h2>
 
@@ -64,35 +65,35 @@
               to repeat the same line again and again and again. Some Lorem Ipsum text need to go here, which sound really cool but its just random text which can be repeated at random spaces</p>
           </div>
         </div>
-
       </div>
+    </div>
       
-      <div class="slider slide2">
-        <div>
-          <line-chart local-id="historical" data.bind="data.historical" class="historical"></line-chart>
-          <line-chart local-id="projected" data.bind="data.projected" class="projected"></line-chart>
-
-          <div class="row">
-              <div class="text">
-                <h4 class="chartHeading">Historical</h4>
-                <p class="chartBody">Some Lorem Ipsum text need to go here, which sound really cool but its just random text which can be repeated at random spaces. Now I am going
-                  to repeat the same line again and again and again. Some Lorem Ipsum text need to go here, which sound really cool but its just random text which can be repeated at random spaces
-                </p>
-              </div>
-    
-              <div class="text">
-                <h4 class="chartHeading">Projected</h4>
-                <p class="chartBody">Some Lorem Ipsum text need to go here, which sound really cool but its just random text which can be repeated at random spaces. Now I am going
-                  to repeat the same line again and again and again. Some Lorem Ipsum text need to go here, which sound really cool but its just random text which can be repeated at random spaces</p>
+      <div class="slider slide2"> 
+          <div>
+              <histogram bonds-id="histogramHistoricalBonds" data.bind="data.historical" class="historicalHistoBonds"></histogram>
+              <histogram bonds-id="histogramProjectedBonds" data.bind="data.projected" class="projectedHistoBonds"></histogram>
+      
+              <div class="row">
+                <div class="text">
+                  <h4 class="chartHeading">Historical</h4>
+                  <p class="chartBody">Some Lorem Ipsum text need to go here, which sound really cool but its just random text which can be repeated at random spaces. Now I am going
+                    to repeat the same line again and again and again. Some Lorem Ipsum text need to go here, which sound really cool but its just random text which can be repeated at random spaces
+                  </p>
+                </div>
+      
+                <div class="text">
+                  <h4 class="chartHeading">Projected</h4>
+                  <p class="chartBody">Some Lorem Ipsum text need to go here, which sound really cool but its just random text which can be repeated at random spaces. Now I am going
+                    to repeat the same line again and again and again. Some Lorem Ipsum text need to go here, which sound really cool but its just random text which can be repeated at random spaces</p>
+                </div>
               </div>
             </div>
-       </div>
      </div>
      
      <div class="slider slide3">
-        <div>
-            <bar bar-id="stackedHistorical" data.bind="data.historical" class="historicalBar"></bar>
-            <bar bar-id="stackedProjected" data.bind="data.projected" class="historicalBar"></bar>
+        <div>- slide 3
+            <line-chart local-id="historical" data.bind="data.historical" class="historical"></line-chart>
+            <line-chart local-id="projected" data.bind="data.projected" class="projected"></line-chart>
   
             <div class="row">
                 <div class="text">
@@ -110,7 +111,28 @@
               </div>
          </div>
      </div>
+
+     <div class="slider slide4">
+        <div>- slide 4
+            <bar bar-id="stackedHistorical" data.bind="data.historical" class="historicalBar"></bar>
+            <bar bar-id="stackedProjected" data.bind="data.projected" class="projectedBar"></bar>
   
+            <div class="row">
+                <div class="text">
+                  <h4 class="chartHeading">Historical</h4>
+                  <p class="chartBody">Some Lorem Ipsum text need to go here, which sound really cool but its just random text which can be repeated at random spaces. Now I am going
+                    to repeat the same line again and again and again. Some Lorem Ipsum text need to go here, which sound really cool but its just random text which can be repeated at random spaces
+                  </p>
+                </div>
+      
+                <div class="text">
+                  <h4 class="chartHeading">Projected</h4>
+                  <p class="chartBody">Some Lorem Ipsum text need to go here, which sound really cool but its just random text which can be repeated at random spaces. Now I am going
+                    to repeat the same line again and again and again. Some Lorem Ipsum text need to go here, which sound really cool but its just random text which can be repeated at random spaces</p>
+                </div>
+              </div>
+         </div>
+     </div>
     <!--
     <div id="wrapper">
       <input type="submit" value="Return to Home Page" click.delegate="inputsReturnButton()">
