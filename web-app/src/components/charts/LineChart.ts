@@ -1,19 +1,23 @@
-import { Data } from './../../resources/scripts/data';
+import { Result } from './../../resources/scripts/data';
 import { Chart } from 'chart.js';
 import { bindable } from 'aurelia-framework';
 
 export class LineChart {
 
+  percentiles: [[number]];
+  max: number;
+  @bindable data: Result;
+  @bindable localId: string;
 
   attached(){
+    this.percentiles = this.data.portfolioPercentiles;
+    this.max = (this.data.bondsRetirementAmounts[2] + this.data.stocksRetirementAmounts[2]) * 2.5;
+    console.log(this.max);
     this.buildChart();
   }
 
-  @bindable percentiles;
-
-  @bindable localId: string;
-
   buildChart() {
+    console.log("Building chart");
     let ctx = (document.getElementById(this.localId) as HTMLCanvasElement).getContext("2d");
     new Chart(ctx, {
      type: 'line',
@@ -21,7 +25,7 @@ export class LineChart {
        datasets:[{
          label: '10',
          data: this.percentiles[0],
-         lineTension: 0.3,
+         lineTension: 0,
          fill: false,
          borderColor: 'red',
          backgroundColor: 'transparent',
@@ -33,7 +37,7 @@ export class LineChart {
        {
          label: '20',
          data: this.percentiles[1],
-         lineTension: 0.3,
+         lineTension: 0,
          fill: false,
          borderColor: 'purple',
          backgroundColor: 'transparent',
@@ -46,7 +50,7 @@ export class LineChart {
        {
          label: '30',
          data:  this.percentiles[2],
-         lineTension: 0.3,
+         lineTension: 0,
          fill: false,
          borderColor: 'orange',
          backgroundColor: 'transparent',
@@ -59,7 +63,7 @@ export class LineChart {
        {
         label: '40',
         data:  this.percentiles[3],
-        lineTension: 0.3,
+        lineTension: 0,
         fill: false,
         borderColor: 'green',
         backgroundColor: 'transparent',
@@ -73,7 +77,7 @@ export class LineChart {
       {
         label: '50',
         data:  this.percentiles[4],
-        lineTension: 0.3,
+        lineTension: 0,
         fill: false,
         borderColor: 'pink',
         backgroundColor: 'transparent',
@@ -87,7 +91,7 @@ export class LineChart {
       {
         label: '60',
         data:  this.percentiles[5],
-        lineTension: 0.3,
+        lineTension: 0,
         fill: false,
         borderColor: 'light green',
         backgroundColor: 'transparent',
@@ -101,7 +105,7 @@ export class LineChart {
       {
         label: '70',
         data:  this.percentiles[6],
-        lineTension: 0.3,
+        lineTension: 0,
         fill: false,
         borderColor: 'blue',
         backgroundColor: 'transparent',
@@ -115,7 +119,7 @@ export class LineChart {
       {
         label: '80',
         data:  this.percentiles[7],
-        lineTension: 0.3,
+        lineTension: 0,
         fill: false,
         borderColor: 'cyan',
         backgroundColor: 'transparent',
@@ -129,7 +133,7 @@ export class LineChart {
       {
         label: '90',
         data:  this.percentiles[8],
-        lineTension: 0.3,
+        lineTension: 0,
         fill: false,
         borderColor: 'yellow',
         backgroundColor: 'transparent',
@@ -143,7 +147,7 @@ export class LineChart {
       {
         label: '100',
         data:  this.percentiles[9],
-        lineTension: 0.3,
+        lineTension: 0,
         fill: false,
         borderColor: 'black',
         backgroundColor: 'transparent',
@@ -153,14 +157,14 @@ export class LineChart {
         pointBorderWidth: 2,
         type: 'line',
       }],
-       labels:  this.percentiles[5].map((element,index)=>index),
+       labels:  this.percentiles[5].map((_,index)=>index),
      },
      options:{
       scales:{
-        yAxis:[{
+        yAxes:[{
           ticks:{
             beginAtZero: true,
-            max: 50000
+            max: this.max
           }
         }]
       },

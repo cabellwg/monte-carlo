@@ -7,14 +7,13 @@ import { Router } from 'aurelia-router';
 export class Results {
 
   router: Router
-  private Data: typeof Data = Data
+  data: Data = Data.instance;
 
   constructor(router){
     this.router = router
   }
 
   attached(){
-    console.log(Data.portfolioPercentiles)
   }
 
 

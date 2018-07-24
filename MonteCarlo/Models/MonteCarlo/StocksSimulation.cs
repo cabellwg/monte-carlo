@@ -16,7 +16,7 @@ namespace MonteCarlo.Models
             
             for (var i = 1; i < profile.TrialLength; i++)
             {
-                // Discretized L process (random walk with steps distributed as stepDistribution)
+                // Discretized Levy process (random walk with steps distributed as stepDistribution)
                 step += profile.StepDistribution.NextDouble();
 
                 // Discretized geometric Brownian motion
