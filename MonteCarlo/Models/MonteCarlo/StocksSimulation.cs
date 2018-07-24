@@ -30,7 +30,8 @@ namespace MonteCarlo.Models
                 step += stepSampler.NextDouble();
 
                 // Discretized geometric Brownian motion
-                var unitValue = Math.Exp((mu - (sigma * sigma * i * 0.5) + sigma * step));
+                //var unitValue = (1 + mu + sigma * step + 0.5 * sigma * sigma * (step * step - 1)) * unitValues[i - 1];
+                var unitValue = Math.Exp((mu - (sigma * sigma * 0.5)) * i + sigma * step);
 
                 // Get return rate
                 var returnRate = unitValue / unitValues[i - 1];
@@ -52,7 +53,7 @@ namespace MonteCarlo.Models
 
                 balances[i] = balance > 0 ? balance : 0;
                 unitValues[i] = unitValue;
-                returnRates[i - 1] = returnRate;
+                returnRates[i - 1] = Math.Log(returnRate);
                 
                 if (balance == 0) {
                     break;
