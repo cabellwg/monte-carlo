@@ -33,12 +33,17 @@ export class Histogram {
        datasets:[{
          label: "Bar",
          data: this.returnRates,   
-         backgroundColor: "#b0deb0",
+         backgroundColor: "#00230B",
       },
       {
         label: 'Bell Curve',
         data: this.idealDistribution,
-        backgroundColor: "#320707",
+        lineTenstion: 0,
+        fill: false,
+        borderColor: "#212224",
+        backgroundColor: 'transparent',
+        pointBackgroundColor: "#212422",
+        pointBorderWidth: 0,
         type: 'line'
       }],
      },
