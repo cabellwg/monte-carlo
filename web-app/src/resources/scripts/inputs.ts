@@ -1,25 +1,25 @@
 
 export class Inputs{
 
-  age: number = undefined;
+  age: number = 55;
 
-  retirementAge: number = undefined;
+  retirementAge: number = 65;
 
-  deathAge: number = undefined;
+  deathAge: number = 90;
   
-  yearlyStocksContributions: number = undefined;
+  yearlyStocksContributions: number = 7000;
   
-  yearlyBondsContributions: number = undefined;
+  yearlyBondsContributions: number = 5000;
   
-  yearlySavingsContributions: number = undefined;
+  yearlySavingsContributions: number = 3000;
   
-  stocksAmount: number = undefined;
+  stocksAmount: number = 0;
   
-  bondsAmount: number = undefined;
+  bondsAmount: number = 0;
   
-  savingsAmount: number = undefined;
+  savingsAmount: number = 0;
   
-  desiredRetirementIncome: number = undefined;
+  desiredRetirementIncome: number = 10000;
 
   stocksDistributionType: string = "Normal";
 
