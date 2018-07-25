@@ -3,7 +3,6 @@
   <require from="../charts/histogram"></require>
   <require from="../charts/LineChart"></require>
   <require from="../charts/bar"></require>
-  <require from="../charts/histogramBonds"></require>
 
   <h2>Probability of <span style="color: #26A65B">Success<span></span></h2>
 
@@ -48,8 +47,8 @@
     
     <div class="slider slide1">
       <div>
-        <histogram histogram-id="histogramHistorical" data.bind="data.historical" class="historicalHisto"></histogram>
-        <histogram histogram-id="histogramProjected" data.bind="data.projected" class="projectedHisto"></histogram>
+        <histogram histogram-id="histogramHistorical" return-rates.bind="data.historical.stocksReturnRateFrequencies" class="historicalHisto"></histogram>
+        <histogram histogram-id="histogramProjected" return-rates.bind="data.projected.stocksReturnRateFrequencies" class="projectedHisto"></histogram>
 
         <div class="row">
           <div class="text">
@@ -70,8 +69,8 @@
       
       <div class="slider slide2"> 
           <div>
-              <histogram bonds-id="histogramHistoricalBonds" data.bind="data.historical" class="historicalHistoBonds"></histogram>
-              <histogram bonds-id="histogramProjectedBonds" data.bind="data.projected" class="projectedHistoBonds"></histogram>
+            <histogram histogram-id="histogramHistoricalBonds" return-rates.bind="data.historical.bondsReturnRateFrequencies" class="historicalHisto"></histogram>
+            <histogram histogram-id="histogramProjectedBonds" return-rates.bind="data.projected.bondsReturnRateFrequencies" class="projectedHisto"></histogram>
       
               <div class="row">
                 <div class="text">
@@ -92,8 +91,8 @@
      
      <div class="slider slide3">
         <div>- slide 3
-            <line-chart local-id="historical" data.bind="data.historical" class="historical"></line-chart>
-            <line-chart local-id="projected" data.bind="data.projected" class="projected"></line-chart>
+            <line-chart local-id="linehistorical" data.bind="data.historical" class="historical"></line-chart>
+            <line-chart local-id="lineprojected" data.bind="data.projected" class="projected"></line-chart>
   
             <div class="row">
                 <div class="text">

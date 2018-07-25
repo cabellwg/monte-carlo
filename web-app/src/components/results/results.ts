@@ -5,16 +5,5 @@ import { Router } from 'aurelia-router';
 
 @inject(EventAggregator, Router)
 export class Results {
-
-  router: Router
   data: Data = Data.instance;
-
-  constructor(router){
-    this.router = router
-  }
-
-  attached(){
-  }
-
-
 }

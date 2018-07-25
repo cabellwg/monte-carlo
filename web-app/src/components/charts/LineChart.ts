@@ -12,7 +12,6 @@ export class LineChart {
   attached(){
     this.percentiles = this.data.portfolioPercentiles;
     this.max = (this.data.bondsRetirementAmounts[2] + this.data.stocksRetirementAmounts[2]) * 2.5;
-    console.log(this.max);
     this.buildChart();
   }
 

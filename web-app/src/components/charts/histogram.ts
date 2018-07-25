@@ -1,51 +1,53 @@
 import { Chart } from 'chart.js';
-import { Result } from './../../resources/scripts/data';
 import { bindable } from 'aurelia-framework';
 
 export class Histogram {
 
-  stocksReturnRate: [number];
-  stocksPeak: number;
-  stocksScale: number;
+  idealDistribution: [number];
 
-  @bindable data: Result;
+  @bindable returnRates: [number];
   @bindable histogramId: string
 
   
   attached() {
-    this.stocksReturnRate = this.data.stocksReturnRateFrequencies;
-    this.stocksPeak = this.data.stocksFrequencyPeak;
-    this.stocksScale = this.data.stocksFrequencyScale;
+
+    this.generateIdeal();
+
     this.buildChart();
   }
-   
+
+  generateIdeal() {
+    this.idealDistribution = new Array() as [number];
+    for (let i = 0; i < this.returnRates.length; i++) {
+      let normal = this.returnRates[this.returnRates.length / 2] * Math.exp(-Math.pow(i - this.returnRates.length / 2.0, 2) / 18);
+      this.idealDistribution.push(normal);
+    }
+  }
 
   buildChart() {
     console.log("Histogram Chart is Building")
     let ctx = (document.getElementById(this.histogramId) as HTMLCanvasElement).getContext("2d");
     new Chart(ctx, {
      type: 'bar',
-     labels:["Income Range 1", "Income Range 2", "Income Range 3"],
      data:{
+       labels: this.returnRates.map((_,index)=>index),
        datasets:[{
          label: "Stocks Histogram",
-         data: [this.data.stocksReturnRateFrequencies, this.data.stocksFrequencyPeak, this.data.stocksFrequencyScale],
+         data: this.returnRates,
          backgroundColor: "rgba(84, 111, 140, 0.74)",
-       }], 
-       /*
-       {
-         label: 'Stocks Line',
-        data: [this.data.stocksReturnRateFrequencies, this.data.stocksFrequencyPeak, this.data.stocksFrequencyScale],
-         backgroundColor: "rgba(95, 2, 31, 0.47)",
-         type: 'line'
-       }],*/
+      },
+      {
+        label: 'Stocks Line',
+        data: this.idealDistribution,
+        backgroundColor: "rgba(95, 2, 31, 0.47)",
+        type: 'line'
+      }],
      },
      options:{
       scales:{
         yAxis:[{
           ticks:{
-            beginAtZero: true,
-            stacked: true,
+            beginAtZero: true
           }
         }]
       },
