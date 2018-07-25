@@ -7,24 +7,24 @@
   <h2>Probability of <span style="color: #26A65B">Success<span></span></h2>
 
   <div class="row buttons">
-      <div class="col-sm-6">
+      <div class="col-sm-5">
         <label for="distribution-type">Choose the distribution of changes in stock prices you want to assume.</label><br>
         <div name="distribution-type" class="btn-group">
           <button type="button" class="btn btn-primary">Normal</button>
           <button type="button" class="btn btn-primary">Laplace</button>
           <button type="button" class="btn btn-primary">Logistic</button>
-          <button type="button" class="btn btn-primary">T</button>
           <button type="button" class="btn btn-primary">Log-Normal</button>
         </div>
       </div>
-      <div class="col-sm-6">
-        <label for="distribution-type">Choose the distribution of changes in stock prices you want to assume.</label><br>
+      <div class="col-sm-2">
+        <br />
+        <button type="button" class="btn btn-primary" click.delegate="rerun()">Run Again</button>
+      </div>
+      <div class="col-sm-5">
+        <label for="distribution-type">Choose the start date of the historical data you would like to consider.</label><br>
         <div name="distribution-type" class="btn-group">
-          <button type="button" class="btn btn-primary">Normal</button>
-          <button type="button" class="btn btn-primary">Laplace</button>
-          <button type="button" class="btn btn-primary">Logistic</button>
-          <button type="button" class="btn btn-primary">T</button>
-          <button type="button" class="btn btn-primary">Log-Normal</button>
+          <button type="button" class="btn btn-primary">1928</button>
+          <button type="button" class="btn btn-primary">1975</button>
         </div>
       </div>
     </div>
@@ -59,7 +59,7 @@
     <div class="slider slide1">
       <div>
         <div class="row">
-          <histogram histogram-id="histogramHistorical" return-rates.bind="data.historical.stocksReturnRateFrequencies" class="col-sm-6"></histogram>
+          <histogram histogram-id="histogramHistorical" return-rates.bind="data.historical.stocksReturnRateFrequencies & signal:'data'" class="col-sm-6"></histogram>
           <histogram histogram-id="histogramProjected" return-rates.bind="data.projected.stocksReturnRateFrequencies" class="col-sm-6"></histogram>
         </div>
 

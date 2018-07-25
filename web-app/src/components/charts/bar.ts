@@ -3,7 +3,6 @@ import { bindable } from "aurelia-framework";
 import { Chart } from 'chart.js';
 
 export class BarChart {
-
   //stocks
   stocksRetirement: [number];
   stocksEnd: [number];

@@ -1,20 +1,33 @@
 import { Data } from 'resources/scripts/data';
-import { inject } from 'aurelia-framework';
-import { EventAggregator } from 'aurelia-event-aggregator';
+import { inject, NewInstance } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
+import { APIRequest } from 'resources/scripts/api';
+import { EventAggregator } from '../../../node_modules/aurelia-event-aggregator';
 
-@inject(EventAggregator, Router)
+@inject(Router, EventAggregator)
 export class Results {
-  data: Data = Data.instance;
+  data: Data;
 
-  router: Router
+  router: Router;
+  ea: EventAggregator;
 
-  constructor(router){
+  constructor(router, ea: EventAggregator){
     this.router = router;
+    this.data = Data.instance;
+    this.ea = ea;
   }
 
-  inputsReturnButton(){
-    this.router.navigateToRoute("home");
+  rerun() {
+    APIRequest.postInputs(this.data.inputs)
+      .then(data => {
+        Data.instance = data as Data;
+        Data.instance.inputs = this.data.inputs;
+        this.data = Data.instance;
+        this.router.navigateToRoute(
+          this.router.currentInstruction.config.name,
+          this.router.currentInstruction.params,
+          { replace: true }
+        );
+    });
   }
-  
 }

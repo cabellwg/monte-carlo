@@ -7,7 +7,6 @@ export class Histogram {
 
   @bindable returnRates: [number];
   @bindable histogramId: string
-
   
   attached() {
 

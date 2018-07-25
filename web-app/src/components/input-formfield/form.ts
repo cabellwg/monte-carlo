@@ -42,6 +42,7 @@ export class Form{
     APIRequest.postInputs(this.inputs)
       .then(data => {
         Data.instance = data as Data;
+        Data.instance.inputs = this.inputs;
         this.router.navigateToRoute("results");
     });
   }

@@ -27,6 +27,12 @@ h2{
   font-size: 55px;
 }
 
+figure {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #26A65B;
+}
+
 .chartHeading{
   font-family: 'Cantata One', serif;
   font-weight: bold;
@@ -40,6 +46,8 @@ h2{
 .buttons {
   position: relative;
   z-index: 1;
+
+  text-align: center;
 }
 
 .row {

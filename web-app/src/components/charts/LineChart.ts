@@ -3,7 +3,6 @@ import { Chart } from 'chart.js';
 import { bindable } from 'aurelia-framework';
 
 export class LineChart {
-
   percentiles: [[number]];
   max: number;
   @bindable data: Result;

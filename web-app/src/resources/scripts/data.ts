@@ -1,7 +1,10 @@
+import { Inputs } from "./inputs";
+
 export class Data {
   static instance: Data;
   historical: Result;
   projected: Result;
+  inputs: Inputs;
 }
 
 export class Result {
@@ -12,12 +15,7 @@ export class Result {
 
   //Histogram
   stocksReturnRateFrequencies: [number];
-  stocksFrequencyPeak: number;
-  stocksFrequencyScale: number;
-
   bondsReturnRateFrequencies: [number];
-  bondsFrequencyPeak: number;
-  bondsFrequencyScale: number;
 
   //Stacked bar
   stocksRetirementAmounts: [number];
