@@ -4,13 +4,13 @@ import { bindable } from 'aurelia-framework';
 
 export class LineChart {
   percentiles: [[number]];
-  //max: number;
+  max: number;
   @bindable data: Result;
   @bindable localId: string;
 
   attached(){
     this.percentiles = this.data.portfolioPercentiles;
-    //this.max = (this.data.bondsRetirementAmounts[2] + this.data.stocksRetirementAmounts[2]) * 2.5;
+    this.max = (this.data.bondsRetirementAmounts[2] + this.data.stocksRetirementAmounts[2]) * 2.5;
     this.buildChart();
   }
 
@@ -151,7 +151,7 @@ export class LineChart {
         yAxes:[{
           ticks:{
             beginAtZero: true,
-            //max: this.max
+            max: this.max
           }
         }]
       },

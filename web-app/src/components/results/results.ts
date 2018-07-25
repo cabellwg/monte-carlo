@@ -17,6 +17,10 @@ export class Results {
     this.ea = ea;
   }
 
+  goBack() {
+    this.router.navigateBack();
+  }
+
   rerun() {
     APIRequest.postInputs(this.data.inputs)
       .then(data => {
