@@ -39,6 +39,7 @@
             
             trial.Balances = balances;
             trial.ReturnRates = null;
+            trial.Final = balances[profile.TrialLength - 1];
 
             // Add data to return value
             mutex.WaitOne();

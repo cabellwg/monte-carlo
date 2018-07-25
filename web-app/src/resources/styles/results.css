@@ -2,65 +2,9 @@ body{
   background: #F2F1EF;
 }
 
-.text{
-  float: left;
-  width: 50%;
-  padding: 56px;
-  height: 300px;
-  margin-top: 700px;
-  text-align: left;
-}
 .row::after{
   display: table;
   clear: both;
-}
-
-.historical{
-  position: absolute;
-  top: 275px;
-  left: 30px;
-  width: 900px;
-  height: 500px;
-}
-
-.projected{
-  position: absolute;
-  top: 275px;
-  right: 30px;
-  width: 900px;
-  height: 500px;
-}
-
-.historicalHisto{
-  position: absolute;
-  top: 275px;
-  left: 30px;
-  width: 900px;
-  height: 500px;
-}
-
-.projectedHisto{
-  position: absolute;
-  top: 275px;
-  right: 30px;
-  width: 900px;
-  height: 500px;
-}
-
-.historicalHistoBonds{
-  position: absolute;
-  top: 275px;
-  left: 30px;
-  width: 900px;
-  height: 500px;
-}
-
-.projectedHistoBonds{
-  position: absolute;
-  top: 275px;
-  right: 30px;
-  width: 900px;
-  height: 500px;
 }
 
 h2{
@@ -69,6 +13,10 @@ h2{
   font-size: 35px;
   margin-top: 2px;
   padding: 1px;
+}
+
+.text {
+  text-align: left;
 }
 
 .header{
@@ -89,17 +37,19 @@ h2{
   font-size:inherit; 
 }
 
+.buttons {
+  position: relative;
+  z-index: 1;
+}
 
+.row {
+  margin: 0 !important;
+}
 
 /* Slider wrapper*/
 .css-slider-wrapper {
   display: block;
   overflow: hidden;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
 }
 
 /* Slider */
@@ -109,7 +59,7 @@ h2{
   background: transparent;
   position: absolute;
   left: 0;
-  top: 0;
+  top: 100px;
   opacity: 1;
   z-index: 0;
   display: flex;

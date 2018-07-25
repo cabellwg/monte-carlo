@@ -9,6 +9,7 @@ namespace MonteCarlo.Models
         public double[] Balances;
         public double[] ReturnRates;
         public double Peak;
+        public double Final;
     }
 
     public abstract class MonteCarloSimulation

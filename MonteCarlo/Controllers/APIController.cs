@@ -15,7 +15,7 @@ namespace MonteCarlo.Controllers
             var projectedInputs = inputs;
             projectedInputs.BondsDataStartDate = DataStartDate._2000;
             projectedInputs.StocksDataStartDate = DataStartDate._2000;
-
+            
             result.Add("historical", Task.Factory.StartNew(() =>
             {
                 var runner = new SimulationManager(inputs);

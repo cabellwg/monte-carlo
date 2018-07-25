@@ -61,6 +61,7 @@ namespace MonteCarlo.Models
                 
             }
 
+            trial.Final = balances[trialLength - 1];
             trial.Balances = balances;
             trial.ReturnRates = returnRates;
 
