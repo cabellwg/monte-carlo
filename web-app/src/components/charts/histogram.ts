@@ -32,14 +32,14 @@ export class Histogram {
      data:{
        labels: this.returnRates.map((_,index)=>index),
        datasets:[{
-         label: "Stocks Histogram",
-         data: this.returnRates,
-         backgroundColor: "rgba(84, 111, 140, 0.74)",
+         label: "Bar",
+         data: this.returnRates,   
+         backgroundColor: "#b0deb0",
       },
       {
-        label: 'Stocks Line',
+        label: 'Bell Curve',
         data: this.idealDistribution,
-        backgroundColor: "rgba(95, 2, 31, 0.47)",
+        backgroundColor: "#320707",
         type: 'line'
       }],
      },
