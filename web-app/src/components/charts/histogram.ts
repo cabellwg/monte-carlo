@@ -19,7 +19,7 @@ export class Histogram {
   generateIdeal() {
     this.idealDistribution = new Array() as [number];
     for (let i = 0; i < this.returnRates.length; i++) {
-      let normal = this.returnRates[this.returnRates.length / 2] * Math.exp(-Math.pow(i - this.returnRates.length / 2.0, 2) / 18);
+      let normal = this.returnRates[Math.floor(this.returnRates.length / 2)] * Math.exp(-Math.pow(i - Math.floor(this.returnRates.length / 2), 2) / 18);
       this.idealDistribution.push(normal);
     }
   }
