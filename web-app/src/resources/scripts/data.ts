@@ -24,5 +24,5 @@ export class Result {
   stocksEndAmounts: [number];
 
   bondsRetirementAmounts: [number];
-  bondsEndAmount: [number];
+  bondsEndAmounts: [number];
 }

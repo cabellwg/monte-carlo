@@ -21,10 +21,11 @@ export class BarChart {
 
     //bonds
     this.bondsRetirement = this.data.bondsRetirementAmounts
-    this.bondsEnd = this.data.bondsEndAmount
+    this.bondsEnd = this.data.bondsEndAmounts
 
     this.buildChart();
   }
+
 
   buildChart(){
     console.log("Building Bar Chart")
@@ -32,31 +33,51 @@ export class BarChart {
     new Chart(ctx, {
       type: 'bar',
       data:{
-        labels: ['Stocks', 'Bonds'],
+        labels: ['25%', '50%', '75'],
         datasets: [
           {
-            label: 'Retirement Amount',
+            label: 'Retirement',
             backgroundColor: 'red',
-            data:[this.data.stocksRetirementAmounts, this.data.bondsRetirementAmounts],
+            data: this.data.stocksRetirementAmounts,
+            stack: ' Stocks Stack'
           },
           {
-            label: 'End Amount',
-            data: [this.data.stocksEndAmounts, this.data.bondsEndAmount],
-            backgroundColor: 'green',
-          }
+            label: 'Retirement',
+            backgroundColor: 'pink',
+            data: this.data.bondsRetirementAmounts,
+            stack: 'Bond Stack'
+          },
+          
+          {
+            label: 'End',
+            data: this.data.stocksEndAmounts,
+            backgroundColor: 'red',
+            stack: 'Stocks Stack'
+          },
+          {
+            label: 'End',
+            backgroundColor: 'pink',
+            data: this.data.bondsEndAmounts,
+            stack: 'Bond Stack'
+          },
+          
         ]
       },
       options:{
         scales:{
-          yAxis:[{
+          xAxes: [{
+            stacked: true,
+          }],
+          yAxes:[{
             ticks:{
               beginAtZero: true,
             },
-           type: 'linear',
+           stacked: true,
           }]
         },
         legend: {position: 'bottom'},
       }
     });
   }
-}
+ }
+
