@@ -18,6 +18,11 @@ namespace MonteCarlo.Models
         public DataStartDate StocksDataStartDate { get; set; }
         public Distribution BondsDistributionType { get; set; }
         public DataStartDate BondsDataStartDate { get; set; }
+
+        public DataModel Copy()
+        {
+            return MemberwiseClone() as DataModel;
+        }
     }
 
     public enum DataStartDate

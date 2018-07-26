@@ -12,7 +12,7 @@ namespace MonteCarlo.Controllers
         public JsonResult Post([FromBody]DataModel inputs)
         {
             var result = new Dictionary<string, Result>();
-            var projectedInputs = inputs;
+            var projectedInputs = inputs.Copy();
             projectedInputs.BondsDataStartDate = DataStartDate._2000;
             projectedInputs.StocksDataStartDate = DataStartDate._2000;
             

@@ -9,11 +9,12 @@ export class Histogram {
 
   @bindable returnRates: [number];
   @bindable histogramId: string
-  
+  @bindable distributionType: string;
+  @bindable laplaceLocation: number;
+  @bindable laplaceScale: number;
+  @bindable xLabels: [string];
 
   attached() {
-    this.generateIdeal();
-
     this.buildChart();
     this.canBuildNewChart = true;
   }
@@ -24,12 +25,31 @@ export class Histogram {
     }
   }
 
-  generateIdeal() {
+  generateIdeal(type: string) {
     this.idealDistribution = new Array() as [number];
-    for (let i = 0; i < this.returnRates.length; i++) {
-      let normal = this.returnRates[Math.floor(this.returnRates.length / 2)] * Math.exp(-Math.pow(i - Math.floor(this.returnRates.length / 2), 2) / 18);
-      this.idealDistribution.push(normal);
+    switch (type) {
+      case "Normal":
+        for (let i = 0; i < this.returnRates.length; i++) {
+          let normal = this.returnRates[Math.floor(this.returnRates.length / 2)] * Math.exp(-Math.pow(i - Math.floor(this.returnRates.length / 2), 2) / 18);
+          this.idealDistribution.push(normal);
+        }
+        break;
+      case "Laplace":
+        for (let i = 0; i < this.returnRates.length; i++) {
+          let normal = this.returnRates[Math.floor(this.returnRates.length / 2)] * Math.exp(-Math.abs(i - Math.floor(this.returnRates.length / 2)) / 3);
+          this.idealDistribution.push(normal);
+        }
+        break;
+      case "Logistic":
+        for (let i = 0; i < this.returnRates.length; i++) {
+          let normal = this.returnRates[Math.floor(this.returnRates.length / 2)] * (1 / Math.pow(Math.cosh((i - Math.floor(this.returnRates.length / 2)) / (6 * Math.sqrt(3) / Math.PI)), 2));
+          this.idealDistribution.push(normal);
+        }
+        break;
+      default:
+        break;
     }
+    
   }
 
   buildChart() {
@@ -37,11 +57,13 @@ export class Histogram {
       this.chart.destroy();
     }
     
+    this.generateIdeal(this.distributionType);
+
     let ctx = (document.getElementById(this.histogramId) as HTMLCanvasElement).getContext("2d");
     this.chart = new Chart(ctx, {
      type: 'bar',
      data:{
-       labels: this.returnRates.map((_,index)=>index),
+       labels: this.xLabels || this.returnRates.map((_,index)=>index),
        datasets:[{
          label: "Bar",
          data: this.returnRates,   

@@ -77,8 +77,8 @@
     <div class="slider slide1">
       <div>
         <div class="row">
-          <histogram histogram-id="histogramHistorical" return-rates.bind="data.historical.stocksReturnRateFrequencies" class="col-sm-6"></histogram>
-          <histogram histogram-id="histogramProjected" return-rates.bind="data.projected.stocksReturnRateFrequencies" class="col-sm-6"></histogram>
+          <histogram histogram-id="histogramHistorical" return-rates.bind="data.historical.stocksReturnRateFrequencies" class="col-sm-6" distribution-type.bind="data.inputs.stocksDistributionType"></histogram>
+          <histogram histogram-id="histogramProjected" return-rates.bind="data.projected.stocksReturnRateFrequencies" class="col-sm-6" distribution-type.bind="data.inputs.stocksDistributionType"></histogram>
         </div>
 
         <div class="row">
@@ -102,8 +102,8 @@
       <div class="slider slide2"> 
         <div>
           <div class="row">
-            <histogram histogram-id="histogramHistoricalBonds" return-rates.bind="data.historical.bondsReturnRateFrequencies" class="col-sm-6"></histogram>
-            <histogram histogram-id="histogramProjectedBonds" return-rates.bind="data.projected.bondsReturnRateFrequencies" class="col-sm-6"></histogram>
+            <histogram histogram-id="histogramHistoricalBonds" return-rates.bind="data.historical.bondsReturnRateFrequencies" class="col-sm-6" distribution-type.bind="data.inputs.bondsDistributionType"></histogram>
+            <histogram histogram-id="histogramProjectedBonds" return-rates.bind="data.projected.bondsReturnRateFrequencies" class="col-sm-6" distribution-type.bind="data.inputs.bondsDistributionType"></histogram>
           </div>
           
           <div class="row">
