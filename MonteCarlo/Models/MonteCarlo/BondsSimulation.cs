@@ -27,7 +27,7 @@
             for (var i = 1; i < trialLength; i++)
             {
                 interestRate += stepSampler.NextDouble() * 0.01;
-                interestRate = interestRate < 0.03 ? 0.03 : interestRate;
+                interestRate = interestRate < 0.0003 ? 0.0003 : interestRate;
                 bondRates[i] = interestRate;
 
                 var prevBalance = balances[i - 1];

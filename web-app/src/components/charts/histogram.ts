@@ -63,7 +63,7 @@ export class Histogram {
     this.chart = new Chart(ctx, {
      type: 'bar',
      data:{
-       labels: this.xLabels.map(rate => (rate * 100).toFixed(2)) || this.returnRates.map((_,index)=>index),
+       labels: this.xLabels.map(rate => (rate * 100).toFixed(1) + "%") || this.returnRates.map((_,index)=>index),
        datasets:[{
          label: "Bar",
          data: this.returnRates,   

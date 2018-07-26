@@ -146,13 +146,33 @@ namespace MonteCarlo.Models
                 List<double> stockEnds = new List<double>(3);
                 List<double> bondEnds = new List<double>(3);
 
-                for (var i = 1; i < 4; i++)
+                var n = MonteCarloSimulation.NUM_TRIALS;
+
+                double[] allStockPeaks = new double[n];
+                double[] allStockEnds = new double[n];
+                double[] allBondPeaks = new double[n];
+                double[] allBondEnds = new double[n];
+
+                for (int i = 0; i < n; i++)
                 {
-                    var index = MonteCarloSimulation.NUM_TRIALS / 4 * i;
-                    stockPeaks.Add(portfolios[index].Stocks.Peak);
-                    bondPeaks.Add(portfolios[index].Bonds.Peak);
-                    stockEnds.Add(portfolios[index].Stocks.Final);
-                    bondEnds.Add(portfolios[index].Bonds.Final);
+                    allStockPeaks[i] = trials.StocksTrials[i].Peak;
+                    allStockEnds[i] = trials.StocksTrials[i].Peak;
+                    allBondPeaks[i] = trials.BondsTrials[i].Peak;
+                    allBondEnds[i] = trials.BondsTrials[i].Peak;
+                }
+
+                allStockPeaks.ParallelMergeSort();
+                allStockEnds.ParallelMergeSort();
+                allBondPeaks.ParallelMergeSort();
+                allBondEnds.ParallelMergeSort();
+
+            for (var i = 1; i < 4; i++)
+            {
+                var index = n / 4 * i;
+                    stockPeaks.Add(allStockPeaks[index] - (i == 1 ? 0 : stockPeaks[i - 2]));
+                    bondPeaks.Add(allBondPeaks[index] - (i == 1 ? 0 : bondPeaks[i - 2]));
+                    stockEnds.Add(allStockEnds[index] - (i == 1 ? 0 : stockEnds[i - 2]));
+                    bondEnds.Add(allBondEnds[index] - (i == 1 ? 0 : bondEnds[i - 2]));
                 }
 
                 result.StocksRetirementAmounts = stockPeaks;
