@@ -1,29 +1,27 @@
 import { Chart } from 'chart.js';
-import { bindable, inject } from 'aurelia-framework';
-import { EventAggregator } from '../../../node_modules/aurelia-event-aggregator';
+import { bindable } from 'aurelia-framework';
 
-@inject(EventAggregator)
 export class Histogram {
 
   idealDistribution: [number];
-  ea: EventAggregator;
+  chart: Chart;
+  canBuildNewChart = false;
 
   @bindable returnRates: [number];
   @bindable histogramId: string
   
-  constructor(EventAggregator) {
-    this.ea = EventAggregator;
-  }
 
   attached() {
-
     this.generateIdeal();
 
     this.buildChart();
+    this.canBuildNewChart = true;
+  }
 
-    this.ea.subscribe("reload charts", () => {
+  returnRatesChanged() {
+    if (this.canBuildNewChart) {
       this.buildChart();
-    });
+    }
   }
 
   generateIdeal() {
@@ -35,9 +33,12 @@ export class Histogram {
   }
 
   buildChart() {
-    console.log("Histogram Chart is Building")
+    if (this.chart) {
+      this.chart.destroy();
+    }
+    
     let ctx = (document.getElementById(this.histogramId) as HTMLCanvasElement).getContext("2d");
-    new Chart(ctx, {
+    this.chart = new Chart(ctx, {
      type: 'bar',
      data:{
        labels: this.returnRates.map((_,index)=>index),

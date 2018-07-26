@@ -18,7 +18,6 @@ export class Form{
     this.ea = EventAggregator;
     this.router = router;
 
-    console.log("Here");
     this.inputs = Data.instance.inputs;
     if(sessionStorage.getItem("saveData")){
       var storage = JSON.parse(sessionStorage.saveData);

@@ -1,34 +1,35 @@
-import { Result } from './../../resources/scripts/data';
 import { Chart } from 'chart.js';
-import { bindable, inject } from 'aurelia-framework';
-import { EventAggregator } from '../../../node_modules/aurelia-event-aggregator';
+import { bindable } from 'aurelia-framework';
 
-@inject(EventAggregator)
 export class LineChart {
-  percentiles: [[number]];
-  max: number;
-  ea: EventAggregator;
-  @bindable data: Result;
+  chart: Chart;
+  canBuildNewChart = false;
+
+  @bindable max: number;
+
+  @bindable percentiles: [[number]];
+
   @bindable localId: string;
 
-  constructor(EventAggregator) {
-    this.ea = EventAggregator;
-  }
-
   attached(){
-    this.percentiles = this.data.portfolioPercentiles;
-    this.max = (this.data.bondsRetirementAmounts[2] + this.data.stocksRetirementAmounts[2]) * 2.5;
     this.buildChart();
 
-    this.ea.subscribe("reload charts", () => {
+    this.canBuildNewChart = true;
+  }
+
+  percentilesChanged() {
+    if (this.canBuildNewChart) {
       this.buildChart();
-    });
+    }
   }
 
   buildChart() {
-    console.log("Building chart");
+    if (this.chart) {
+      this.chart.destroy();
+    }
+    
     let ctx = (document.getElementById(this.localId) as HTMLCanvasElement).getContext("2d");
-    new Chart(ctx, {
+    this.chart = new Chart(ctx, {
      type: 'line',
      data:{
        datasets:[{

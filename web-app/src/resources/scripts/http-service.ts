@@ -27,9 +27,8 @@ export class HttpService{
       method: "POST",
       body: body
     }).then(r =>{
-      let results = r.json()
-      console.log(results)
-      return results
+      let results = r.json();
+      return results;
     })
   }
 
