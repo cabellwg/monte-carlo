@@ -29,9 +29,8 @@ namespace MonteCarlo.Models
                 // Discretized Levy process (random walk with steps distributed as stepDistribution)
                 step += stepSampler.NextDouble();
 
-                // Discretized geometric Brownian motion
+                // Discretized geometric Brownian motion using the Milstein method
                 var unitValue = (1 + mu + sigma * step + 0.5 * sigma * sigma * (step * step - 1)) * unitValues[i - 1];
-                //var unitValue = Math.Exp(mu * i + sigma * step);
 
                 // Get return rate
                 var returnRate = unitValue / unitValues[i - 1];

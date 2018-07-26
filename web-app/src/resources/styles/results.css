@@ -1,10 +1,20 @@
 body{
   background: #F2F1EF;
+  overflow-x: hidden;
 }
 
 .row::after{
   display: table;
   clear: both;
+}
+
+.row.return-button-container {
+  margin-top: 675px;
+}
+
+.label-pop {
+  color: #26A65B;
+  font-weight: bold;
 }
 
 h2{
@@ -19,18 +29,30 @@ h2{
   text-align: left;
 }
 
+.text figure {
+  width: 100%;
+  margin-top: 30px;
+
+  text-align: center;
+}
+
+.big-percent {
+  font-size: 3rem;
+  color: #26A65B;
+  font-weight: 900;
+}
+
+.percent-caption {
+  font-family: 'Imprima', sans-serif;
+  font-size:inherit; 
+}
+
 .header{
   text-align: center;
   margin: 0;
   padding: 2%;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 55px;
-}
-
-figure {
-  font-size: 2rem;
-  font-weight: 900;
-  color: #26A65B;
 }
 
 .chartHeading{
@@ -50,14 +72,19 @@ figure {
   text-align: center;
 }
 
+.buttons label {
+  font-weight: 400;
+}
+
 .row {
-  margin: 0 !important;
+  margin: 0;
 }
 
 /* Slider wrapper*/
 .css-slider-wrapper {
   display: block;
   overflow: hidden;
+  width: 100%;
 }
 
 /* Slider */
@@ -67,7 +94,7 @@ figure {
   background: transparent;
   position: absolute;
   left: 0;
-  top: 100px;
+  top: 165px;
   opacity: 1;
   z-index: 0;
   display: flex;
@@ -143,7 +170,7 @@ figure {
 /* Slider Pagger */ 
 .slider-pagination {
   position: absolute;
-  bottom: 20px;
+  bottom: -45px;
   width: 100%;
   left: 0;
   text-align: center;

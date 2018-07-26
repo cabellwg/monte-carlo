@@ -34,4 +34,21 @@ export class Results {
         );
     });
   }
+
+  setStocksDistributionType(type: string) {
+
+  }
+
+  setBondsDistributionType(type: string) {
+    
+  }
+
+  setStocksStart(date: string) {
+
+  }
+
+  setBondsStart(date: string) {
+    
+  }
+
 }

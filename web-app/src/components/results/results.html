@@ -8,23 +8,40 @@
 
   <div class="row buttons">
       <div class="col-sm-5">
-        <label for="distribution-type">Choose the distribution of changes in stock prices you want to assume.</label><br>
-        <div name="distribution-type" class="btn-group">
-          <button type="button" class="btn btn-primary">Normal</button>
-          <button type="button" class="btn btn-primary">Laplace</button>
-          <button type="button" class="btn btn-primary">Logistic</button>
-          <button type="button" class="btn btn-primary">Log-Normal</button>
+        <label for="stocks-distribution-type">Choose the distribution of changes in <span class="label-pop">stock</span> prices you want to assume.</label><br>
+        <div name="stocks-distribution-type" class="btn-group">
+          <button type="button" class="btn btn-primary" click.delegate="setStocksDistributionType('Normal')">Normal</button>
+          <button type="button" class="btn btn-primary" click.delegate="setStocksDistributionType('Laplace')">Laplace</button>
+          <button type="button" class="btn btn-primary" click.delegate="setStocksDistributionType('Logistic')">Logistic</button>
+          <button type="button" class="btn btn-primary" click.delegate="setStocksDistributionType('LogNormal')">Log-Normal</button>
+        </div>
+        <br />
+        <br />
+        <label for="bonds-distribution-type">Choose the distribution of changes in <span class="label-pop">bond</span> prices you want to assume.</label><br>
+        <div name="bonds-distribution-type" class="btn-group">
+          <button type="button" class="btn btn-primary" click.delegate="setBondsDistributionType(0)">Normal</button>
+          <button type="button" class="btn btn-primary" click.delegate="setBondsDistributionType(1)">Laplace</button>
+          <button type="button" class="btn btn-primary" click.delegate="setBondsDistributionType(2)">Logistic</button>
+          <button type="button" class="btn btn-primary" click.delegate="setBondsDistributionType(3)">Log-Normal</button>
         </div>
       </div>
       <div class="col-sm-2">
         <br />
+        <br />
         <button type="button" class="btn btn-primary" click.delegate="rerun()">Run Again</button>
       </div>
       <div class="col-sm-5">
-        <label for="distribution-type">Choose the start date of the historical data you would like to consider.</label><br>
-        <div name="distribution-type" class="btn-group">
-          <button type="button" class="btn btn-primary">1928</button>
-          <button type="button" class="btn btn-primary">1975</button>
+        <label for="stocks-data-start">Choose the start date of the historical data you would like to consider for <span class="label-pop">stocks</span>.</label><br>
+        <div name="stocks-data-start" class="btn-group">
+          <button type="button" class="btn btn-primary" click.delegate="setStocksStart('_1928')">1928</button>
+          <button type="button" class="btn btn-primary" click.delegate="setStocksStart('_1975')">1975</button>
+        </div>
+        <br />
+        <br />
+        <label for="bonds-data-start">Choose the start date of the historical data you would like to consider for <span class="label-pop">bonds</span>.</label><br>
+        <div name="bonds-data-start" class="btn-group">
+          <button type="button" class="btn btn-primary" click.delegate="setBondsStart('_1928')">1928</button>
+          <button type="button" class="btn btn-primary" click.delegate="setBondsStart('_1975')">1975</button>
         </div>
       </div>
     </div>
@@ -59,7 +76,7 @@
     <div class="slider slide1">
       <div>
         <div class="row">
-          <histogram histogram-id="histogramHistorical" return-rates.bind="data.historical.stocksReturnRateFrequencies & signal:'data'" class="col-sm-6"></histogram>
+          <histogram histogram-id="histogramHistorical" return-rates.bind="data.historical.stocksReturnRateFrequencies" class="col-sm-6"></histogram>
           <histogram histogram-id="histogramProjected" return-rates.bind="data.projected.stocksReturnRateFrequencies" class="col-sm-6"></histogram>
         </div>
 
@@ -82,56 +99,64 @@
     </div>
       
       <div class="slider slide2"> 
-          <div>
-            <histogram histogram-id="histogramHistoricalBonds" return-rates.bind="data.historical.bondsReturnRateFrequencies" class="col-sm-6"></histogram>
-            <histogram histogram-id="histogramProjectedBonds" return-rates.bind="data.projected.bondsReturnRateFrequencies" class="col-sm-6"></histogram>
-      
-              <div class="row">
-                <div class="col-sm-6 text">
-                  <h4 class="chartHeading">Historical Bond</h4>
-                  <p class="chartBody">This chart above displays a histogram of return rate frequencies from each year for all 10,000 trails. Each bar on the histogram 
-                    represents 1/3 of the standard deviation/scale away from the mean/location. The line outlining the histogram represents the theoretical outline of the 
-                    distribution being used to model bond returns. This histogram is using historical data from a starting point of either 1928 or 1975. The histogram looks 
-                    a little different because bond yields below zero are exempt from the model since this an occurrence that does not happen. </p>
-                </div>
-      
-                <div class="col-sm-6 text">
-                  <h4 class="chartHeading">Projected Bond</h4>
-                  <p class="chartBody">This chart above displays a histogram of return rate frequencies from each year for all 10,000 trails. Each bar on the histogram 
-                    represents 1/3 of the standard deviation/scale away from the mean/location. The line outlining the histogram represents the theoretical outline of the 
-                    distribution being used to model bond returns. This histogram is using historical data from a starting point of 2000 to model projected returns. The 
-                    histogram looks a little different because bond yields below zero are exempt from the model since this an occurrence that does not happen. </p>
-                </div>
-              </div>
-            </div>
-     </div>
-     
-     <div class="slider slide3">
         <div>
           <div class="row">
-            <line-chart local-id="linehistorical" data.bind="data.historical" class="col-sm-6"></line-chart>
-            <line-chart local-id="lineprojected" data.bind="data.projected" class="col-sm-6"></line-chart>
+            <histogram histogram-id="histogramHistoricalBonds" return-rates.bind="data.historical.bondsReturnRateFrequencies" class="col-sm-6"></histogram>
+            <histogram histogram-id="histogramProjectedBonds" return-rates.bind="data.projected.bondsReturnRateFrequencies" class="col-sm-6"></histogram>
+          </div>
+          
+          <div class="row">
+            <div class="col-sm-6 text">
+              <h4 class="chartHeading">Historical Bond</h4>
+              <p class="chartBody">This chart above displays a histogram of return rate frequencies from each year for all 10,000 trails. Each bar on the histogram 
+                represents 1/3 of the standard deviation/scale away from the mean/location. The line outlining the histogram represents the theoretical outline of the 
+                distribution being used to model bond returns. This histogram is using historical data from a starting point of either 1928 or 1975. The histogram looks 
+                a little different because bond yields below zero are exempt from the model since this an occurrence that does not happen. </p>
+            </div>
+  
+            <div class="col-sm-6 text">
+              <h4 class="chartHeading">Projected Bond</h4>
+              <p class="chartBody">This chart above displays a histogram of return rate frequencies from each year for all 10,000 trails. Each bar on the histogram 
+                represents 1/3 of the standard deviation/scale away from the mean/location. The line outlining the histogram represents the theoretical outline of the 
+                distribution being used to model bond returns. This histogram is using historical data from a starting point of 2000 to model projected returns. The 
+                histogram looks a little different because bond yields below zero are exempt from the model since this an occurrence that does not happen. </p>
+            </div>
+          </div>
+        </div>
+     </div>
+     
+    <div class="slider slide3">
+      <div>
+        <div class="row">
+          <line-chart local-id="linehistorical" data.bind="data.historical" class="col-sm-6"></line-chart>
+          <line-chart local-id="lineprojected" data.bind="data.projected" class="col-sm-6"></line-chart>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6 text">
+            <figure>
+              <p class="big-percent">${data.historical.successRate}%</p>
+              <figcaption class="percent-caption">of trials based on historical rates were successful.</figcaption>
+            </figure>
+            <h4 class="chartHeading">Historical</h4>
+            <p class="chartBody">The chart above displays the yearly activity for trials from every 10th percentile of the account value over the course of the plan. 
+              Trials that intersect the x-axis are trials that failed, meaning the plan ran out of money before the anticipated death age. This chart uses historical 
+              data starting from 1928 or 1975.</p>
           </div>
   
-            <div class="row">
-                <div class="col-sm-6 text">
-                  <p>${data.historical.successRate}% of trials were successful</p>
-                  <h4 class="chartHeading">Historical</h4>
-                  <p class="chartBody">The chart above displays the yearly activity for trials from every 10th percentile of the account value over the course of the plan. 
-                    Trials that intersect the x-axis are trials that failed, meaning the plan ran out of money before the anticipated death age. This chart uses historical 
-                    data starting from 1928 or 1975. </p>
-                </div>
-      
-                <div class="col-sm-6 text">
-                    <p>${data.projected.successRate}% of trials were successful</p>
-                  <h4 class="chartHeading">Projected</h4>
-                  <p class="chartBody">The chart above displays the yearly activity for trials from every 10th percentile of the account value over the course of the plan. 
-                    Trials that intersect the x-axis are trials that failed, meaning the plan ran out of money before the anticipated death age. This chart uses data 
-                    starting from 2000. </p>
-                </div>
-              </div>
-         </div>
-     </div>
+          <div class="col-sm-6 text">
+            <figure>
+              <p class="big-percent">${data.projected.successRate}%</p>
+              <figcaption class="percent-caption">of trials based on projected rates were successful.</figcaption>
+            </figure>
+            <h4 class="chartHeading">Projected</h4>
+            <p class="chartBody">The chart above displays the yearly activity for trials from every 10th percentile of the account value over the course of the plan. 
+              Trials that intersect the x-axis are trials that failed, meaning the plan ran out of money before the anticipated death age. This chart uses data 
+              starting from 2000.</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
      <div class="slider slide4">
         <div>
@@ -157,8 +182,10 @@
          </div>
      </div>
     </div>
-  <div class="row">
-    <button class="col-sm-2 btn btn-primary" type="button" click.delegate="goBack()">Return to inputs</button>
+  <div class="row return-button-container">
+    <div class="col-sm-5"></div>
+    <button class="col-sm-2 btn btn-primary return-button" type="button" click.delegate="goBack()">Return to inputs</button>
+    <div class="col-sm-5"></div>
   </div>
 </template>
 
