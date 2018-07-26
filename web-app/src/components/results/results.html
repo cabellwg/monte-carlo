@@ -141,8 +141,8 @@
     <div class="slider slide3">   
       <div>
         <div class="row">
-          <line-chart local-id="linehistorical" max.bind="lineChartMax" percentiles.bind="data.historical.portfolioPercentiles" class="col-sm-6"></line-chart>
-          <line-chart local-id="lineprojected" max.bind="lineChartMax" percentiles.bind="data.projected.portfolioPercentiles" class="col-sm-6"></line-chart>
+          <line-chart local-id="linehistorical" max.bind="lineChartMax" percentiles.bind="data.historical.portfolioPercentiles" class="col-sm-6" current-age.bind="data.inputs.age"></line-chart>
+          <line-chart local-id="lineprojected" max.bind="lineChartMax" percentiles.bind="data.projected.portfolioPercentiles" class="col-sm-6" current-age.bind="data.inputs.age"></line-chart>
         </div>
 
         <div class="row">

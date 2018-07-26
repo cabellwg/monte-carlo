@@ -6,7 +6,7 @@ export class LineChart {
   canBuildNewChart = false;
 
   @bindable max: number;
-
+  @bindable currentAge: number;
   @bindable percentiles: [[number]];
 
   @bindable localId: string;
@@ -156,7 +156,7 @@ export class LineChart {
         pointBorderWidth: 2,
         type: 'line',
       }],
-       labels:  this.percentiles[5].map((_,index)=>index),
+       labels:  this.percentiles[5].map((_,index)=>index + this.currentAge),
      },
      options:{
       scales:{
