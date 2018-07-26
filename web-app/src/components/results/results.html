@@ -23,6 +23,25 @@
 
   <div class="row buttons chartBody">
       <div class="col-sm-5">
+        <label for="stocks-data-start">Choose the start date of the historical data you would like to consider for <span class="label-pop">stocks</span>.</label><br>
+        <div name="stocks-data-start" class="btn-group">
+          <button type="button" class="btn btn-primary" click.delegate="setStocksStart('_1928')">1928</button>
+          <button type="button" class="btn btn-primary" click.delegate="setStocksStart('_1975')">1975</button>
+        </div>
+        <br />
+        <br />
+        <label for="bonds-data-start">Choose the start date of the historical data you would like to consider for <span class="label-pop">bonds</span>.</label><br>
+        <div name="bonds-data-start" class="btn-group">
+          <button type="button" class="btn btn-primary" click.delegate="setBondsStart('_1928')">1928</button>
+          <button type="button" class="btn btn-primary" click.delegate="setBondsStart('_1975')">1975</button>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <br />
+        <br />
+        <button type="button" class="btn btn-primary" click.delegate="rerun()">Run Again</button>
+      </div>
+      <div class="col-sm-5">
         <label for="stocks-distribution-type">Choose the distribution of changes in <span class="label-pop">stock</span> prices you want to assume.</label><br>
         <div name="stocks-distribution-type" class="btn-group">
           <button type="button" class="btn btn-primary" click.delegate="setStocksDistributionType('Normal')">Normal</button>
@@ -36,27 +55,6 @@
           <button type="button" class="btn btn-primary" click.delegate="setBondsDistributionType('Normal')">Normal</button>
           <button type="button" class="btn btn-primary" click.delegate="setBondsDistributionType('Laplace')">Laplace</button>
           <button type="button" class="btn btn-primary" click.delegate="setBondsDistributionType('Logistic')">Logistic</button>
-        </div>
-      </div>
-      <div class="col-sm-2">
-        <br />
-        <br />
-        <button type="button" class="btn btn-primary" click.delegate="rerun()">Run Again</button>
-      </div>
-      <div class="col-sm-5">
-
-
-        <label for="stocks-data-start">Choose the start date of the historical data you would like to consider for <span class="label-pop">stocks</span>.</label><br>
-        <div name="stocks-data-start" class="btn-group">
-          <button type="button" class="btn btn-primary" click.delegate="setStocksStart('_1928')">1928</button>
-          <button type="button" class="btn btn-primary" click.delegate="setStocksStart('_1975')">1975</button>
-        </div>
-        <br />
-        <br />
-        <label for="bonds-data-start">Choose the start date of the historical data you would like to consider for <span class="label-pop">bonds</span>.</label><br>
-        <div name="bonds-data-start" class="btn-group">
-          <button type="button" class="btn btn-primary" click.delegate="setBondsStart('_1928')">1928</button>
-          <button type="button" class="btn btn-primary" click.delegate="setBondsStart('_1975')">1975</button>
         </div>
       </div>
     </div>
