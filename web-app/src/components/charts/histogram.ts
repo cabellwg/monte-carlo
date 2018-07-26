@@ -33,7 +33,7 @@ export class Histogram {
        datasets:[{
          label: "Bar",
          data: this.returnRates,   
-         backgroundColor: "#00230B",
+         backgroundColor: "#26A65B",
       },
       {
         label: 'Bell Curve',

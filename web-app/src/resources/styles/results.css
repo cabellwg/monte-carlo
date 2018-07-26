@@ -3,6 +3,27 @@ body{
   overflow-x: hidden;
 }
 
+.submit {
+  width: 68%;
+  background-color: #26A65B;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Cantata One', serif ;
+  font-size: 1em; 
+  margin-top: 700px;
+}
+
+.center-block {
+  float:none;
+}
+
+.submit:hover {
+  background-color: rgb(43, 87, 48);
+}
+
 .row::after{
   display: table;
   clear: both;
