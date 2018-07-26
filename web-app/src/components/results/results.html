@@ -9,7 +9,19 @@
 
   <h2>Probability of <span style="color: #26A65B">Success<span></span></h2>
 
-  <div class="row buttons">
+  <div class="row">
+    <div class="col-md-6">
+      <p class="big-percent">${data.historical.successRate}%</p>
+      <figcaption class="percent-caption">of trials based on historical rates were successful.</figcaption>
+    </div>
+    
+    <div class="col-md-6">
+      <p class="big-percent">${data.projected.successRate}%</p>
+      <figcaption class="percent-caption">of trials based on projected rates were successful.</figcaption>
+    </div>  
+  </div>
+
+  <div class="row buttons chartBody">
       <div class="col-sm-5">
         <label for="stocks-distribution-type">Choose the distribution of changes in <span class="label-pop">stock</span> prices you want to assume.</label><br>
         <div name="stocks-distribution-type" class="btn-group">
@@ -34,6 +46,8 @@
         <button type="button" class="btn btn-primary" click.delegate="rerun()">Run Again</button>
       </div>
       <div class="col-sm-5">
+
+
         <label for="stocks-data-start">Choose the start date of the historical data you would like to consider for <span class="label-pop">stocks</span>.</label><br>
         <div name="stocks-data-start" class="btn-group">
           <button type="button" class="btn btn-primary" click.delegate="setStocksStart('_1928')">1928</button>
@@ -93,9 +107,9 @@
 
           <div class="col-sm-6 text">
             <h4 class="chartHeading">Projected Stock</h4>
-            <p class="chartBody">This chart above displays a histogram of return rate frequencies from each year for all 10,000 trails. Each bar on the histogram represents 
-              1/3 of the standard deviation/scale away from the mean/location. The line outlining the histogram represents the theoretical outline of the distribution being 
-              used to model stock returns. This histogram is using historical data from a starting point of 2000 to model projected returns</p>
+            <p class="chartBody">This chart above displays a histogram of return rate frequencies from each year for all 10,000 trails. Each bar on the histogram represents 1/3 of 
+              the standard deviation/scale away from the mean/location. The line outlining the histogram represents the theoretical outline of the distribution being used to model 
+              stock returns. This histogram is using a combination of recent return data and future capital market assumptions to predict future returns. </p>
           </div>
         </div>
       </div>
@@ -119,16 +133,16 @@
   
             <div class="col-sm-6 text">
               <h4 class="chartHeading">Projected Bond</h4>
-              <p class="chartBody">This chart above displays a histogram of return rate frequencies from each year for all 10,000 trails. Each bar on the histogram 
-                represents 1/3 of the standard deviation/scale away from the mean/location. The line outlining the histogram represents the theoretical outline of the 
-                distribution being used to model bond returns. This histogram is using historical data from a starting point of 2000 to model projected returns. The 
-                histogram looks a little different because bond yields below zero are exempt from the model since this an occurrence that does not happen. </p>
+              <p class="chartBody">This chart above displays a histogram of return rate frequencies from each year for all 10,000 trails. Each bar on the histogram represents 
+                1/3 of the standard deviation/scale away from the mean/location. The line outlining the histogram represents the theoretical outline of the distribution being 
+                used to model bond returns. This histogram is using a combination of recent return data and future capital market assumptions to predict future returns. 
+                The histogram looks a little different because bond yields below zero are exempt from the model since this an occurrence that does not happen. </p>
             </div>
           </div>
         </div>
      </div>
      
-    <div class="slider slide3">
+    <div class="slider slide3">   
       <div>
         <div class="row">
           <line-chart local-id="linehistorical" data.bind="data.historical" class="col-sm-6"></line-chart>
@@ -137,10 +151,6 @@
 
         <div class="row">
           <div class="col-sm-6 text">
-            <figure>
-              <p class="big-percent">${data.historical.successRate}%</p>
-              <figcaption class="percent-caption">of trials based on historical rates were successful.</figcaption>
-            </figure>
             <h4 class="chartHeading">Historical</h4>
             <p class="chartBody">The chart above displays the yearly activity for trials from every 10th percentile of the account value over the course of the plan. 
               Trials that intersect the x-axis are trials that failed, meaning the plan ran out of money before the anticipated death age. This chart uses historical 
@@ -148,15 +158,11 @@
           </div>
   
           <div class="col-sm-6 text">
-            <figure>
-              <p class="big-percent">${data.projected.successRate}%</p>
-              <figcaption class="percent-caption">of trials based on projected rates were successful.</figcaption>
-            </figure>
+            
             <h4 class="chartHeading">Projected</h4>
-            <p class="chartBody">The chart above displays the yearly activity for trials from every 10th percentile of the account value over the course of the plan. 
-              Trials that intersect the x-axis are trials that failed, meaning the plan ran out of money before the anticipated death age. This chart uses data 
-              starting from 2000.</p>
-          </div>
+            <p class="chartBody">The chart above displays the yearly activity for trials from every 10th percentile of the account value over the course of the plan. Trials 
+              that intersect the x-axis are trials that failed, meaning the plan ran out of money before the anticipated death age. This histogram is using a combination of 
+              recent return data and future capital market assumptions to predict future returns
         </div>
       </div>
     </div>
@@ -177,9 +183,9 @@
       
                 <div class="col-sm-6 text">
                   <h4 class="chartHeading">Projected</h4>
-                  <p class="chartBody">The chart above displays the median monetary value in each account of stocks, bonds, and savings at the time of retirement. The separate 
-                    lines display different percentiles of trials for monetary values. The percentiles included are the 25th, median, and the 75th percentiles. This cart uses data 
-                    starting from 2000. </p>
+                  <p class="chartBody">The chart above displays the median monetary value in each account of stocks, bonds, and savings at the time of retirement. The separate
+                    lines display different percentiles of trials for monetary values. The percentiles included are the 25th, median, and the 75th percentiles. This histogram
+                     is using a combination of recent return data and future capital market assumptions to predict future returns. </p>
                 </div>
               </div>
          </div>

@@ -35,10 +35,10 @@ export class LineChart {
          data: this.percentiles[1],
          lineTension: 0,
          fill: false,
-         borderColor: '#DC08E3',
+         borderColor: '#231200',
          backgroundColor: 'transparent',
-         pointBorderColor: '#DC08E3',
-         pointBackgroundColor: '#DC08E3',
+         pointBorderColor: '#231200',
+         pointBackgroundColor: '#231200',
          pointBorderWidth: 0,
          type: 'line'
        },
@@ -47,10 +47,10 @@ export class LineChart {
          data:  this.percentiles[2],
          lineTension: 0,
          fill: false,
-         borderColor: '#FA6700',
+         borderColor: '#0B0033',
          backgroundColor: 'transparent',
-         pointBorderColor: '#FA6700',
-         pointBackgroundColor: '#FA6700',
+         pointBorderColor: '#0B0033',
+         pointBackgroundColor: '#0B0033',
          pointBorderWidth: 2,
          type: 'line'
        },
@@ -85,10 +85,10 @@ export class LineChart {
         data:  this.percentiles[5],
         lineTension: 0,
         fill: false,
-        borderColor: '#B711E3',
+        borderColor: '#01276F',
         backgroundColor: 'transparent',
-        pointBorderColor: '#B711E3',
-        pointBackgroundColor: '#B711E3',
+        pointBorderColor: '#01276F',
+        pointBackgroundColor: '#01276F',
         pointBorderWidth: 2,
         type: 'line'
       },
@@ -111,10 +111,10 @@ export class LineChart {
         data:  this.percentiles[7],
         lineTension: 0,
         fill: false,
-        borderColor: '#FDB600',
+        borderColor: '#033A10',
         backgroundColor: 'transparent',
-        pointBorderColor: '#FDB600',
-        pointBackgroundColor: '#FDB600',
+        pointBorderColor: '#033A10',
+        pointBackgroundColor: '#033A10',
         pointBorderWidth: 2,
         type: 'line'
       },
@@ -157,8 +157,10 @@ export class LineChart {
       },
       layout:{
         padding: 0
+      },
+      legend:{
+        position: 'bottom',
       }
-
     }
   });
  }

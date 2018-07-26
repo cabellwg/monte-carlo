@@ -13,7 +13,7 @@ body{
   cursor: pointer;
   font-family: 'Cantata One', serif ;
   font-size: 1em; 
-  margin-top: 700px;
+  margin-top: 580px;
 }
 
 .center-block {
@@ -49,6 +49,7 @@ h2{
 .text {
   text-align: left;
 }
+
 
 .text figure {
   width: 100%;
@@ -89,12 +90,12 @@ h2{
 .buttons {
   position: relative;
   z-index: 1;
-
   text-align: center;
+  margin-top: 2px !important;
 }
 
 .buttons label {
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .row {
@@ -191,7 +192,7 @@ h2{
 /* Slider Pagger */ 
 .slider-pagination {
   position: absolute;
-  bottom: -45px;
+  bottom: 20px;
   width: 100%;
   left: 0;
   text-align: center;
