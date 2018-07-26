@@ -15,7 +15,9 @@ export class Result {
 
   //Histogram
   stocksReturnRateFrequencies: [number];
+  stocksReturnRateXLabels: [number];
   bondsReturnRateFrequencies: [number];
+  bondsReturnRateXLabels: [number];
 
   //Stacked bar
   stocksRetirementAmounts: [number];

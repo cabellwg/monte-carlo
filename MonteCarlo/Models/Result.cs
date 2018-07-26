@@ -13,8 +13,10 @@ namespace MonteCarlo.Models
 
         // Histograms
         public int[] StocksReturnRateFrequencies { get; set; }
+        public double[] StocksReturnRateXLabels { get; set; }
 
         public int[] BondsReturnRateFrequencies { get; set; }
+        public double[] BondsReturnRateXLabels { get; set; }
 
 
         // Stacked bar

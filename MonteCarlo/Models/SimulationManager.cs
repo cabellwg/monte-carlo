@@ -126,14 +126,16 @@ namespace MonteCarlo.Models
             // Look at distribution of stock returns
             Task getStocksReturns = new Task(() =>
             {
-                result.StocksReturnRateFrequencies = GetDistributionOf(trials.StocksTrials.SelectMany(trial => trial.ReturnRates));
+                (result.StocksReturnRateFrequencies, result.StocksReturnRateXLabels) =
+                    GetDistributionOf(trials.StocksTrials.SelectMany(trial => trial.ReturnRates));
             });
 
             
             // Look at distribution of bond returns
             Task getBondsReturns = new Task(() =>
             {
-                result.BondsReturnRateFrequencies = GetDistributionOf(trials.BondsTrials.SelectMany(trial => trial.ReturnRates));
+                (result.BondsReturnRateFrequencies, result.BondsReturnRateXLabels) =
+                    GetDistributionOf(trials.BondsTrials.SelectMany(trial => trial.ReturnRates));
             });
 
 
@@ -182,7 +184,7 @@ namespace MonteCarlo.Models
 
         #region Helper Methods
 
-        private int[] GetDistributionOf(IEnumerable<double> samples)
+        private (int[], double[]) GetDistributionOf(IEnumerable<double> samples)
         {
             var sum = 0.0;
             var number = 0;
@@ -226,7 +228,7 @@ namespace MonteCarlo.Models
                 }
             }
 
-            return frequencies;
+            return (frequencies, brackets);
         }
 
         private int CompareTrials(Portfolio a, Portfolio b)
