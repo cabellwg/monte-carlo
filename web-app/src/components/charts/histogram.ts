@@ -91,6 +91,9 @@ export class Histogram {
       },
       layout:{
         padding: 0
+      },
+      legend:{
+        position: 'bottom',
       }
     }
   });
