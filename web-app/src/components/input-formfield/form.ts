@@ -8,7 +8,7 @@ import { inject } from 'aurelia-framework';
 
 @inject(EventAggregator, Router)
 export class Form{
-  inputs: Inputs = new Inputs()
+  inputs: Inputs;
   ea: EventAggregator
   router: Router
 
@@ -18,7 +18,8 @@ export class Form{
     this.ea = EventAggregator;
     this.router = router;
 
-    
+    console.log("Here");
+    this.inputs = Data.instance.inputs;
     if(sessionStorage.getItem("saveData")){
       var storage = JSON.parse(sessionStorage.saveData);
       this.age = storage.currentAge

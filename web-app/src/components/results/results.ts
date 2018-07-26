@@ -27,28 +27,24 @@ export class Results {
         Data.instance = data as Data;
         Data.instance.inputs = this.data.inputs;
         this.data = Data.instance;
-        this.router.navigateToRoute(
-          this.router.currentInstruction.config.name,
-          this.router.currentInstruction.params,
-          { replace: true }
-        );
+        this.ea.publish("reload charts");
     });
   }
 
   setStocksDistributionType(type: string) {
-
+    this.data.inputs.stocksDistributionType = type;
   }
 
   setBondsDistributionType(type: string) {
-    
+    this.data.inputs.bondsDistributionType = type;
   }
 
   setStocksStart(date: string) {
-
+    this.data.inputs.stocksDataStartDate = date;
   }
 
   setBondsStart(date: string) {
-    
+    this.data.inputs.bondsDataStartDate = date;
   }
 
 }

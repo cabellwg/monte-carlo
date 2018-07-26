@@ -1,18 +1,29 @@
 import { Chart } from 'chart.js';
-import { bindable } from 'aurelia-framework';
+import { bindable, inject } from 'aurelia-framework';
+import { EventAggregator } from '../../../node_modules/aurelia-event-aggregator';
 
+@inject(EventAggregator)
 export class Histogram {
 
   idealDistribution: [number];
+  ea: EventAggregator;
 
   @bindable returnRates: [number];
   @bindable histogramId: string
   
+  constructor(EventAggregator) {
+    this.ea = EventAggregator;
+  }
+
   attached() {
 
     this.generateIdeal();
 
     this.buildChart();
+
+    this.ea.subscribe("reload charts", () => {
+      this.buildChart();
+    });
   }
 
   generateIdeal() {

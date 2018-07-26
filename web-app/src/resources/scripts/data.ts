@@ -1,10 +1,10 @@
 import { Inputs } from "./inputs";
 
 export class Data {
-  static instance: Data;
+  static instance: Data = new Data();
   historical: Result;
   projected: Result;
-  inputs: Inputs;
+  inputs: Inputs = new Inputs();
 }
 
 export class Result {
