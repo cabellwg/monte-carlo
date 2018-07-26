@@ -32,12 +32,12 @@ export class BarChart {
     new Chart(ctx, {
       type: 'bar',
       data:{
-        labels: ['Stocks', 'Bonds', 'Savings'],
+        labels: ['Stocks', 'Bonds'],
         datasets: [
           {
             label: 'Retirement Amount',
-            data:[this.data.stocksRetirementAmounts, this.data.bondsRetirementAmounts],
             backgroundColor: 'red',
+            data:[this.data.stocksRetirementAmounts, this.data.bondsRetirementAmounts],
           },
           {
             label: 'End Amount',
@@ -48,9 +48,7 @@ export class BarChart {
       },
       options:{
         scales:{
-          xAxis:[{stacked: true}],
           yAxis:[{
-            stacked:true,
             ticks:{
               beginAtZero: true,
             },
