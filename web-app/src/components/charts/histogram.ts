@@ -4,15 +4,24 @@ import { bindable } from 'aurelia-framework';
 export class Histogram {
 
   idealDistribution: [number];
+  chart: Chart;
+  canBuildNewChart = false;
 
   @bindable returnRates: [number];
   @bindable histogramId: string
   
-  attached() {
 
+  attached() {
     this.generateIdeal();
 
     this.buildChart();
+    this.canBuildNewChart = true;
+  }
+
+  returnRatesChanged() {
+    if (this.canBuildNewChart) {
+      this.buildChart();
+    }
   }
 
   generateIdeal() {
@@ -24,9 +33,12 @@ export class Histogram {
   }
 
   buildChart() {
-    console.log("Histogram Chart is Building")
+    if (this.chart) {
+      this.chart.destroy();
+    }
+    
     let ctx = (document.getElementById(this.histogramId) as HTMLCanvasElement).getContext("2d");
-    new Chart(ctx, {
+    this.chart = new Chart(ctx, {
      type: 'bar',
      data:{
        labels: this.returnRates.map((_,index)=>index),

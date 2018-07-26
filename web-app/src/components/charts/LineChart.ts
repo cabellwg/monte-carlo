@@ -1,23 +1,35 @@
-import { Result } from './../../resources/scripts/data';
 import { Chart } from 'chart.js';
 import { bindable } from 'aurelia-framework';
 
 export class LineChart {
-  percentiles: [[number]];
-  max: number;
-  @bindable data: Result;
+  chart: Chart;
+  canBuildNewChart = false;
+
+  @bindable max: number;
+
+  @bindable percentiles: [[number]];
+
   @bindable localId: string;
 
   attached(){
-    this.percentiles = this.data.portfolioPercentiles;
-    this.max = (this.data.bondsRetirementAmounts[2] + this.data.stocksRetirementAmounts[2]) * 2.5;
     this.buildChart();
+
+    this.canBuildNewChart = true;
+  }
+
+  percentilesChanged() {
+    if (this.canBuildNewChart) {
+      this.buildChart();
+    }
   }
 
   buildChart() {
-    console.log("Building chart");
+    if (this.chart) {
+      this.chart.destroy();
+    }
+    
     let ctx = (document.getElementById(this.localId) as HTMLCanvasElement).getContext("2d");
-    new Chart(ctx, {
+    this.chart = new Chart(ctx, {
      type: 'line',
      data:{
        datasets:[{

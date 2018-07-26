@@ -28,16 +28,14 @@
           <button type="button" class="btn btn-primary" click.delegate="setStocksDistributionType('Normal')">Normal</button>
           <button type="button" class="btn btn-primary" click.delegate="setStocksDistributionType('Laplace')">Laplace</button>
           <button type="button" class="btn btn-primary" click.delegate="setStocksDistributionType('Logistic')">Logistic</button>
-          <button type="button" class="btn btn-primary" click.delegate="setStocksDistributionType('LogNormal')">Log-Normal</button>
         </div>
         <br />
         <br />
         <label for="bonds-distribution-type">Choose the distribution of changes in <span class="label-pop">bond</span> prices you want to assume.</label><br>
         <div name="bonds-distribution-type" class="btn-group">
-          <button type="button" class="btn btn-primary" click.delegate="setBondsDistributionType(0)">Normal</button>
-          <button type="button" class="btn btn-primary" click.delegate="setBondsDistributionType(1)">Laplace</button>
-          <button type="button" class="btn btn-primary" click.delegate="setBondsDistributionType(2)">Logistic</button>
-          <button type="button" class="btn btn-primary" click.delegate="setBondsDistributionType(3)">Log-Normal</button>
+          <button type="button" class="btn btn-primary" click.delegate="setBondsDistributionType('Normal')">Normal</button>
+          <button type="button" class="btn btn-primary" click.delegate="setBondsDistributionType('Laplace')">Laplace</button>
+          <button type="button" class="btn btn-primary" click.delegate="setBondsDistributionType('Logistic')">Logistic</button>
         </div>
       </div>
       <div class="col-sm-2">
@@ -145,8 +143,8 @@
     <div class="slider slide3">   
       <div>
         <div class="row">
-          <line-chart local-id="linehistorical" data.bind="data.historical" class="col-sm-6"></line-chart>
-          <line-chart local-id="lineprojected" data.bind="data.projected" class="col-sm-6"></line-chart>
+          <line-chart local-id="linehistorical" max.bind="lineChartMax" percentiles.bind="data.historical.portfolioPercentiles" class="col-sm-6"></line-chart>
+          <line-chart local-id="lineprojected" max.bind="lineChartMax" percentiles.bind="data.projected.portfolioPercentiles" class="col-sm-6"></line-chart>
         </div>
 
         <div class="row">
