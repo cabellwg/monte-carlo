@@ -62,11 +62,14 @@ h2{
   font-size: 3rem;
   color: #26A65B;
   font-weight: 900;
+  text-align: center;
 }
 
 .percent-caption {
   font-family: 'Imprima', sans-serif;
   font-size:inherit; 
+  font-weight: 600;
+  text-align: center;
 }
 
 .header{
