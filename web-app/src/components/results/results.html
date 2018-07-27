@@ -141,8 +141,8 @@
     <div class="slider slide3">   
       <div>
         <div class="row">
-          <line-chart local-id="linehistorical" max.bind="lineChartMax" percentiles.bind="data.historical.portfolioPercentiles" class="col-sm-6" current-age.bind="data.inputs.age"></line-chart>
-          <line-chart local-id="lineprojected" max.bind="lineChartMax" percentiles.bind="data.projected.portfolioPercentiles" class="col-sm-6" current-age.bind="data.inputs.age"></line-chart>
+          <line-chart local-id="linehistorical" max.bind="chartMax" percentiles.bind="data.historical.portfolioPercentiles" class="col-sm-6" current-age.bind="data.inputs.age"></line-chart>
+          <line-chart local-id="lineprojected" max.bind="chartMax" percentiles.bind="data.projected.portfolioPercentiles" class="col-sm-6" current-age.bind="data.inputs.age"></line-chart>
         </div>
 
         <div class="row">
@@ -167,8 +167,18 @@
      <div class="slider slide4">
         <div>
           <div class="row">
-            <bar bar-id="stackedHistorical" data.bind="data.historical" class="col-sm-6"></bar>
-            <bar bar-id="stackedProjected" data.bind="data.projected" class="col-sm-6"></bar>
+            <bar bar-id="stackedHistorical" class="col-sm-6"
+              stocks-retirement.bind="data.historical.stocksRetirementAmounts"
+              stocks-end.bind="data.historical.stocksEndAmounts"
+              bonds-retirement.bind="data.historical.bondsRetirementAmounts"
+              bonds-end.bind="data.historical.bondsEndAmounts"
+              max.bind="chartMax"></bar>
+            <bar bar-id="stackedProjected" class="col-sm-6"
+              stocks-retirement.bind="data.projected.stocksRetirementAmounts"
+              stocks-end.bind="data.projected.stocksEndAmounts"
+              bonds-retirement.bind="data.projected.bondsRetirementAmounts"
+              bonds-end.bind="data.projected.bondsEndAmounts"
+              max.bind="chartMax"></bar>
           </div>
             <div class="row">
                 <div class="col-sm-6 text">

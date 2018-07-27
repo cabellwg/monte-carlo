@@ -1,75 +1,73 @@
-import { Result } from './../../resources/scripts/data';
 import { bindable } from "aurelia-framework";
 import { Chart } from 'chart.js';
 
-export class BarChart {
+export class Bar {
   //stocks
-  stocksRetirement: [number];
-  stocksEnd: [number];
+  @bindable stocksRetirement: [number];
+  @bindable stocksEnd: [number];
 
   //bonds
-  bondsRetirement: [number];
-  bondsEnd: [number];
+  @bindable bondsRetirement: [number];
+  @bindable bondsEnd: [number];
   
-  @bindable data: Result;
   @bindable barId: string;
+  @bindable max: number;
 
   attached(){
-    //stocks
-    this.stocksRetirement = this.data.stocksRetirementAmounts
-    this.stocksEnd = this.data.stocksEndAmounts
-
-    //bonds
-    this.bondsRetirement = this.data.bondsRetirementAmounts
-    this.bondsEnd = this.data.bondsEndAmounts
-
     this.buildChart();
   }
 
 
   buildChart(){
-    console.log("Building Bar Chart")
     let ctx = (document.getElementById(this.barId) as HTMLCanvasElement).getContext("2d");
     new Chart(ctx, {
       type: 'bar',
       data:{
-        labels: ['25%', '50%', '75'],
+        labels: ["Stocks", "Bonds"],
         datasets: [
           {
-            label: 'Retirement',
-            backgroundColor: 'red',
-            data: this.data.stocksRetirementAmounts,
-            stack: ' Stocks Stack'
+            label: '25th percentile at Retirement',
+            backgroundColor: '#446cb3',
+            data: [this.stocksRetirement[0], this.bondsRetirement[0]],
+            stack: 'Retirement'
           },
           {
-            label: 'Retirement',
-            backgroundColor: 'pink',
-            data: this.data.bondsRetirementAmounts,
-            stack: 'Bond Stack'
-          },
-          
-          {
-            label: 'End',
-            data: this.data.stocksEndAmounts,
-            backgroundColor: 'red',
-            stack: 'Stocks Stack'
+            label: '50th percentile at Retirement',
+            backgroundColor: '#03c9a9',
+            data: [this.stocksRetirement[1], this.bondsRetirement[1]],
+            stack: 'Retirement'
           },
           {
-            label: 'End',
-            backgroundColor: 'pink',
-            data: this.data.bondsEndAmounts,
-            stack: 'Bond Stack'
+            label: '75th percentile at Retirement',
+            data: [this.stocksRetirement[2], this.bondsRetirement[2]],
+            backgroundColor: '#26a65b',
+            stack: 'Retirement'
           },
-          
+          {
+            label: '25th percentile at End',
+            backgroundColor: '#446cb3',
+            data: [this.stocksEnd[0], this.bondsEnd[0]],
+            stack: 'End'
+          },
+          {
+            label: '50th percentile at End',
+            backgroundColor: '#03c9a9',
+            data: [this.stocksEnd[1], this.bondsEnd[1]],
+            stack: 'End'
+          },
+          {
+            label: '75th percentile at End',
+            data: [this.stocksEnd[2], this.bondsEnd[2]],
+            backgroundColor: '#26a65b',
+            stack: 'End'
+          }
         ]
       },
       options:{
         scales:{
-          xAxes: [{
-            stacked: true,
-          }],
           yAxes:[{
             ticks:{
+              max: this.max,
               beginAtZero: true,
             },
            stacked: true,

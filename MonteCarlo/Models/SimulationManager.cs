@@ -37,7 +37,7 @@ namespace MonteCarlo.Models
 
         public Result Run()
         {
-            MCResult trials = new MCResult();
+            PortfoliosEnsemble trials = new PortfoliosEnsemble();
 
             Task<Trial[]> stocks = Task<Trial[]>.Factory.StartNew(() =>
             {
@@ -62,7 +62,7 @@ namespace MonteCarlo.Models
             return ProcessTrials(trials);
         }
 
-        private Result ProcessTrials(MCResult trials)
+        private Result ProcessTrials(PortfoliosEnsemble trials)
         {
             Result result = new Result();
 
@@ -156,9 +156,9 @@ namespace MonteCarlo.Models
                 for (int i = 0; i < n; i++)
                 {
                     allStockPeaks[i] = trials.StocksTrials[i].Peak;
-                    allStockEnds[i] = trials.StocksTrials[i].Peak;
+                    allStockEnds[i] = trials.StocksTrials[i].Final;
                     allBondPeaks[i] = trials.BondsTrials[i].Peak;
-                    allBondEnds[i] = trials.BondsTrials[i].Peak;
+                    allBondEnds[i] = trials.BondsTrials[i].Final;
                 }
 
                 allStockPeaks.ParallelMergeSort();
@@ -166,13 +166,13 @@ namespace MonteCarlo.Models
                 allBondPeaks.ParallelMergeSort();
                 allBondEnds.ParallelMergeSort();
 
-            for (var i = 1; i < 4; i++)
-            {
-                var index = n / 4 * i;
-                    stockPeaks.Add(allStockPeaks[index] - (i == 1 ? 0 : stockPeaks[i - 2]));
-                    bondPeaks.Add(allBondPeaks[index] - (i == 1 ? 0 : bondPeaks[i - 2]));
-                    stockEnds.Add(allStockEnds[index] - (i == 1 ? 0 : stockEnds[i - 2]));
-                    bondEnds.Add(allBondEnds[index] - (i == 1 ? 0 : bondEnds[i - 2]));
+                for (var i = 1; i < 4; i++)
+                {
+                    var index = n / 4 * i;
+                    stockPeaks.Add(allStockPeaks[index] - (i == 1 ? 0 : stockPeaks.Sum()));
+                    bondPeaks.Add(allBondPeaks[index] - (i == 1 ? 0 : bondPeaks.Sum()));
+                    stockEnds.Add(allStockEnds[index] - (i == 1 ? 0 : stockEnds.Sum()));
+                    bondEnds.Add(allBondEnds[index] - (i == 1 ? 0 : bondEnds.Sum()));
                 }
 
                 result.StocksRetirementAmounts = stockPeaks;
@@ -289,7 +289,7 @@ namespace MonteCarlo.Models
 
         #region Structs
 
-        private struct MCResult
+        private struct PortfoliosEnsemble
         {
             public Trial[] StocksTrials;
             public Trial[] BondsTrials;

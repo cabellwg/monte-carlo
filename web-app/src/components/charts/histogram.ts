@@ -65,12 +65,12 @@ export class Histogram {
      data:{
        labels: this.xLabels.map(rate => (rate * 100).toFixed(1) + "%") || this.returnRates.map((_,index)=>index),
        datasets:[{
-         label: "Bar",
+         label: "Actual Distribution",
          data: this.returnRates,   
          backgroundColor: "#26A65B",
       },
       {
-        label: 'Bell Curve',
+        label: 'Ideal Distribution',
         data: this.idealDistribution,
         lineTenstion: 0,
         fill: false,
