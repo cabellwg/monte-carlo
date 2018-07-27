@@ -70,6 +70,9 @@ export class Bar {
             ticks:{
               max: this.max * 10,
               beginAtZero: true,
+              callback: function(value, index, values) {
+                return String(value).charAt(0) == "1" || String(value).charAt(0) == "5" ? value : "";
+              }
             },
            stacked: true,
           }]
