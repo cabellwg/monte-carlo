@@ -66,8 +66,9 @@ export class Bar {
       options:{
         scales:{
           yAxes:[{
+            type: 'logarithmic',
             ticks:{
-              max: this.max,
+              max: this.max * 10,
               beginAtZero: true,
             },
            stacked: true,
