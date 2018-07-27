@@ -17,7 +17,7 @@ namespace MonteCarlo.Tests.StatisticsTests
                 tester[i] = normal.NextDouble();
             }
 
-            string jsonResult = JsonConvert.SerializeObject(tester);
+             string jsonResult = JsonConvert.SerializeObject(tester);
         }
 
         [Fact]
@@ -61,20 +61,27 @@ namespace MonteCarlo.Tests.StatisticsTests
         [Fact]
         public void TestLaplace()
         {
-            ProbabilityDistribution laplace = new LaplaceDistribution(location: 10.82, diversity: 17.16);
-            var mc = new BondsSimulation();
-
-            var result = mc.Run(withProfile: new RunProfile()
+            ProbabilityDistribution normal = new LaplaceDistribution(location:0, diversity:1);
+            double[] tester = new double[100];
+            for (var i = 0; i < 100; i++)
             {
-                SeedDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 0.093, withScale: 27.814),
-                StepDistribution = DistributionPool.Instance.GetDistribution(Distribution.Normal, withPeakAt: 10.82, withScale: 17.16),
-                TrialLength = 30,
-                ContributionLength = 15,
-                InitialAmount = 10000,
-                ContributionAmount = 500,
-                WithdrawalAmount = 5000
-            });
-            string jsonResult = JsonConvert.SerializeObject(result);
+                tester[i] = normal.NextDouble();
+            }
+
+            string jsonResult = JsonConvert.SerializeObject(tester);
+        }
+
+        [Fact]
+        public void TestLogistic()
+        {
+            ProbabilityDistribution normal = new LogisticDistribution(location:0, scale:1);
+            double[] tester = new double[100];
+            for (var i = 0; i < 100; i++)
+            {
+                tester[i] = normal.NextDouble();
+            }
+
+            string jsonResult = JsonConvert.SerializeObject(tester);
         }
     }
 }

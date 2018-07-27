@@ -53,11 +53,12 @@ namespace MonteCarlo.Models
                 balances[i] = balance > 0 ? balance : 0;
                 unitValues[i] = unitValue;
                 returnRates[i - 1] = Math.Log(returnRate);
-                
-                if (balance == 0) {
+
+                if (balance == 0)
+                {
                     break;
                 }
-                
+
             }
 
             trial.Final = balances[trialLength - 1];
