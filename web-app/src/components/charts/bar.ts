@@ -27,38 +27,38 @@ export class Bar {
         datasets: [
           {
             label: '25th percentile at Retirement',
-            backgroundColor: '#446cb3',
+            backgroundColor: '#1067FD',
             data: [this.stocksRetirement[0], this.bondsRetirement[0]],
             stack: 'Retirement'
           },
           {
             label: '50th percentile at Retirement',
-            backgroundColor: '#03c9a9',
+            backgroundColor: '#FD2600',
             data: [this.stocksRetirement[1], this.bondsRetirement[1]],
             stack: 'Retirement'
           },
           {
             label: '75th percentile at Retirement',
             data: [this.stocksRetirement[2], this.bondsRetirement[2]],
-            backgroundColor: '#26a65b',
+            backgroundColor: '#008577',
             stack: 'Retirement'
           },
           {
             label: '25th percentile at End',
-            backgroundColor: '#446cb3',
+            backgroundColor: '#1067FD',
             data: [this.stocksEnd[0], this.bondsEnd[0]],
             stack: 'End'
           },
           {
             label: '50th percentile at End',
-            backgroundColor: '#03c9a9',
+            backgroundColor: '#FD2600',
             data: [this.stocksEnd[1], this.bondsEnd[1]],
             stack: 'End'
           },
           {
             label: '75th percentile at End',
             data: [this.stocksEnd[2], this.bondsEnd[2]],
-            backgroundColor: '#26a65b',
+            backgroundColor: '#008577',
             stack: 'End'
           }
         ]
