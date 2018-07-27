@@ -7,8 +7,8 @@ import { APIRequest } from 'resources/scripts/api';
 export class Results {
   data: Data;
   
-  get lineChartMax() {
-    return 50000 * Math.floor(2.5 * (this.data.historical.stocksRetirementAmounts[2] + this.data.historical.bondsRetirementAmounts[2]) / 50000);
+  get chartMax() {
+    return 50000 * Math.floor(2.5 * (this.data.historical.stocksRetirementAmounts[0] + this.data.historical.bondsRetirementAmounts[0]) / 50000);
   }
 
   router: Router;
