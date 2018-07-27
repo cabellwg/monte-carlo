@@ -156,7 +156,7 @@ export class LineChart {
         pointBorderWidth: 2,
         type: 'line',
       }],
-       labels:  this.percentiles[5].map((_,index)=>index + this.currentAge),
+       labels:  this.percentiles[5].map((_,index)=>index + this.currentAge + 1),
      },
      options:{
       scales:{

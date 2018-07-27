@@ -228,19 +228,19 @@ namespace MonteCarlo.Models
             }
             var stdDev = Math.Sqrt(absDev / number);
 
-            double[] brackets = new double[20];
-            for (var i = -9; i <= 10; i++)
+            double[] brackets = new double[18];
+            for (var i = -9; i < 9; i++)
             {
                 brackets[i + 9] = mean + stdDev * i / 3.0 + (stdDev / 6.0);
             }
 
-            int[] frequencies = new int[21];
+            int[] frequencies = new int[19];
             foreach (var sample in samples)
             {
                 if (sample != 0)
                 {
                     var i = 0;
-                    while (i < 20 && sample > brackets[i])
+                    while (i < 18 && sample > brackets[i])
                     {
                         i++;
                     }

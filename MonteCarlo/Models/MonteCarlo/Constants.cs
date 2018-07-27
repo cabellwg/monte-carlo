@@ -11,8 +11,8 @@ namespace MonteCarlo.Models
             {
                 DataStartDate._1928, new Dictionary<string, double>()
                 {
-                    { "drift", 0.05369 },
-                    { "volatility", 0.18962 }
+                    { "drift", 0.067 },
+                    { "volatility", 0.197 }
                 }
             },
             {
@@ -25,8 +25,8 @@ namespace MonteCarlo.Models
             {
                 DataStartDate._2000, new Dictionary<string, double>()
                 {
-                    { "drift", 0.0817 },
-                    { "volatility", 0.12694 }
+                    { "drift", 0.045 },
+                    { "volatility", 0.18266 }
                 }
             }
         };
