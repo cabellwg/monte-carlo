@@ -46,7 +46,7 @@ Stocks are modeled using [geometric Brownian motion](https://en.wikipedia.org/wi
 ```
 where $`S_t`$ is the stock price at time $`t`$, $`\mu`$ is a drift coefficient, $`\varsigma`$ is a volatility coefficient, and $`W_t`$ is a [Wiener process](https://en.wikipedia.org/wiki/Wiener_process). Since we step in one-year increments, we use [Milstein's method](http://www.maths.lth.se/matstat/kurser/fmsn25masm24/lab2/finstat_ch11.pdf) to approximate the SDE as
 ```math
-S_{t + 1} = S_t \left( 1 + \mu + \sigma W_t + \frac{1}{2}\sigma^2\left(W_n^2 - 1\right)\right).
+S_{t + 1} = S_t \left( 1 + \mu + \sigma W_t + \frac{1}{2}\sigma^2\left(W_t^2 - 1\right)\right).
 ```
 We also discretize the Weiner process $`W_t`$ as a random walk with the steps distrubuted as a normal distribution, a Laplace distribution, or a Logistic distribution. A Gaussian random walk (a random walk with normal step distribution) will approach a Wiener process as the number of steps tends to infinity.
 
