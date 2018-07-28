@@ -42,11 +42,11 @@ The application takes a sample portfolio with amounts in stocks, bonds, and savi
 
 Stocks are modeled using [geometric Brownian motion](https://en.wikipedia.org/wiki/Geometric_Brownian_motion) (GBM), which is the motion of stock prices assumed by the [Black-Scholes model](https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model). True GBM, however, is modeled by the stochastic differential equation
 ```math
-\text{d}S_t = \mu S_t\text{d}t + \varsigma S_t \text{d}W_t
+\text{d}S_t = \mu S_t\text{d}t + \sigma S_t \text{d}W_t
 ```
 where $`S_t`$ is the stock price at time $`t`$, $`\mu`$ is a drift coefficient, $`\varsigma`$ is a volatility coefficient, and $`W_t`$ is a [Wiener process](https://en.wikipedia.org/wiki/Wiener_process). Since we step in one-year increments, we use [Milstein's method](http://www.maths.lth.se/matstat/kurser/fmsn25masm24/lab2/finstat_ch11.pdf) to approximate the SDE as
 ```math
-S_{t + 1} = S_t \left( 1 + \mu + \varsigma W_t + \frac{1}{2}\varsigma^2\left(W_n^2 - 1\right)\right).
+S_{t + 1} = S_t \left( 1 + \mu + \sigma W_t + \frac{1}{2}\sigma^2\left(W_n^2 - 1\right)\right).
 ```
 We also discretize the Weiner process $`W_t`$ as a random walk with the steps distrubuted as a normal distribution, a Laplace distribution, or a Logistic distribution. A Gaussian random walk (a random walk with normal step distribution) will approach a Wiener process as the number of steps tends to infinity.
 
@@ -66,6 +66,4 @@ Bond yields have an artificial floor at 0.03%. Although [Japan has been playing 
 
 #### Endnotes:
 * This was all done in the Q measure, and it probably should have been done in the P measure. Before this project neither I nor the business analysts on my team had any exposure to financial forecasting methods or even mathematical finance, so I stepped up as the math major on the team and found enough information to get a reasonable model working. Two days before the presentation date (and the end of the internship) I stumbled on the [mathematical finance Wikipedia page](https://en.wikipedia.org/wiki/Mathematical_finance), which explains the difference in fairly clear terms.
-* You may wonder why the histograms for the stocks don't exactly match the distributions, and may be skewed significantly to one direction or another. That's actually a really cool quirk of the application that took us forever to figure out. I finally realized what was happening after about three hours of staring at the screen next to our business analysts.
-
-  With a random walk, large negative values, more often than not, are preceded by other negative values. In unbounded cases, we see the expected distribution. However, when a lower bound (at $0.00) is placed on a trial and after the trial hits $0.00 it stops, those preceding negative rates my drive the stock account to zero before the large negative rates can occur. Therefore the distributions will always be skewed to the right. We believe that sometimes they are skewed so much to the right that the indexing on the histogram gets messed up and they actually appear to be skewed left.
+* You may wonder why the histograms for the stocks don't exactly match the distributions, and may be skewed significantly to one direction or another. That's actually a really cool quirk of the application that took us forever to figure out. I finally realized what was happening after about three hours of staring at the screen next to our business analysts. With a random walk, large negative values, more often than not, are preceded by other negative values. In unbounded cases, we see the expected distribution. However, when a lower bound (at $0.00) is placed on a trial and after the trial hits $0.00 it stops, those preceding negative rates my drive the stock account to zero before the large negative rates can occur. Therefore the distributions will always be skewed to the right. We believe that sometimes they are skewed so much to the right that the indexing on the histogram gets messed up and they actually appear to be skewed left.
