@@ -44,7 +44,7 @@ Stocks are modeled using [geometric Brownian motion](https://en.wikipedia.org/wi
 ```math
 \text{d}S_t = \mu S_t\text{d}t + \sigma S_t \text{d}W_t
 ```
-where $`S_t`$ is the stock price at time $`t`$, $`\mu`$ is a drift coefficient, $`\varsigma`$ is a volatility coefficient, and $`W_t`$ is a [Wiener process](https://en.wikipedia.org/wiki/Wiener_process). Since we step in one-year increments, we use [Milstein's method](http://www.maths.lth.se/matstat/kurser/fmsn25masm24/lab2/finstat_ch11.pdf) to approximate the SDE as
+where $`S_t`$ is the stock price at time $`t`$, $`\mu`$ is a drift coefficient, $`\sigma`$ is a volatility coefficient, and $`W_t`$ is a [Wiener process](https://en.wikipedia.org/wiki/Wiener_process). Since we step in one-year increments, we use [Milstein's method](http://www.maths.lth.se/matstat/kurser/fmsn25masm24/lab2/finstat_ch11.pdf) to approximate the SDE as
 ```math
 S_{t + 1} = S_t \left( 1 + \mu + \sigma W_t + \frac{1}{2}\sigma^2\left(W_t^2 - 1\right)\right).
 ```
