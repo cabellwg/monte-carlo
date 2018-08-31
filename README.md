@@ -29,7 +29,7 @@ This code was never deployed; it was an intern project and the goal was to have 
 ## Important Note
 
 As with any project, there are things that I did that I could have done better. Upon completion of the project, we did a code review and professional developers were very helpful and pointed out several things that could have been improved. I have left it as-is in order to
-1. Demonstrate progress in software development ability with the [first](https://gitlab.com/cabellwg/tax-planning) and [second](https://gitlab.com/cabellwg/guaranteed-income) projects and
+1. Demonstrate progress in software development ability with the [first](https://github.com/cabellwg/tax-planning) and [second](https://github.com/cabellwg/guaranteed-income) projects and
 2. Accurately demonstrate my software development skills in a limited period of development time (one three-week sprint).
 
 ---
@@ -41,14 +41,14 @@ The application takes a sample portfolio with amounts in stocks, bonds, and savi
 ### Stocks
 
 Stocks are modeled using [geometric Brownian motion](https://en.wikipedia.org/wiki/Geometric_Brownian_motion) (GBM), which is the motion of stock prices assumed by the [Black-Scholes model](https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model). True GBM, however, is modeled by the stochastic differential equation
-```math
-\text{d}S_t = \mu S_t\text{d}t + \sigma S_t \text{d}W_t
-```
-where $`S_t`$ is the stock price at time $`t`$, $`\mu`$ is a drift coefficient, $`\sigma`$ is a volatility coefficient, and $`W_t`$ is a [Wiener process](https://en.wikipedia.org/wiki/Wiener_process). Since we step in one-year increments, we use [Milstein's method](http://www.maths.lth.se/matstat/kurser/fmsn25masm24/lab2/finstat_ch11.pdf) to approximate the SDE as
-```math
-S_{t + 1} = S_t \left( 1 + \mu + \sigma W_t + \frac{1}{2}\sigma^2\left(W_t^2 - 1\right)\right).
-```
-We also discretize the Weiner process $`W_t`$ as a random walk with the steps distrubuted as a normal distribution, a Laplace distribution, or a Logistic distribution. A Gaussian random walk (a random walk with normal step distribution) will approach a Wiener process as the number of steps tends to infinity.
+
+d*S*(*t*) = *𝜇S*(*t*)d*t* + *𝜎S*(*t*)d*W*(*t*)
+
+where *S*(*t*) is the stock price at time *t*, *𝜇* is a drift coefficient, *𝜎* is a volatility coefficient, and *W*(*t*) is a [Wiener process](https://en.wikipedia.org/wiki/Wiener_process). Since we step in one-year increments, we use [Milstein's method](http://www.maths.lth.se/matstat/kurser/fmsn25masm24/lab2/finstat_ch11.pdf) to approximate the SDE as
+
+*S*(*t* + 1) = *S*(*t*)(1 + *𝜇* + *𝜎W*(*t*) + (1/2)*𝜎*<sup>2</sup>(*W*(*t*)<sup>2</sup> - 1)).
+
+We also discretize the Weiner process *W*(*t*) as a random walk with the steps distrubuted as a normal distribution, a Laplace distribution, or a Logistic distribution. A Gaussian random walk (a random walk with normal step distribution) will approach a Wiener process as the number of steps tends to infinity.
 
 Values for the drift and volatility coefficients were calculated by the business analysts based on several historical datasets of several different types of stocks. The application shows projections based on historical data (from either 1928 or 1975) alongside projections based on "projected" data (data since 2000).
 
