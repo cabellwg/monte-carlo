@@ -40,7 +40,7 @@ The application takes a sample portfolio with amounts in stocks, bonds, and savi
 
 ### Stocks
 
-Stocks are modeled using [geometric Brownian motion](https://en.wikipedia.org/wiki/Geometric_Brownian_motion) (GBM), which is the motion of stock prices assumed by the [Black-Scholes model](https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model). True GBM, however, is modeled by the stochastic differential equation
+Stocks are modeled using [geometric Brownian motion](https://en.wikipedia.org/wiki/Geometric_Brownian_motion) (GBM), which is the motion of stock prices assumed by the [Black-Scholes model](https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model). True (continuous) GBM is modeled by the stochastic differential equation
 
 d*S*(*t*) = *𝜇S*(*t*)d*t* + *𝜎S*(*t*)d*W*(*t*)
 
